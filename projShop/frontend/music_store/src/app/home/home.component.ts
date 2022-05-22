@@ -13,18 +13,18 @@ export class HomeComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Product 1', cols: 1, rows: 1 },
-          { title: 'Product 2', cols: 1, rows: 1 },
-          { title: 'Product 3', cols: 1, rows: 1 },
-          { title: 'Product 4', cols: 1, rows: 1 }
+          { title: 'Product 1', cols: 2, rows: 1, content: 'Description' },
+          { title: 'Product 2', cols: 1, rows: 1, content: 'Description' },
+          { title: 'Product 3', cols: 1, rows: 2, content: 'Description' },
+          { title: 'Product 4', cols: 1, rows: 1, content: 'Description' }
         ];
       }
 
       return [
-        { title: 'Product 1', cols: 2, rows: 1 },
-        { title: 'Product 2', cols: 1, rows: 1 },
-        { title: 'Product 3', cols: 1, rows: 2 },
-        { title: 'Product 4', cols: 1, rows: 1 }
+        { title: 'Product 1', cols: 2, rows: 1, content: 'Description' },
+        { title: 'Product 2', cols: 1, rows: 1, content: 'Description' },
+        { title: 'Product 3', cols: 1, rows: 2, content: 'Description' },
+        { title: 'Product 4', cols: 1, rows: 1, content: 'Description' }
       ];
     })
   );
