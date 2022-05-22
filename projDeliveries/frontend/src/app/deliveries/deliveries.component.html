@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row" *ngFor="let delivery of deliveries">
+        <div class="col-md-8 offset-sm-2">
+            <div class="card shadow-lg p-3 mb-5 bg-white rounded" (click)="navigateToDetails(delivery.id)">
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>From</th>
+                                <td>{{delivery.from}}</td>
+                            </tr>
+                            <tr>
+                                <th>To</th>
+                                <td>{{delivery.to}}</td>
+                            </tr>
+                            <tr>
+                                <th>Distance from you</th>
+                                <td>{{delivery.distanceFromRider}} km</td>
+                            </tr>
+                            <tr>
+                                <th>Route distance</th>
+                                <td>{{delivery.routeDistance}} km</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
