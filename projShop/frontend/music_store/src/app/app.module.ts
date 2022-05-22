@@ -17,13 +17,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProductComponent } from './product/product.component';
+import { ManageComponent } from './manage/manage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    ProductComponent
+    ProductComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,
