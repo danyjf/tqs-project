@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Delivery } from '../delivery';
 
-import { DELIVERIES } from '../mock-deliveries';
+import { DeliveryService } from '../delivery.service';
 
 @Component({
     selector: 'app-deliveries',
@@ -9,15 +10,20 @@ import { DELIVERIES } from '../mock-deliveries';
     styleUrls: ['./deliveries.component.css']
 })
 export class DeliveriesComponent implements OnInit {
-    deliveries = DELIVERIES;
+    deliveries: Delivery[] = [];
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private deliveryService: DeliveryService) { }
 
     ngOnInit(): void {
+        this.getDeliveries();
+    }
+
+    getDeliveries(): void {
+        this.deliveryService.getDeliveries()
+            .subscribe(deliveries => this.deliveries = deliveries);
     }
 
     navigateToDetails(id: number): void {
-        console.log("navigate to details of " + id);
-        // this.router.navigateByUrl("deliveries/id");
+        this.router.navigateByUrl(`deliveries/${id}`);
     }
 }

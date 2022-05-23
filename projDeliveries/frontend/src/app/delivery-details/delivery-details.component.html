@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="delivery" class="col-md-8 offset-sm-2">
+            <h6>Store Information</h6>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{delivery.store_address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{delivery.store_phone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h6 id="customer-information">Customer Information</h6>
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th>User</th>
+                        <td>{{delivery.username}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{delivery.store_phone}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{delivery.user_address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Order Note</th>
+                        <td>{{delivery.order_note}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="button-div">
+                <button type="button" class="btn btn-success">Start Delivery</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,14 +1,103 @@
 ﻿import { Delivery } from "./delivery";
 
 export const DELIVERIES: Delivery[] = [
-    { id: 1, from: "Aveiro, Rua do Viso, nº 4", to: "Aveiro, Urbanização Chave, nº 6", routeDistance: 7, distanceFromRider: 11 },
-    { id: 2, from: "Aveiro, Rua Dr. António Christo, nº 23", to: "Aveiro, Rua Homem Cristo Filho, nº 27", routeDistance: 4, distanceFromRider: 3 },
-    { id: 3, from: "Aveiro, Rua de Manuel Luiz Nogueira, nº 1", to: "Aveiro, Rua de São Martinho, nº 19", routeDistance: 8, distanceFromRider: 5 },
-    { id: 4, from: "Aveiro, Rua do Batalhão de Caçadores, nº 46", to: "Aveiro, Rua Dr. António Christo, nº 8", routeDistance: 5, distanceFromRider: 13 },
-    { id: 5, from: "Aveiro, Rua do Loureiro, nº 22", to: "Aveiro, Rua de Manuel Luiz Nogueira, nº 12", routeDistance: 1, distanceFromRider: 1 },
-    { id: 6, from: "Aveiro, Rua Homem Cristo Filho, nº 32", to: "Aveiro, Rua de Aires Barbosa, nº 23", routeDistance: 2, distanceFromRider: 7 },
-    { id: 7, from: "Aveiro, Rua de Passos Manuel, nº 11", to: "Aveiro, Rua do Viso, nº 11", routeDistance: 9, distanceFromRider: 9 },
-    { id: 8, from: "Aveiro, Rua Jaime Moniz, nº 41", to: "Aveiro, Rua Jaime Moniz, nº 22", routeDistance: 11, distanceFromRider: 10 },
-    { id: 9, from: "Aveiro, Rua de Aires Barbosa, nº 21", to: "Aveiro, Rua de Passos Manuel, nº 34", routeDistance: 3, distanceFromRider: 2 },
-    { id: 10, from: "Aveiro, Rua de São Martinho, nº 15", to: "Aveiro, Rua do Loureiro, nº 7", routeDistance: 10, distanceFromRider: 4 },
+    { 
+        id: 1, 
+        order_time: "23 MAR 2022 | 12:30",
+        store_address: "Aveiro, Rua do Viso, nº 4", 
+        store_phone: "917849583",
+        user_address: "Aveiro, Urbanização Chave, nº 6", 
+        username: "Pedro", 
+        user_phone: "934758392", 
+        order_note: "" 
+    },
+    { 
+        id: 2, 
+        order_time: "23 MAR 2022 | 12:32",
+        store_address: "Aveiro, Rua Dr. António Christo, nº 23", 
+        store_phone: "917849583",
+        user_address: "Aveiro, Rua Homem Cristo Filho, nº 27", 
+        username: "Daniel", 
+        user_phone: "918758930", 
+        order_note: "Toque na campainha e deixe na porta sff" 
+    },
+    { 
+        id: 3, 
+        order_time: "23 MAR 2022 | 12:48",
+        store_address: "Aveiro, Rua de Manuel Luiz Nogueira, nº 1", 
+        store_phone: "917849583",
+        user_address: "Aveiro, Rua de São Martinho, nº 19", 
+        username: "Nuno", 
+        user_phone: "918475903", 
+        order_note: "" 
+    },
+    { 
+        id: 4, 
+        order_time: "23 MAR 2022 | 13:11",
+        store_address: "Aveiro, Rua do Batalhão de Caçadores, nº 46", 
+        store_phone: "917849583",
+        user_address: "Aveiro, Rua Dr. António Christo, nº 8", 
+        username: "Henrique", 
+        user_phone: "967495837", 
+        order_note: "" 
+    },
+    { 
+        id: 5, 
+        order_time: "23 MAR 2022 | 13:53",
+        store_address: "Aveiro, Rua do Loureiro, nº 22", 
+        user_address: "Aveiro, Rua de Manuel Luiz Nogueira, nº 12", 
+        store_phone: "937859746",
+        username: "João", 
+        user_phone: "934582940", 
+        order_note: "" 
+    },
+    { 
+        id: 6, 
+        order_time: "23 MAR 2022 | 14:24",
+        store_address: "Aveiro, Rua Homem Cristo Filho, nº 32", 
+        store_phone: "937859746",
+        user_address: "Aveiro, Rua de Aires Barbosa, nº 23", 
+        username: "Francisco", 
+        user_phone: "910847364", 
+        order_note: "Porta ao lado da loja de costura" 
+    },
+    { 
+        id: 7, 
+        order_time: "23 MAR 2022 | 14:42",
+        store_address: "Aveiro, Rua de Passos Manuel, nº 11", 
+        store_phone: "937859746",
+        user_address: "Aveiro, Rua do Viso, nº 11", 
+        username: "Susana", 
+        user_phone: "933748928", 
+        order_note: "" 
+    },
+    { 
+        id: 8, 
+        order_time: "23 MAR 2022 | 15:25",
+        store_address: "Aveiro, Rua Jaime Moniz, nº 41", 
+        store_phone: "937859746",
+        user_address: "Aveiro, Rua Jaime Moniz, nº 22", 
+        username: "Fátima", 
+        user_phone: "918493058", 
+        order_note: "" },
+    { 
+        id: 9, 
+        order_time: "23 MAR 2022 | 16:31",
+        store_address: "Aveiro, Rua de Aires Barbosa, nº 21", 
+        store_phone: "967489888",
+        user_address: "Aveiro, Rua de Passos Manuel, nº 34", 
+        username: "Isabel", 
+        user_phone: "967840288", 
+        order_note: "A campainha nao funciona, bata na porta" 
+    },
+    { 
+        id: 10,
+        order_time: "23 MAR 2022 | 18:43",
+        store_address: "Aveiro, Rua de São Martinho, nº 15", 
+        store_phone: "967489888",
+        user_address: "Aveiro, Rua do Loureiro, nº 7", 
+        username: "Maria", 
+        user_phone: "919857777", 
+        order_note: "Deixar na porta por favor" 
+    }
 ]

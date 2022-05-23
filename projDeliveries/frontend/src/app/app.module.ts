@@ -7,12 +7,14 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DeliveryDetailsComponent } from './delivery-details/delivery-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DeliveriesComponent,
-    NavbarComponent
+    NavbarComponent,
+    DeliveryDetailsComponent
   ],
   imports: [
     BrowserModule,
