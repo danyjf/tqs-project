@@ -8,13 +8,17 @@ import { environment } from '../environments/environment';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DeliveryDetailsComponent } from './delivery-details/delivery-details.component';
+import { RiderStatisticsComponent } from './rider-statistics/rider-statistics.component';
+import { ManagerStatisticsComponent } from './manager-statistics/manager-statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DeliveriesComponent,
     NavbarComponent,
-    DeliveryDetailsComponent
+    DeliveryDetailsComponent,
+    RiderStatisticsComponent,
+    ManagerStatisticsComponent
   ],
   imports: [
     BrowserModule,
