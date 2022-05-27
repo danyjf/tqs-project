@@ -19,3 +19,14 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.card-image{
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.card-title{
+  padding-top: 10px;
+  border-radius: 6px;
+}
