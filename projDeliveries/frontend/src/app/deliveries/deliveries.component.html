@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row" *ngFor="let delivery of deliveries">
-        <div class="col-md-8 offset-sm-2">
+        <div class="col-md-8 offset-sm-2" *ngIf="delivery.delivery_status == 'Waiting for rider'">
             <div class="card shadow-lg p-3 mb-5 bg-white rounded" (click)="navigateToDetails(delivery.id)">
                 <div class="card-body">
                     <b>{{delivery.order_time}}</b>

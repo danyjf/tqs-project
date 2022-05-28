@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Delivery } from '../delivery';
 
+import { Delivery } from '../delivery';
 import { DeliveryService } from '../delivery.service';
 
 @Component({
@@ -15,11 +15,11 @@ export class DeliveriesComponent implements OnInit {
     constructor(private router: Router, private deliveryService: DeliveryService) { }
 
     ngOnInit(): void {
-        this.getDeliveries();
+        this.getPendingDeliveries();
     }
 
-    getDeliveries(): void {
-        this.deliveryService.getDeliveries()
+    getPendingDeliveries(): void {
+        this.deliveryService.getPendingDeliveries()
             .subscribe(deliveries => this.deliveries = deliveries);
     }
 

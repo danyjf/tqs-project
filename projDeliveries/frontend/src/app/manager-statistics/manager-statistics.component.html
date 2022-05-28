@@ -1,18 +1,62 @@
 <div class="container">
     <div class="row">
+        <div class="col">
+            <form style="margin-bottom:150px; width: 100%;">
+                <div class="form-group filterField" style="margin-left: 5%;">
+                    <label for="delayedSelect">Delayed</label>
+                    <select class="form-control" name="delayedSelect" id="delayedSelect" [(ngModel)]="delayed" (change)="getFilteredDeliveries()">
+                        <option value="all">Select</option>
+                        <option value="delayed">Delayed</option>
+                        <option value="notDelayed">Not Delayed</option>
+                    </select>
+                </div>
+
+                <div class="form-group filterField">
+                    <label for="storeSelect">Store</label>
+                    <select class="form-control" name="storeSelect" id="storeSelect" [(ngModel)]="store" (change)="getFilteredDeliveries()">
+                        <option value="all">Select</option>
+                        <option *ngFor="let store of stores">
+                            {{store}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group filterField">
+                    <label for="statusSelect">Status</label>
+                    <select class="form-control" name="statusSelect" id="statusSelect" [(ngModel)]="status" (change)="getFilteredDeliveries()">
+                        <option value="all">Select</option>
+                        <option value="Waiting for rider">Waiting for rider</option>
+                        <option value="Picking up the order">Picking up the order</option>
+                        <option value="Delivering the order">Delivering the order</option>
+                        <option value="Order delivered">Order delivered</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" *ngFor="let delivery of deliveries" style="margin-bottom: 15px;">
         <div class="col-md-8 offset-sm-2">
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <th>Number of Deliveries</th>
-                        <td>62</td>
-                    </tr>
-                    <tr>
-                        <th>Number of Delivery Delays</th>
-                        <td>11</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>{{delivery.delayed}}</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>{{delivery.store_name}}</th>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>{{delivery.delivery_status}}</th>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
