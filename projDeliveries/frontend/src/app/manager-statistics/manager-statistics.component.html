@@ -4,32 +4,41 @@
             <form style="margin-bottom:150px; width: 100%;">
                 <div class="form-group filterField" style="margin-left: 5%;">
                     <label for="delayedSelect">Delayed</label>
-                    <select class="form-control" name="delayedSelect" id="delayedSelect" [(ngModel)]="delayed" (change)="getFilteredDeliveries()">
-                        <option value="all">Select</option>
-                        <option value="delayed">Delayed</option>
-                        <option value="notDelayed">Not Delayed</option>
-                    </select>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="delayedDropdownList" 
+                        [(ngModel)]="selectedDelayed"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="delayedSelect"
+                        id="delayedSelect">
+                    </ng-multiselect-dropdown>
                 </div>
 
                 <div class="form-group filterField">
                     <label for="storeSelect">Store</label>
-                    <select class="form-control" name="storeSelect" id="storeSelect" [(ngModel)]="store" (change)="getFilteredDeliveries()">
-                        <option value="all">Select</option>
-                        <option *ngFor="let store of stores">
-                            {{store}}
-                        </option>
-                    </select>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="storeDropdownList" 
+                        [(ngModel)]="selectedStore"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="storeSelect"
+                        id="storeSelect">
+                    </ng-multiselect-dropdown>
                 </div>
 
                 <div class="form-group filterField">
                     <label for="statusSelect">Status</label>
-                    <select class="form-control" name="statusSelect" id="statusSelect" [(ngModel)]="status" (change)="getFilteredDeliveries()">
-                        <option value="all">Select</option>
-                        <option value="Waiting for rider">Waiting for rider</option>
-                        <option value="Picking up the order">Picking up the order</option>
-                        <option value="Delivering the order">Delivering the order</option>
-                        <option value="Order delivered">Order delivered</option>
-                    </select>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="statusDropdownList" 
+                        [(ngModel)]="selectedStatus"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="statusSelect"
+                        id="statusSelect">
+                    </ng-multiselect-dropdown>
                 </div>
             </form>
         </div>

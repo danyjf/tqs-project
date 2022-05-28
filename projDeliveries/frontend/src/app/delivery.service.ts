@@ -31,19 +31,19 @@ export class DeliveryService {
         return of(deliveries);
     }
 
-    getFilteredDeliveries(delayed: string, store: string, status: string): Observable<Delivery[]> {
+    getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<Delivery[]> {
         let deliveries: Delivery[] = [];
 
         for(let delivery of DELIVERIES) {
-            if(delayed == "delayed" && delivery.delayed || delayed == "notDelayed" && !delivery.delayed || delayed == "all") {
-                if(store == delivery.store_name || store == "all") {
-                    if(status == delivery.delivery_status || status == "all") {
+            if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {
+                if(store.length == 0 || store.includes(delivery.store_name)) {
+                    if(status.length == 0 || status.includes(delivery.delivery_status)) {
                         deliveries.push(delivery);
                     }
                 }
             }
         }
-        
+
         return of(deliveries);
     }
 }
