@@ -10,6 +10,8 @@ import { Delivery } from '../delivery';
     styleUrls: ['./manager-statistics.component.css']
 })
 export class ManagerStatisticsComponent implements OnInit {
+    statusList: string[] = [];
+
     dropdownSettings: IDropdownSettings = {};
 
     statusDropdownList: Option[] = [];
@@ -26,6 +28,13 @@ export class ManagerStatisticsComponent implements OnInit {
     constructor(private deliveryService: DeliveryService) { }
 
     ngOnInit(): void {
+        this.statusList = [
+            "Waiting for rider",
+            "Picking up the order",
+            "Delivering the order",
+            "Order delivered"
+        ];
+
         this.dropdownSettings = {
             idField: "item_id",
             textField: "item_text",
@@ -33,10 +42,10 @@ export class ManagerStatisticsComponent implements OnInit {
         }
         
         this.statusDropdownList = [
-            { item_id: 1, item_text: "Waiting for rider" },
-            { item_id: 2, item_text: "Picking up the order" },
-            { item_id: 3, item_text: "Delivering the order" },
-            { item_id: 4, item_text: "Order delivered" }
+            { item_id: 1, item_text: this.statusList[0] },
+            { item_id: 2, item_text: this.statusList[1] },
+            { item_id: 3, item_text: this.statusList[2] },
+            { item_id: 4, item_text: this.statusList[3] }
         ];
 
         this.storeDropdownList = [
@@ -59,6 +68,16 @@ export class ManagerStatisticsComponent implements OnInit {
         let delayed = this.selectedDelayed.map(s => s.item_text);
         this.deliveryService.getFilteredDeliveries(delayed, store, status)
             .subscribe(deliveries => this.deliveries = deliveries);
+    }
+
+    isComplete(deliveryStatus: string, elementStatus: string): string {
+        let classes = "";
+        
+        if(this.statusList.indexOf(elementStatus) <= this.statusList.indexOf(deliveryStatus)) {
+            classes = "completed";
+        }
+        
+        return classes;
     }
 }
 

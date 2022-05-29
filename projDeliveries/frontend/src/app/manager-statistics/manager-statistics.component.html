@@ -58,12 +58,23 @@
                                 <th>Store</th>
                                 <td>{{delivery.store_name}}</td>
                             </tr>
-                            <tr>
-                                <th>Delivery Status</th>
-                                <td>{{delivery.delivery_status}}</td>
-                            </tr>
                         </tbody>
                     </table>
+
+                    <ul class="progress-indicator">
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Waiting for rider')">
+                            <span class="bubble"></span>Waiting for rider
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Picking up the order')">
+                            <span class="bubble"></span>Picking up the order
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Delivering the order')">
+                            <span class="bubble"></span>Delivering the order
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Order delivered')">
+                            <span class="bubble"></span>Order delivered
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
