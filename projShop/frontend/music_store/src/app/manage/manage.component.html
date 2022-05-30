@@ -1,14 +1,12 @@
 <div class="grid-container">
   <h1 class="mat-h1">Your Orders</h1>
-  <mat-grid-list cols="1" rowHeight="50px">
+  <mat-grid-list cols="1" rowHeight="100px">
     <mat-list>
     <mat-grid-tile *ngFor="let card of cards | async">
         <mat-list-item>
             <tr>
-              <td>
-                <b>{{ card.title }}</b> | <a>{{ card.price }} €</a> | <a style="color: rgb(28, 189, 28)">{{ card.stock }} In Stock</a> | <a style="color: grey">{{ card.content }}</a> 
-                  <button style="position: absolute; right: 70px;"><i class='fas fa-pen' style='font-size:24px'></i></button> 
-                  <button style="position: absolute; right: 0; margin-right: 20px;"><i class='fas fa-trash-alt' style='font-size:24px'></i></button>
+              <td style="position: center">
+                <img style="height: 100px; width: 100px;" [src]="card.image"> <b>{{ card.title }}</b> | <a>{{ card.price }} €</a> | Status: <a style="color: rgb(28, 189, 28)"> {{ card.status }}</a>
               </td>
             </tr>
 

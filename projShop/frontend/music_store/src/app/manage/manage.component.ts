@@ -13,18 +13,13 @@ export class ManageComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Product 1', stock: '5', price: 5, content: "Description"},
-          { title: 'Product 2', stock: '3', price: 5, content: "Description" },
-          { title: 'Product 3', stock: '2', price: 5, content: "Description" },
-          { title: 'Product 4', stock: 'Not', price: 5, content: "Description" }
+          { title: 'Ukelele', status: 'Processing Payment', price: 5, image: 'https://images.ludimusic.com//Imagens/Catalogo/Produtos/217863/ukulele-fender-venice-soprano-black_1_331.jpg'},
+
         ];
       }
 
       return [
-        { title: 'Product 1', stock: '5', price: 5, content: "Description" },
-        { title: 'Product 2', stock: '3', price: 5, content: "Description" },
-        { title: 'Product 3', stock: '2', price: 5, content: "Description" },
-        { title: 'Product 4', stock: 'Not', price: 5, content: "Description" }
+        { title: 'Ukelele', status: 'Processing Payment', price: 5, image: 'https://images.ludimusic.com//Imagens/Catalogo/Produtos/217863/ukulele-fender-venice-soprano-black_1_331.jpg'},
       ];
     })
   );
