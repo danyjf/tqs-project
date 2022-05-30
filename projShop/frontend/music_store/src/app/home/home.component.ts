@@ -14,18 +14,18 @@ export class HomeComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Product 1', cols: 2, rows: 1, content: 'Description' },
-          { title: 'Product 2', cols: 1, rows: 1, content: 'Description' },
-          { title: 'Product 3', cols: 1, rows: 2, content: 'Description' },
-          { title: 'Product 4', cols: 1, rows: 1, content: 'Description' }
+          { title: 'Queen - Made in Heaven', cols: 2, rows: 1, content: 'https://i.ytimg.com/vi/OLNz0313A4k/maxresdefault.jpg' },
+          { title: 'Ukelele', cols: 1, rows: 1, content: 'https://images.ludimusic.com//Imagens/Catalogo/Produtos/217863/ukulele-fender-venice-soprano-black_1_331.jpg' },
+          { title: 'Guns N Roses - Appetite for Destruction', cols: 1, rows: 2, content: 'https://whiplash.net/imagens_promo/gunsnroses_capa_appetitefordestruction.jpg' },
+          { title: 'Guitarra Acústica', cols: 1, rows: 1, content: 'https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg' },
         ];
       }
 
       return [
-        { title: 'Product 1', cols: 2, rows: 1, content: 'Description' },
-        { title: 'Product 2', cols: 1, rows: 1, content: 'Description' },
-        { title: 'Product 3', cols: 1, rows: 2, content: 'Description' },
-        { title: 'Product 4', cols: 1, rows: 1, content: 'Description' }
+        { title: 'Queen - Made in Heaven', cols: 2, rows: 1, content: 'https://i.ytimg.com/vi/OLNz0313A4k/maxresdefault.jpg' },
+        { title: 'Ukelele', cols: 1, rows: 1, content: 'https://images.ludimusic.com//Imagens/Catalogo/Produtos/217863/ukulele-fender-venice-soprano-black_1_331.jpg' },
+        { title: 'Guns N Roses - Appetite for Destruction', cols: 1, rows: 2, content: 'https://whiplash.net/imagens_promo/gunsnroses_capa_appetitefordestruction.jpg' },
+        { title: 'Guitarra Acústica', cols: 1, rows: 1, content: 'https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg' },
       ];
     })
   );

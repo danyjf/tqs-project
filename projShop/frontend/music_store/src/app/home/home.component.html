@@ -4,7 +4,7 @@
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
+            <a href="/product">{{card.title}}</a>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -15,7 +15,9 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>{{card.content}}</div>
+          <div style="height: 100%;">
+            <img [src]="card.content" style="height: 100%">
+          </div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

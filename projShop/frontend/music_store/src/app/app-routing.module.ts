@@ -9,7 +9,7 @@ import { ManageComponent } from './manage/manage.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'manage', component: ManageComponent }
+  { path: 'orders', component: ManageComponent }
 ];
 
 @NgModule({
