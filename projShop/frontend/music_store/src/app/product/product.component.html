@@ -15,16 +15,16 @@
     <main class="container">
 
 
-      <img style="height: 50%; width: 50%; position: left;" alt="White Ukelele" src="https://flightmusic.com/wp-content/uploads/2018/01/FLIGHT-TUS-35-WH_9.png">
+      <img style="height: 50%; width: 50%; position: left;" [src]="image">
 
       <!-- Right Column -->
       <div class="right-column">
 
         <!-- Product Description -->
         <div class="product-description">
-          <span>Musical Instrument</span>
-          <h1 style="margin-top: 10px">Ukelele</h1>
-          <p>The ukulele is a member of the lute family of instruments of Portuguese origin and popularized in Hawaii.</p>
+          <span>{{category}}</span>
+          <h1 style="margin-top: 10px">{{title}}</h1>
+          <p>{{description}}</p>
           <h5 style="color:green">5 in stock</h5>
         </div>
 
@@ -52,7 +52,7 @@
 
         <!-- Product Pricing -->
         <div class="product-price">
-          <span>50€</span>
+          <span>{{price}}€</span>
           <h5 style="color:green">+2,49€ delivery fee</h5>
           <a href="/orders" class="cart-btn" style="margin-left: 5px;">Buy</a>
         </div>

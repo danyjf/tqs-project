@@ -4,7 +4,7 @@
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            <a href="/product">{{card.title}}</a>
+            <button (click)="navigateToProduct(card.title, card.description, card.category, card.price, card.image)">{{card.title}}</button>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -16,7 +16,7 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div style="height: 100%;">
-            <img [src]="card.content" style="height: 100%">
+            <img [src]="card.image" style="height: 100%">
           </div>
         </mat-card-content>
       </mat-card>

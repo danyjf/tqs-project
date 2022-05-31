@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-product',
@@ -8,26 +10,37 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
+  category: string = "";
+  title : string = "";
+  description : string = "";
+  price : string = "";
+  image : string = "";
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute,) {}
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  ngOnInit() {
+    const category = this.route.snapshot.queryParamMap.get('category');
+    if (category) {
+      this.category = category;
+    }
+    
+    const title = this.route.snapshot.queryParamMap.get('title');
+    if (title) {
+      this.title = title;
+    }
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+    const description = this.route.snapshot.queryParamMap.get('description');
+    if (description) {
+      this.description = description;
+    }
+
+    const price = this.route.snapshot.queryParamMap.get('price');
+    if (price) {
+      this.price = price;
+    }
+
+    const image = this.route.snapshot.queryParamMap.get('image');
+    if (image) {
+      this.image = image;
+    }
+  }
 }
