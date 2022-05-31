@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -42,5 +42,14 @@ export class ProductComponent {
     if (image) {
       this.image = image;
     }
+  }
+
+  navigateToOrders(title: string, description: string, category: string, price: string, image: string) {
+
+    const params: NavigationExtras = {
+      queryParams: { title: title, description: description, category: category, price: price, image: image},
+    }
+  
+    this.router.navigate(['/orders'], params);
   }
 }
