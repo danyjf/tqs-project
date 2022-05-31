@@ -15,7 +15,7 @@
     <main class="container">
 
 
-      <img style="height: 50%; width: 50%; position: left;" [src]="image">
+      <img style="height: 50%; width: 50%; position: left; margin-right: auto; margin-left:auto" class="center" [src]="image">
 
       <!-- Right Column -->
       <div class="right-column">
@@ -23,30 +23,13 @@
         <!-- Product Description -->
         <div class="product-description">
           <span>{{category}}</span>
-          <h1 style="margin-top: 10px">{{title}}</h1>
+          <h2 style="margin-top: 10px">{{title}}</h2>
           <p>{{description}}</p>
           <h5 style="color:green">5 in stock</h5>
         </div>
 
         <!-- Product Configuration -->
         <div class="product-configuration">
-
-          <!-- Product Color -->
-          <div class="product-color">
-            <span>Color</span>
-
-            <div class="color-choose">
-              <div>
-                <input data-image="black" type="radio" id="black" name="color" value="black" checked>
-                <label for="black"><span></span></label>
-              </div>
-              <div>
-                <input data-image="white" type="radio" id="white" name="color" value="white" >
-                <label for="white"><span></span></label>
-              </div>
-            </div>
-
-          </div>
 
         </div>
 
