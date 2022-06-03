@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Delivery } from '../models/delivery';
-import { DeliveryService } from '../delivery.service';
+import { IDelivery } from '../interfaces/delivery';
+import { DeliveryService } from '../services/delivery.service';
 
 @Component({
     selector: 'app-deliveries',
@@ -10,7 +10,7 @@ import { DeliveryService } from '../delivery.service';
     styleUrls: ['./deliveries.component.css']
 })
 export class DeliveriesComponent implements OnInit {
-    deliveries: Delivery[] = [];
+    deliveries: IDelivery[] = [];
 
     constructor(private router: Router, private deliveryService: DeliveryService) { }
 

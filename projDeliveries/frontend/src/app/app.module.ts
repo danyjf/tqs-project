@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DeliveriesComponent } from './deliveries/deliveries.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -14,6 +14,8 @@ import { RiderStatisticsComponent } from './rider-statistics/rider-statistics.co
 import { ManagerStatisticsComponent } from './manager-statistics/manager-statistics.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ManagerGuard } from './guards/manager.guard';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
@@ -38,7 +41,7 @@ import { LoginComponent } from './login/login.component';
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [AuthGuard, ManagerGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

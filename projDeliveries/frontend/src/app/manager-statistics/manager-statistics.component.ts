@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
-import { DeliveryService } from '../delivery.service';
-import { Delivery } from '../models/delivery';
+import { DeliveryService } from '../services/delivery.service';
+import { IDelivery } from '../interfaces/delivery';
 
 @Component({
     selector: 'app-manager-statistics',
@@ -23,7 +23,7 @@ export class ManagerStatisticsComponent implements OnInit {
     delayedDropdownList: Option[] = [];
     selectedDelayed: Option[] = [];
 
-    deliveries: Delivery[] = [];
+    deliveries: IDelivery[] = [];
 
     constructor(private deliveryService: DeliveryService) { }
 

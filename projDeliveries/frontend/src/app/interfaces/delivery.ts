@@ -1,4 +1,4 @@
-﻿export interface Delivery {
+﻿export interface IDelivery {
     id: number;
     order_time: string;
     store_name: string;

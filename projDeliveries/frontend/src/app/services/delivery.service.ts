@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Delivery } from './models/delivery';
-import { DELIVERIES } from './models/mock-deliveries';
+import { IDelivery } from '../interfaces/delivery';
+import { DELIVERIES } from '../interfaces/mock-deliveries';
 
 @Injectable({
     providedIn: 'root'
@@ -10,18 +10,18 @@ import { DELIVERIES } from './models/mock-deliveries';
 export class DeliveryService {
     constructor() { }
 
-    getDeliveries(): Observable<Delivery[]> {
+    getDeliveries(): Observable<IDelivery[]> {
         const deliveries = of(DELIVERIES);
         return deliveries;
     }
 
-    getDelivery(id: number): Observable<Delivery> {
+    getDelivery(id: number): Observable<IDelivery> {
         const delivery = DELIVERIES.find(d => d.id === id)!;
         return of(delivery);
     }
 
-    getPendingDeliveries(): Observable<Delivery[]> {
-        let deliveries: Delivery[] = [];
+    getPendingDeliveries(): Observable<IDelivery[]> {
+        let deliveries: IDelivery[] = [];
         
         for(let delivery of DELIVERIES) {
             if(delivery.delivery_status === "Waiting for rider")
@@ -31,8 +31,8 @@ export class DeliveryService {
         return of(deliveries);
     }
 
-    getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<Delivery[]> {
-        let deliveries: Delivery[] = [];
+    getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<IDelivery[]> {
+        let deliveries: IDelivery[] = [];
 
         for(let delivery of DELIVERIES) {
             if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {

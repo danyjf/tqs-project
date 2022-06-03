@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Delivery } from '../models/delivery';
-import { DeliveryService } from '../delivery.service';
+import { IDelivery } from '../interfaces/delivery';
+import { DeliveryService } from '../services/delivery.service';
 
 @Component({
     selector: 'app-delivery-details',
@@ -10,7 +10,7 @@ import { DeliveryService } from '../delivery.service';
     styleUrls: ['./delivery-details.component.css']
 })
 export class DeliveryDetailsComponent implements OnInit {
-    delivery?: Delivery;
+    delivery?: IDelivery;
 
     constructor(private route: ActivatedRoute, private deliveryService: DeliveryService) { }
 

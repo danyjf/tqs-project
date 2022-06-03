@@ -1,6 +1,6 @@
-﻿import { Delivery } from "./delivery";
+﻿import { IDelivery } from "./delivery";
 
-export const DELIVERIES: Delivery[] = [
+export const DELIVERIES: IDelivery[] = [
     { 
         id: 1, 
         order_time: "23 MAR 2022 | 12:30",

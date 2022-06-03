@@ -1,17 +1,31 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 offset-sm-4">
-            <form role="form" (submit)="login()">
+            <!-- <form role="form" (submit)="login()">
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" name="username" [(ngModel)]="credentials.username">
+                    <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="text" class="form-control" id="password" name="password" [(ngModel)]="credentials.password">
+                    <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div style="display: flex; justify-content: center;">
                     <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form> -->
+            <p>{{message}}</p>
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="form-group clearfix">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group clearfix">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" formControlName="password">
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="btn btn-success">Login</button>
                 </div>
             </form>
         </div>

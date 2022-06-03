@@ -7,19 +7,21 @@ import { ManagerStatisticsComponent } from './manager-statistics/manager-statist
 import { RiderStatisticsComponent } from './rider-statistics/rider-statistics.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './guards/auth.guard';
+import { ManagerGuard } from './guards/manager.guard';
 
 const routes: Routes = [
-    { path: "", redirectTo: "/deliveries", pathMatch: "full" },
-    { path: "deliveries", component: DeliveriesComponent },
-    { path: "deliveries/:id", component: DeliveryDetailsComponent },
-    { path: "statistics", component: RiderStatisticsComponent },
-    { path: "manager/statistics", component: ManagerStatisticsComponent },
+    { path: "", redirectTo: "/login", pathMatch: "full" },
     { path: "login", component: LoginComponent },
     { path: "register", component: RegisterComponent },
+    { path: "deliveries", component: DeliveriesComponent, canActivate: [AuthGuard] },
+    { path: "deliveries/:id", component: DeliveryDetailsComponent, canActivate: [AuthGuard] },
+    { path: "statistics", component: RiderStatisticsComponent, canActivate: [AuthGuard] },
+    { path: "manager/statistics", component: ManagerStatisticsComponent, canActivate: [ManagerGuard] },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
