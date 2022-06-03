@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Delivery } from '../delivery';
+import { Delivery } from '../models/delivery';
 import { DeliveryService } from '../delivery.service';
 
 @Component({

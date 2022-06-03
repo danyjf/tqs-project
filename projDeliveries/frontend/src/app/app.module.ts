@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DeliveryDetailsComponent } from './delivery-details/delivery-details.component';
 import { RiderStatisticsComponent } from './rider-statistics/rider-statistics.component';
 import { ManagerStatisticsComponent } from './manager-statistics/manager-statistics.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ManagerStatisticsComponent } from './manager-statistics/manager-statist
     NavbarComponent,
     DeliveryDetailsComponent,
     RiderStatisticsComponent,
-    ManagerStatisticsComponent
+    ManagerStatisticsComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

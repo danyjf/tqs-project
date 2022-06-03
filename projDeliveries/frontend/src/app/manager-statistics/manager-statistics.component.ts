@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import { DeliveryService } from '../delivery.service';
-import { Delivery } from '../delivery';
+import { Delivery } from '../models/delivery';
 
 @Component({
     selector: 'app-manager-statistics',
