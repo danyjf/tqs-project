@@ -10,6 +10,14 @@ import { AuthService } from '../services/auth.service';
 export class ManagerGuard implements CanActivate {
     constructor(private router: Router, private authService: AuthService) { }
 
+    /**
+     * Allow only authenticated manager users to open the page.
+     * If the user is logged in as a manager then allow him to access
+     * the page.
+     * Else redirect the user to the deliveries page, which in the
+     * case where the user is not logged in will in turn be redirected
+     * to the login page.
+     */
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot

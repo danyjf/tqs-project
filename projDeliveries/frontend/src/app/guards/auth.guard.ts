@@ -10,6 +10,14 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
     constructor(private router: Router, private authService: AuthService) { }
 
+    /**
+     * Allow only authenticated regular users to open the page.
+     * If the user is not logged in then redirect him to the login page.
+     * If the user is logged in as manager then redirect him to the 
+     * manager statistics page.
+     * If the user is logged in and is not a manager then allow him to 
+     * visit the page.
+     */
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
