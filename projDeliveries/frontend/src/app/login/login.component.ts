@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
 
     login(): void {
         if(this.loginForm.invalid) {
+            this.message = "Fill all fields";
             return;
         } else {
             this.authService.authenticate(this.f["username"].value, this.f["password"].value)
