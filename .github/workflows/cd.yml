@@ -7,3 +7,11 @@ on:
     workflows: ["Run API tests"]
     types:
       - completed
+
+jobs:
+  deploy_app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test
+        run: echo "Action working"
