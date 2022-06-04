@@ -1,0 +1,17 @@
+.card {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 1.5em;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+th, td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 50%;
+}
