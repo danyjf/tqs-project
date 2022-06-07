@@ -1,0 +1,18 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Your Orders</h1>
+  <mat-grid-list cols="1" rowHeight="100px">
+    <mat-list>
+    <mat-grid-tile>
+        <mat-list-item>
+            <tr>
+              <td style="position: center">
+                <img alt="Product Image" style="height: 100px; width: 100px;" [src]="image"> <strong>{{ title }}</strong> | <a>{{ price }} €</a> | Status: <a style="color: rgb(28, 189, 28)"> {{ status }}</a>
+              </td>
+            </tr>
+
+            
+        </mat-list-item>
+      </mat-grid-tile>
+    </mat-list>
+  </mat-grid-list>
+</div>
