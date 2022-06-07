@@ -7,9 +7,9 @@ on:
       - dev
   
 jobs:
-  name: Test deliveries app
-  
   test_deliveries_app:
+    name: Test deliveries app
+
     runs-on: ubuntu-latest
     
     steps:
