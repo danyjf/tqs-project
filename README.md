@@ -10,3 +10,5 @@
 * Tiago Costa - QA Engineer
 
 ### Project bookmarks
+
+**SonarCloud:** https://sonarcloud.io/project/overview?id=danyjf_tqs-project
