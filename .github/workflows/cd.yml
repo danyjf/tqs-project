@@ -18,6 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      - name: Install snx vpn
+        run: |
+          ./snx_install_linux30.sh
+          echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ VPN_USER }}
+
       - name: Execute remote ssh commands
         uses: appleboy/ssh-action@master
         with:
@@ -25,6 +31,9 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: whoami
+
+      - name: Disconnect snx vpn
+        run: snx -d
 
   # deploy_app:
   #   runs-on: ubuntu-latest
