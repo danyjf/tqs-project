@@ -22,7 +22,7 @@ jobs:
       - name: Install snx vpn
         run: |
           ./snx_install_linux30.sh
-          echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ VPN_USER }}
+          echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ secrets.VPN_USER }}
 
       - name: Execute remote ssh commands
         uses: appleboy/ssh-action@master
