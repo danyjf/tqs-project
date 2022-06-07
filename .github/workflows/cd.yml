@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install snx vpn
         run: |
-          ./snx_install_linux30.sh
+          sudo ./snx_install_linux30.sh
           echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ secrets.VPN_USER }}
 
       - name: Execute remote ssh commands
