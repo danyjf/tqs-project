@@ -22,6 +22,7 @@ jobs:
       - name: Install snx vpn
         run: |
           sudo apt update
+          sudo apt-get install libx11-6:i386
           sudo ./snx_install_linux30.sh
           sudo apt install libstdc++5:i386 libpam0g:i386
           echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ secrets.VPN_USER }}
