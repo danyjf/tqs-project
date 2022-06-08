@@ -8,7 +8,7 @@ import shop.music.service.ProductService;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://127.0.0.1:7070", "http://localhost:7070", "http://deti-tqs-15.ua.pt:7070"})
+@CrossOrigin(origins = {"http://127.0.0.1:4200", "http://localhost:4200", "http://deti-tqs-15.ua.pt:7070"})
 @RestController
 public class ProductController {
     @Autowired

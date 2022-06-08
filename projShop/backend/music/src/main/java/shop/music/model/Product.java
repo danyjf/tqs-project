@@ -12,13 +12,15 @@ public class Product {
     private String imageURL;
     private String productName;
     private String description;
+    private String category;
     private String price;
     private String stock;
 
-    public Product(String imageURL, String productName, String description, String price, String stock) {
+    public Product(String imageURL, String productName, String description,String category, String price, String stock) {
         this.imageURL = imageURL;
         this.productName = productName;
         this.description = description;
+        this.category = category;
         this.price = price;
         this.stock = stock;
     }
@@ -43,7 +45,11 @@ public class Product {
 
     @Column(name = "description", nullable = false)
     public String getDescription() { return description; }
-    public void setDescription(String Description) { this.description = description; }
+    public void setDescription(String description) { this.description = description; }
+
+    @Column(name = "category", nullable = false)
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
     @Column(name = "price", nullable = false)
     public String getPrice() { return price; }
