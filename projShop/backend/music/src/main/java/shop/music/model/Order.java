@@ -4,8 +4,37 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-public class Order{
 
+/** Simple approach just to use it on frontend **/
+@Entity
+@Table(name = "order")
+public class Order{
+    private long id;
+    private Integer userid;
+    private Integer product_id;
+
+    public Order() {
+
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+
+    @Column(name = "userid", nullable = false)
+    public Integer getUserid() { return userid; }
+    public void setUserid(Integer user_id) { this.userid = userid; }
+
+    @Column(name = "product_id", nullable = false)
+    public Integer getProduct_id() { return product_id; }
+    public void setProduct_id(Integer product_id) { this.product_id = product_id; }
+
+    public Order(Integer user_id, Integer product_id){
+        this.userid = user_id;
+        this.product_id = product_id;
+    }
 }
 /**
 @Entity
