@@ -5,7 +5,10 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+public class User{
 
+}
+/**
 @Entity
 @Table(name = "user")
 public class User {
@@ -92,3 +95,4 @@ public class User {
     }
 
 }
+**/

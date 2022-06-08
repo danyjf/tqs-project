@@ -1,16 +1,14 @@
 package shop.music.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.music.model.Product;
 import shop.music.service.ProductService;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = {"http://127.0.0.1:5500", "http://localhost:5500", "http://deti-tqs-15.ua.pt:5500"})
+@CrossOrigin(origins = {"http://127.0.0.1:7070", "http://localhost:7070", "http://deti-tqs-15.ua.pt:7070"})
 @RestController
 public class ProductController {
     @Autowired
@@ -18,4 +16,8 @@ public class ProductController {
 
     @GetMapping("api/v1/products")
     public List<Product> getAllDailyInfo() { return service.getAll(); }
+
+    @PostMapping("api/v1/add/product")
+    public Product addProduct(@Valid @RequestBody Product product) {
+        return service.createProduct(product); }
 }

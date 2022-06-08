@@ -2,7 +2,9 @@ package shop.music.model;
 
 import java.sql.Timestamp;
 import javax.persistence.*;
+public class Transaction{
 
+}/**
 @Entity
 @Table(name = "transaction")
 public class Transaction {
@@ -98,3 +100,4 @@ public class Transaction {
     
     
 }
+**/

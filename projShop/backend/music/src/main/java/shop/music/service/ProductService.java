@@ -8,10 +8,10 @@ import shop.music.repository.ProductRepository;
 import java.util.List;
 @Service
 public class ProductService {
-    //@Autowired
+    @Autowired
     private ProductRepository productRepository;
 
     public List<Product> getAll() { return productRepository.findAll(); }
 
-    public Product createDailyInfo(Product daily) { return productRepository.save(daily); }
+    public Product createProduct(Product product) { return productRepository.save(product); }
 }

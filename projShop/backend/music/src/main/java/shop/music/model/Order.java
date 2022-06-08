@@ -4,7 +4,10 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+public class Order{
 
+}
+/**
 @Entity
 @Table(name = "order")
 public class Order {
@@ -111,3 +114,4 @@ public class Order {
     }
     
 }
+**/
