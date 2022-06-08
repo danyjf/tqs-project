@@ -23,8 +23,8 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update
-          sudo ./snx_install_linux30.sh
           sudo apt install libx11-6:i386 libstdc++5:i386 libpam0g:i386
+          sudo ./snx_install_linux30.sh
           echo ${{ secrets.VPN_PASSWORD }} | snx -s ${{ secrets.VPN_HOST }} -u ${{ secrets.VPN_USER }}
 
       - name: Execute remote ssh commands
