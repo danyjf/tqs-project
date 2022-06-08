@@ -1,10 +1,10 @@
 <div class="grid-container">
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile *ngFor="let card of products" [colspan]="2" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            <button class="button" (click)="navigateToProduct(card.title, card.description, card.category, card.price, card.image)">{{card.title}}</button>
+            <button class="button" (click)="navigateToProduct(card.name, card.description, card.category, card.price, card.imageURL)">{{card.name}}</button>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -15,7 +15,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content style="background-size: contains;" class="border:1px solid black">
-            <img alt="Product Image" [src]="card.image" style="display: block;
+            <img alt="Product Image" [src]="card.imageURL" style="display: block;
             margin-left: auto;
             margin-right: auto; max-width: 50%; max-height: 100%;" >
         </mat-card-content>
