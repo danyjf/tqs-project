@@ -5,7 +5,7 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "Product")
+@Table(name = "product")
 public class Product {
 
     @Id

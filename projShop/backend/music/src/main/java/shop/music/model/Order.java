@@ -6,7 +6,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "Order")
+@Table(name = "order")
 public class Order {
 
     @Id
@@ -26,7 +26,7 @@ public class Order {
     @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "id") //mappedBy "order" was getting error
     private Transaction transaction;
 
     public Order() {
