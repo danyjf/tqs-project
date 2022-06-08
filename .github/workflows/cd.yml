@@ -38,8 +38,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: whoami
 
-      - name: Disconnect snx vpn
-        run: snx -d
+      #- name: Disconnect snx vpn
+        #run: snx -d
 
   # deploy_app:
   #   runs-on: ubuntu-latest
