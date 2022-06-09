@@ -10,11 +10,10 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public class UserService {}
-/**
+
 @Service
 public class UserService {
-    //@Autowired
+    @Autowired
     private UserRepository repository;
 
     public User saveUser(User user) {
@@ -50,4 +49,4 @@ public class UserService {
         return "user (id=" + id + ") removed!";
     }
 
-}**/
+}
