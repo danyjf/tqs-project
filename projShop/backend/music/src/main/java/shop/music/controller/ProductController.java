@@ -17,7 +17,7 @@ public class ProductController {
     @GetMapping("api/v1/products")
     public List<Product> getAllDailyInfo() { return service.getAll(); }
 
-    @PostMapping("api/v1/add/product")
+    @PostMapping("api/v1/product")
     public Product addProduct(@Valid @RequestBody Product product) {
         return service.createProduct(product); }
 }
