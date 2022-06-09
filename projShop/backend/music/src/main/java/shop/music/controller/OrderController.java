@@ -19,7 +19,7 @@ public class OrderController {
     public List<Order> getUserOrders(@PathVariable(value = "user_id") Integer user_id) {
         return service.getUserOrders(user_id);
     }
-    @PostMapping("api/v1/add/order/{user_id}/{product_id}")
+    @PostMapping("api/v1/order/{user_id}/{product_id}")
     public Order addProduct(@PathVariable(value = "user_id") Integer user_id, @PathVariable(value = "product_id") Integer product_id) {
         return service.createOrder(new Order(user_id, product_id)); }
 }
