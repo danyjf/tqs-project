@@ -2,7 +2,6 @@
 
 ### Abstract
 
-
 ### Team members
 
 * Henrique Sousa - Team Leader
