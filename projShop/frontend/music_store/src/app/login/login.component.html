@@ -1,14 +1,15 @@
 <h2>Login</h2>
-<form>
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" />
+<form method="post">
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+  
+      <button type="submit">Login</button>
+      
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" />
-    </div>
-    <div class="form-group">
-        <a routerLink="/register" class="btn btn-link">Register</a>
-    </div>
-</form>
+    <button href="/register">Register</button>
+  </form>
