@@ -62,7 +62,7 @@ export class ProductComponent {
   }
 
   createOrder(userID: string, productID: string){
-    this.httpClient.post("http://localhost:7070/api/v1/add/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
+    this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
     this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
   }
 }

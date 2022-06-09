@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ProductComponent } from './product/product.component';
 import { ManageComponent } from './manage/manage.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavComponent,
     HomeComponent,
     ProductComponent,
-    ManageComponent
+    ManageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
