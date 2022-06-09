@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // }
 
 @Entity
-@Table(name = "order")
+@Table(name = "orderr")
 public class Order {
 
     @Id

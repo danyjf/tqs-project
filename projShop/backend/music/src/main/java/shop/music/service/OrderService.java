@@ -20,5 +20,5 @@ public class OrderService {
 
     public Order createOrder(Order order) { return orderRepository.save(order); }
 
-    public List<Order> getUserOrders(Integer user_id){ return orderRepository.findOrderByUserid(user_id); }
+    //public List<Order> getUserOrders(Integer user_id){ return orderRepository.findOrderByUserId(user_id); }
 }

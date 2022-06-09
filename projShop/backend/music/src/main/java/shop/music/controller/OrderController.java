@@ -15,11 +15,11 @@ public class OrderController {
     @Autowired
     private OrderService service;
 
-    @GetMapping("api/v1/user/orders/{user_id}")
-    public List<Order> getUserOrders(@PathVariable(value = "user_id") Integer user_id) {
-        return service.getUserOrders(user_id);
-    }
-    @PostMapping("api/v1/order/{user_id}/{product_id}")
-    public Order addProduct(@PathVariable(value = "user_id") Integer user_id, @PathVariable(value = "product_id") Integer product_id) {
-        return service.createOrder(new Order(user_id, product_id)); }
+    // @GetMapping("api/v1/user/orders/{user_id}")
+    // public List<Order> getUserOrders(@PathVariable(value = "user_id") Integer user_id) {
+    //     return service.getUserOrders(user_id);
+    // }
+    // @PostMapping("api/v1/order/{user_id}/{product_id}")
+    // public Order addProduct(@PathVariable(value = "user_id") Integer user_id, @PathVariable(value = "product_id") Integer product_id) {
+    //     return service.createOrder(new Order(user_id, product_id)); }
 }
