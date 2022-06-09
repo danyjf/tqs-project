@@ -7,11 +7,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /** Simple approach just to use it on frontend **/
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order{
     private long id;
     private Integer userid;
-    private Integer product_id;
+    private Integer productid;
+
+    public Order(Integer user_id, Integer product_id){
+        this.userid = user_id;
+        this.productid = product_id;
+    }
 
     public Order() {
 
@@ -27,14 +32,11 @@ public class Order{
     public Integer getUserid() { return userid; }
     public void setUserid(Integer user_id) { this.userid = userid; }
 
-    @Column(name = "product_id", nullable = false)
-    public Integer getProduct_id() { return product_id; }
-    public void setProduct_id(Integer product_id) { this.product_id = product_id; }
+    @Column(name = "productid", nullable = false)
+    public Integer getProductid() { return productid; }
+    public void setProductid(Integer product_id) { this.productid = product_id; }
 
-    public Order(Integer user_id, Integer product_id){
-        this.userid = user_id;
-        this.product_id = product_id;
-    }
+
 }
 /**
 @Entity
