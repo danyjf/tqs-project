@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class Product{
   constructor(
-    public id: number,
+    public id: string,
     public name: string,
     public description: string, 
     public category: string,
@@ -56,10 +56,10 @@ export class HomeComponent {
     this.getProducts();
   } 
 
-  navigateToProduct(title: string, description: string, category: string, price: string, image: string) {
+  navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string) {
 
     const params: NavigationExtras = {
-      queryParams: { title: title, description: description, category: category, price: price, image: image},
+      queryParams: {id: id, title: title, description: description, category: category, price: price, image: image},
     }
   
     this.router.navigate(['/product'], params);
