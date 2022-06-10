@@ -4,25 +4,13 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../home/home.component';
 
 
 export class Order{
   constructor(
     public userid: number,
     public productid: number,
-  ) {
-    
-  }
-}
-export class Product{
-  constructor(
-    public id: number,
-    public name: string,
-    public description: string, 
-    public category: string,
-    public imageURL: string,
-    public price: string,
-    public stock: string
   ) {
     
   }
@@ -111,7 +99,7 @@ export class ManageComponent {
         products.forEach( (product: Product) => {
           const id = product.id;
           this.orders.forEach( (order) => {
-            if (order.productid == id) {
+            if (String(order.productid) == id) {
               this.products.push(product);
             }
           });
