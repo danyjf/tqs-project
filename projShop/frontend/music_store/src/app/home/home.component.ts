@@ -60,7 +60,6 @@ export class HomeComponent {
 
   onSearchTextEntered(searchValue: string){
     this.searchText = searchValue
-    console.log(this.searchText)
   }
 
   navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string) {
