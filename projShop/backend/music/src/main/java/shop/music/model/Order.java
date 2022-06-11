@@ -76,7 +76,14 @@ public class Order {
     public Product addProduct(Product prdct){
         this.price += prdct.getPrice();
         this.num_products += 1;
-        this.products.add(prdct);
+        //this.products.add(prdct);
+        return prdct;
+    }
+
+    public Product removeProduct(Product prdct){
+        this.price -= prdct.getPrice();
+        this.num_products -= 1;
+        //this.products.remove(prdct);
         return prdct;
     }
 

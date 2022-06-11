@@ -21,5 +21,16 @@ public class ProductService {
 
     public List<Product> getAll() { return productRepository.findAll(); }
 
-    public Product createProduct(Product product) { return productRepository.save(product); }
+    public Page<Product> getProducts(Pageable pageable){
+        return productRepository.findAll(pageable);
+    }
+
+    public Product saveProduct(Product product){
+        return productRepository.save(product);
+    }
+
+    public String deleteProduct(int id) {
+        productRepository.deleteById(id);
+        return "Product (id=" + id + ") removed!";
+    }
 }
