@@ -15,6 +15,10 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    public Product getProductById(int id){
+        return productRepository.findById(id);
+    }
+
     public List<Product> getAll() { return productRepository.findAll(); }
 
     public Product createProduct(Product product) { return productRepository.save(product); }

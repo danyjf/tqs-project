@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 // }
 
 @Entity
-@Table(name = "orderr")
+@Table(name = "Orderr")
 public class Order {
 
     @Id
@@ -65,12 +65,19 @@ public class Order {
     public Order() {
     }
 
-    public Order(Float price, int num_products, User user) {
-        this.price = price;
-        this.num_products = num_products;
+    public Order(User user) {
+        this.price = 0f;
+        this.num_products = 0;
         this.user = user;
         this.date = new Timestamp(System.currentTimeMillis());
         this.state = false;
+    }
+
+    public Product addProduct(Product prdct){
+        this.price += prdct.getPrice();
+        this.num_products += 1;
+        this.products.add(prdct);
+        return prdct;
     }
 
     public Integer getId() {

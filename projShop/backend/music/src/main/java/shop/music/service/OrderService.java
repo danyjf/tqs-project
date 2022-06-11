@@ -20,5 +20,8 @@ public class OrderService {
 
     public Order createOrder(Order order) { return orderRepository.save(order); }
 
-    //public List<Order> getUserOrders(Integer user_id){ return orderRepository.findOrderByUserId(user_id); }
+    public Page<Order> getOrdersByUser(int user_id, Pageable pageable){
+         return orderRepository.getOrdersByUser(user_id, pageable); 
+        }
+    
 }

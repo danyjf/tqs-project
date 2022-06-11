@@ -8,7 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     @Id
