@@ -3,8 +3,8 @@
         <div class="col-md-8 offset-sm-2" *ngIf="delivery.delivery_status == 'Waiting for rider'">
             <div class="card shadow-lg p-3 mb-5 bg-white rounded" (click)="navigateToDetails(delivery.id)">
                 <div class="card-body">
-                    <b>{{delivery.order_time}}</b>
-                    <table class="table table-borderless">
+                    <strong>{{delivery.order_time}}</strong>
+                    <table class="table table-borderless" aria-describedby="Delivery">
                         <tbody>
                             <tr>
                                 <th>From</th>
