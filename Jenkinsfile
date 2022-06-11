@@ -1,3 +1,13 @@
+void setBuildStatus(String message, String state) {
+    step([
+        $class: 'GitHubCommitStatusSetter',
+        reposSource: [$class: 'ManuallyEnteredRepositorySource', url: 'https://github.com/danyjf/tqs-project'],
+        contextSource: [$class: 'ManuallyEnteredCommitContextSource', context: 'CI-CD/jenkins/build-status'],
+        errorHandlers: [[$class: 'ChangingBuildStatusErrorHandler', result: 'UNSTABLE']],
+        statusResultSource: [$class: 'ConditionalStatusResultSource', results: [[$class: 'AnyBuildResult', message: message, state: state]]]
+    ]);
+}
+
 pipeline {
     agent any
     stages {
@@ -38,6 +48,15 @@ pipeline {
             steps {
                 echo 'Now you can monitor!'
             }
+        }
+    }
+    
+    post {
+        success {
+            setBuildStatus('Build complete', 'success');
+        }
+        failure {
+            setBuildStatus('Failed', 'failure');
         }
     }
 }
