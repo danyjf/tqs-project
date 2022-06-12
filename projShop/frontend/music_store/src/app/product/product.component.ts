@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -10,14 +12,20 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent {
+  id: string = "";
   category: string = "";
   title : string = "";
   description : string = "";
   price : string = "";
   image : string = "";
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute,) {}
+  user : string = "1";
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if (id) {
+      this.id = id;
+    }
     const category = this.route.snapshot.queryParamMap.get('category');
     if (category) {
       this.category = category;
@@ -51,5 +59,10 @@ export class ProductComponent {
     }
   
     this.router.navigate(['/orders'], params);
+  }
+
+  createOrder(userID: string, productID: string){
+    this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
+    this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
   }
 }
