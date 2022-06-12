@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
@@ -55,6 +55,13 @@ export class HomeComponent {
   ngOnInit() {
     this.getProducts();
   } 
+
+  searchText: string = "";
+
+
+  onSearchTextEntered(searchValue: string){
+    this.searchText = searchValue
+  }
 
   navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string) {
 

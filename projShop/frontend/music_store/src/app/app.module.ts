@@ -22,9 +22,10 @@ import { ProductComponent } from './product/product.component';
 import { ManageComponent } from './manage/manage.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegisterComponent } from './register/register.component';
     ProductComponent,
     ManageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ import { RegisterComponent } from './register/register.component';
     MatMenuModule,
     HttpClientModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
