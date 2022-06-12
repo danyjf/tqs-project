@@ -1,0 +1,23 @@
+version: "3.8"
+
+# docker run --name mysql -e MYSQL_DATABASE=deliveries_db -e MYSQL_USER=tqs_p4_g4 -e MYSQL_ROOT_PASSWORD=tqs_p4_g4_root -e MYSQL_PASSWORD=tqs_p4_g4_password -p 33060:3306 -d mysql/mysql-server:5.7
+services:
+  mysql: 
+    image: mysql/mysql-server:5.7
+    command: --default-authentication-plugin=mysql_native_password --secure-file-priv=''
+    environment:
+      MYSQL_DATABASE: deliveries_db
+      MYSQL_USER: tqs_p4_g4
+      MYSQL_ROOT_PASSWORD: tqs_p4_g4_root
+      MYSQL_PASSWORD: tqs_p4_g4_password
+    volumes:
+      - ./mysql-volume:/var/lib/db/mysql
+    restart: always
+
+  api:
+    depends_on:
+      - mysql
+    build: ./backend
+    ports:
+      - 8000:8000
+    restart: always

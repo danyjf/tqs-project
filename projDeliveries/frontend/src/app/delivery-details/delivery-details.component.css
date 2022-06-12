@@ -1,0 +1,16 @@
+table th {
+    width: 50%;
+}
+
+table td {
+    width: 50%;
+}
+
+#customer-information {
+    margin-top: 50px;
+}
+
+#button-div {
+    margin-top: 50px;
+    text-align: center;
+}
