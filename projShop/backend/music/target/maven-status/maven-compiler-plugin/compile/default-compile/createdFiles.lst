@@ -1,1 +1,16 @@
+shop/music/controller/ProductController.class
+shop/music/model/Order.class
+shop/music/repository/OrderRepository.class
+shop/music/model/User.class
+shop/music/repository/UserRepository.class
+shop/music/service/OrderService.class
+shop/music/MusicController.class
+shop/music/model/Manager.class
+shop/music/model/Product.class
+shop/music/service/ProductService.class
+shop/music/service/UserService.class
+shop/music/service/ManagerService.class
+shop/music/repository/ProductRepository.class
+shop/music/repository/ManagerRepository.class
 shop/music/MusicApplication.class
+shop/music/controller/OrderController.class
