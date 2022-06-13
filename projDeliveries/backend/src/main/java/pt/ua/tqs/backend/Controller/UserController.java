@@ -1,13 +1,26 @@
 package pt.ua.tqs.backend.Controller;
 
+import pt.ua.tqs.backend.Model.User;
 import pt.ua.tqs.backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
 public class UserController {
     @Autowired
     private UserService us;
-}
 
+    @GetMapping("/users/{email}/{password}")
+    public User getUserByEmailAndPassword(@PathVariable(value = "email") String email, @PathVariable(value = "password") String password) {
+        return null;
+    }
+
+    @PostMapping("/users")
+    public Map<String, String> createUser(@Valid @RequestBody User user) {
+        return null;
+    }
+}
