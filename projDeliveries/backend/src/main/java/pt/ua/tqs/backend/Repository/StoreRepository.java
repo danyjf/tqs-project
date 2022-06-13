@@ -1,6 +1,6 @@
-package pt.ua.tqs.backend.repository;
+package pt.ua.tqs.backend.Repository;
 
-import pt.ua.tqs.backend.model.Store;
+import pt.ua.tqs.backend.Model.Store;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,14 +1,19 @@
-package pt.ua.tqs.backend.model;
+package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "client")
 public class Client {
+    private Long id;
     private String Name;
     private String Address;
     private String Phone;
-    
+
+    @Id
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
     @Column(name = "Name", nullable = false)
     public String getName() { return Name; }
     public void setName(String Name) { this.Name = Name; }

@@ -1,6 +1,6 @@
-package pt.ua.tqs.backend.controller;
+package pt.ua.tqs.backend.Controller;
 
-import pt.ua.tqs.backend.service.StoreService
+import pt.ua.tqs.backend.Service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package pt.ua.tqs.backend.model;
+package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -6,10 +6,14 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "store")
 public class Store {
-	
+    private Long id;
     private String Name;
     private String Address;
     private String Phone;
+
+    @Id
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     @Column(name = "Name", nullable = false)
     public String getName() { return Name; }
