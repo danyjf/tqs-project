@@ -13,8 +13,6 @@ services:
     volumes:
       - ./mysql-volume:/var/lib/db/mysql
     restart: always
-    ports:
-      - 3306:3306
 
   api:
     depends_on:
