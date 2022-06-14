@@ -20,6 +20,4 @@ class Initializer implements CommandLineRunner{
         //initialize things here
     }
 
-    }
-
 }
