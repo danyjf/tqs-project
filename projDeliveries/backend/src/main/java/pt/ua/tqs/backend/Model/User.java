@@ -1,4 +1,4 @@
-package pt.ua.tqs.backend.model;
+package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
