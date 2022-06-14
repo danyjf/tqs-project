@@ -17,13 +17,16 @@ public class DeliveryService {
     private ClientRepository cr;
     @Autowired
     private StoreRepository sr;
+    @Autowired
+    private UserRepository ur;
 
     public DeliveryService(){}
 
-    public DeliveryService(DeliveryRepository dr, ClientRepository cr, StoreRepository sr){
+    public DeliveryService(DeliveryRepository dr, ClientRepository cr, StoreRepository sr, UserRepository ur){
         this.dr = dr;
         this.cr = cr;
         this.sr = sr;
+        this.ur = ur;
     }
     
     public Delivery create_delivery(String client_phone, String store_phone, Timestamp orderTime, String orderNote){
@@ -36,7 +39,7 @@ public class DeliveryService {
         return null;
     }
     
-    public Delivery assign_to_rider(){
+    public Delivery assign_to_rider(long deliveryId, String RiderPhone){
     //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         return null;
     }

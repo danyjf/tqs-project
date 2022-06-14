@@ -27,11 +27,14 @@ public class DeliveryServiceTests {
     @Mock
     private StoreRepository storeRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     private DeliveryService deliveryService;
 
     @BeforeEach
     void StartUp(){
-        deliveryService = new DeliveryService(deliveryRepository,clientRepository,storeRepository);
+        deliveryService = new DeliveryService(deliveryRepository,clientRepository,storeRepository, userRepository);
     }
     @Test
     void CreateDeliveryWithExistingUser(){
@@ -68,32 +71,39 @@ public class DeliveryServiceTests {
 
     @Test
     void AssignRiderToDelivery(){
-        Client client = new Client();
-        when(clientRepository.findByPhone("911234567")).thenReturn(client);
-        when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        User rider = new User();
+        rider.setType("Rider");
+        Delivery delivery = new Delivery();
+        when(deliveryRepository.findById(1)).thenReturn(delivery);
+        when(userRepository.findByPhone("123456789")).thenReturn(rider);
+        Delivery result = deliveryService.assign_to_rider(1, "123456789");
         //result should be a null since store doesnt exist
-        assertEquals(result, null);
+        delivery.setRider(rider);
+        assertEquals(result, delivery);
 
     }
 
     @Test
     void AssignNonRiderToDelivery(){
-        Client client = new Client();
-        when(clientRepository.findByPhone("911234567")).thenReturn(client);
-        when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
-        //result should be a null since store doesnt exist
+        User rider = new User();
+        rider.setType("Manager");
+        Delivery delivery = new Delivery();
+        when(deliveryRepository.findById(1)).thenReturn(delivery);
+        when(userRepository.findByPhone("123456789")).thenReturn(rider);
+        Delivery result = deliveryService.assign_to_rider(1, "123456789");
+        //result should be a null since User isnt a rider
         assertEquals(result, null);
     } 
 
     @Test
     void AssignRiderToAlreadyAssignedDelivery(){
-        Client client = new Client();
-        when(clientRepository.findByPhone("911234567")).thenReturn(client);
-        when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
-        //result should be a null since store doesnt exist
+        User rider = new User();
+        Delivery delivery = new Delivery();
+        delivery.setRider(rider);
+        when(deliveryRepository.findById(1)).thenReturn(delivery);
+        when(userRepository.findByPhone("123456789")).thenReturn(rider);
+        Delivery result = deliveryService.assign_to_rider(1, "123456789");
+        //result should be a null since rider is already assigned
         assertEquals(result, null);
 
     }
