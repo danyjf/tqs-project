@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form style="margin-bottom:150px; width: 100%;">
+                <div class="form-group filterField" style="margin-left: 5%;">
+                    <label for="delayedSelect">Delayed</label>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="delayedDropdownList" 
+                        [(ngModel)]="selectedDelayed"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="delayedSelect"
+                        id="delayedSelect">
+                    </ng-multiselect-dropdown>
+                </div>
+
+                <div class="form-group filterField">
+                    <label for="storeSelect">Store</label>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="storeDropdownList" 
+                        [(ngModel)]="selectedStore"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="storeSelect"
+                        id="storeSelect">
+                    </ng-multiselect-dropdown>
+                </div>
+
+                <div class="form-group filterField">
+                    <label for="statusSelect">Status</label>
+                    <ng-multiselect-dropdown
+                        [settings]="dropdownSettings"
+                        [data]="statusDropdownList" 
+                        [(ngModel)]="selectedStatus"
+                        (onSelect)="getFilteredDeliveries()"
+                        (onDeSelect)="getFilteredDeliveries()"
+                        name="statusSelect"
+                        id="statusSelect">
+                    </ng-multiselect-dropdown>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row" *ngFor="let delivery of deliveries" style="margin-bottom: 15px;">
+        <div class="col-md-8 offset-sm-2">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Store</th>
+                                <td>{{delivery.store_name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <ul class="progress-indicator">
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Waiting for rider')">
+                            <span class="bubble"></span>Waiting for rider
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Picking up the order')">
+                            <span class="bubble"></span>Picking up the order
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Delivering the order')">
+                            <span class="bubble"></span>Delivering the order
+                        </li>
+                        <li [ngClass]="isComplete(delivery.delivery_status, 'Order delivered')">
+                            <span class="bubble"></span>Order delivered
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
