@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
       const params: NavigationExtras = {
         queryParams: { userId: userId },
       }
-      this.router.navigate(['/login'], params);
+      sessionStorage.setItem("user_id", userId.toString());
+      this.router.navigate(['/login']);
     }
 
   }

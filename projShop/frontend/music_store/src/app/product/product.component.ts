@@ -18,10 +18,15 @@ export class ProductComponent {
   description : string = "";
   price : string = "";
   image : string = "";
-  user : string = "1";
+  userid: string = "-1";
+
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
+    const userid = sessionStorage.getItem('userid');
+    if (userid != null) {
+      this.userid = userid;
+    }
     const id = this.route.snapshot.queryParamMap.get('id');
     if (id) {
       this.id = id;
