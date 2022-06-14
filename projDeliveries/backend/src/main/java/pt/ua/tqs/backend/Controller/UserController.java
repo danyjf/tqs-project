@@ -1,6 +1,6 @@
-package pt.ua.tqs.backend.controller;
+package pt.ua.tqs.backend.Controller;
 
-import pt.ua.tqs.backend.service.UserService
+import pt.ua.tqs.backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService us;
+    
 }
-

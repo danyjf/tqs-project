@@ -1,12 +1,12 @@
-package pt.ua.tqs.backend.controller;
+package pt.ua.tqs.backend.Controller;
 
-import pt.ua.tqs.backend.service.ClientService
+import pt.ua.tqs.backend.Service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
-public class ClientController {
+public class DeliveryController {
     @Autowired
-    private ClientService cs;
+    private DeliveryService ds;
 }
