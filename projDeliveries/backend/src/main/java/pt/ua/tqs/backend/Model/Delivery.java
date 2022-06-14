@@ -15,6 +15,15 @@ public class Delivery {
     private String deliveryStatus;
     private boolean deliveryDelayed;
 
+    public Delivery(){}
+
+    public Delivery(Timestamp orderTime, String orderNote){
+        this.orderTime = orderTime;
+        this.orderNote = orderNote;
+        deliveryStatus = "Available for a rider";
+        deliveryDelayed = false;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,15 +34,44 @@ public class Delivery {
     public Timestamp getOrderTime() { return orderTime; }
     public void setOrderTime(Timestamp orderTime) { this.orderTime = orderTime; }
 
-    //store aqui, relação 1 to many
+    //@OneToMany(targetEntity = Song.class, fetch= FetchType.LAZY, mappedBy = "album", cascade = CascadeType.ALL)
 
-    //client aqui, 1 to many
+    //client aqui, relação many to 1
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "client")
+    public Client getClient(){
+        return client;
+    }
+    public void setClient(Client c){
+        this.client = c;
+    }
+
+    //store aqui, many to 1
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "store")
+    public Store getStore(){
+        return store;
+    }
+    public void setStore(Store s){
+        this.store = s;
+    }
 
     @Column(name = "orderNote", nullable = false)
     public String getOrderNote() { return orderNote; }
     public void setOrderNote(String orderNote) { this.orderNote = orderNote; }
 
-    //Rider aqui, 1 to Many
+    //Rider aqui, many to 1
+
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "user")
+    public User getRider(){
+        return rider;
+    }
+    public void setRider(User r){
+        this.rider = r;
+    }
 
     @Column(name = "deliveryStatus", nullable = false)
     public String getDeliveryStatus() { return deliveryStatus; }

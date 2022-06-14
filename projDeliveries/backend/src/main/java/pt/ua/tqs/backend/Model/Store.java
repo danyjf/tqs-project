@@ -6,10 +6,16 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "store")
 public class Store {
-	
+	private long id;
     private String Name;
     private String Address;
     private String Phone;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
     @Column(name = "Name", nullable = false)
     public String getName() { return Name; }
