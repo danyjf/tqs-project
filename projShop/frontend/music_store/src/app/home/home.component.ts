@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { loggedIn } from '../app.component';
+
 export class Product{
   constructor(
     public id: string,
@@ -52,6 +54,7 @@ export class HomeComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private httpClient: HttpClient) { }
 
   ngOnInit() {
+    console.log(sessionStorage.getItem("user_id"));
     this.getProducts();
   } 
 

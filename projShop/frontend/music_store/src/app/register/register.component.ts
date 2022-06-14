@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { loggedIn } from '../app.component';
+
 
 @Component({
   selector: 'app-register',
@@ -40,9 +42,11 @@ export class RegisterComponent implements OnInit {
         "fullname": name,
         "email": email,
         "password": password
-      }).toPromise().then((response: any) => {console.log(response);});
+      }).toPromise().then((response: any) => { 
+        sessionStorage.setItem("user_id", response.id.toString()); ;
+        console.log(response);});
       
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     }
   
   }
