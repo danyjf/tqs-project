@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,7 @@ export class RegisterComponent implements OnInit {
   
     hide: boolean = true;
   
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) {
     }
   
     ngOnInit() {
@@ -33,7 +35,14 @@ export class RegisterComponent implements OnInit {
       const username = this.loginForm.value['username'];
       const name = this.loginForm.value['name'];
       
-      console.log(this.loginForm.value);
+      this.httpClient.post("http://localhost:7070/api/v1/user", {
+        "username": username,
+        "fullname": name,
+        "email": email,
+        "password": password
+      }).toPromise().then((response: any) => {console.log(response);});
+      
+      this.router.navigate(['/login']);
     }
   
   }

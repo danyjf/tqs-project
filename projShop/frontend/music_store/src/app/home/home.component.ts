@@ -74,7 +74,8 @@ export class HomeComponent {
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {
-        this.products = data;
+        console.log(data.content);
+        this.products = data.content;
       }
     );
   }
