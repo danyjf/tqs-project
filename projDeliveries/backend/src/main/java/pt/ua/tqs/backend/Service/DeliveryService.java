@@ -3,8 +3,7 @@ package pt.ua.tqs.backend.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ua.tqs.backend.Repository.*;
-import pt.ua.tqs.backend.Model.Delivery;
-import pt.ua.tqs.backend.Model.User;
+import pt.ua.tqs.backend.Model.*;
 import java.sql.Timestamp;
 
 import java.util.List;
@@ -30,17 +29,34 @@ public class DeliveryService {
     }
     
     public Delivery create_delivery(String client_phone, String store_phone, Timestamp orderTime, String orderNote){
-        return null;
+        Client c = cr.findByPhone(client_phone);
+        Store s = sr.findByPhone(store_phone);
+        if (s == null || c == null){
+            return null;
+        }
+        Delivery d = new Delivery(orderTime, orderNote);
+        d.setClient(c);
+        d.setStore(s);
+        dr.save(d);
+        return d;
     //receive delivery information, process and create delivery, save on repository
     }
     
     public List<Delivery> list_deliveries(){
     //get deliveries from repository, send over to controller
-        return null;
+        return dr.findAll();
     }
     
     public Delivery assign_to_rider(long deliveryId, String RiderPhone){
     //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
-        return null;
+        
+        Delivery d = dr.findById(deliveryId);
+        User r = ur.findByPhone(RiderPhone);
+        if (r == null || r.getType() != "Rider" || d.getRider() != null){
+            return null;
+        }
+        d.setRider(r);
+        dr.save(d);
+        return d;
     }
 }
