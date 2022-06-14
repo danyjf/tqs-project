@@ -11,6 +11,7 @@ public class Product {
     @Column(name = "id")
     private Integer id;
 
+    private String imageURL;
     private String name;
     private Float price;
     private String description;
@@ -27,13 +28,23 @@ public class Product {
 
     public Product(){}
 
-    public Product(String name, Float price, String description, Integer stock, String category, Manager manager){
+    public Product(String name, String imageURL, Float price, String description, Integer stock, String category, Manager manager){
         this.name=name;
+        this.imageURL=imageURL;
         this.price=price;
         this.description=description;
         this.stock=stock;
         this.category=category;
         this.manager=manager;
+    }
+
+    @Column(name = "imageURL", nullable = false)
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Column(name = "name", nullable = false)

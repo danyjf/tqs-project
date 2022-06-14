@@ -26,7 +26,15 @@ public class UserController {
     }
 
     @DeleteMapping("/api/v1/user/{id}")
-    public String deleteUsers(@PathVariable int id) {
+    public String deleteUsers(@PathVariable(value = "id") int id) {
         return userService.deleteUser(id);
+    }
+
+    /**TODO: Is this the right way to do it?**/
+    @GetMapping("api/v1/login/{username}/{password}")
+    public Integer login(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password){
+        User user = userService.getUserLogin(username, password);
+        if (user != null) return user.getId();
+        return -1;
     }
 }
