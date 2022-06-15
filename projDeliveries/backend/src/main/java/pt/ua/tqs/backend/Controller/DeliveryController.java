@@ -18,10 +18,10 @@ public class DeliveryController {
     private DeliveryService ds;
     
     @PostMapping("/delivery")
-    public ResponseEntity<Delivery> create_delivery(@RequestBody String client_phone, @RequestBody String store_phone, @RequestBody String orderTime, @RequestBody String orderNote){
+    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
     //receive information for delivery, send to service, receive delivery and respond
         Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
-        Delivery d = ds.create_delivery(client_phone, store_phone, orderTimestamp, orderNote);
+        Delivery d = ds.createDelivery(clientPhone, storePhone, orderTimestamp, orderNote);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }
@@ -31,16 +31,16 @@ public class DeliveryController {
     }
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> list_deliveries(){
+    public ResponseEntity<List<Delivery>> listDeliveries(){
     //ask service for deliveries, send response with deliveries
-        List<Delivery> ld = ds.list_deliveries();
+        List<Delivery> ld = ds.listDeliveries();
         return ResponseEntity.ok().body(ld);
     }
     
     @PostMapping("/delivery/rider")
-    public ResponseEntity<Delivery> assign_to_rider(@RequestBody long delivery_id, @RequestBody String rider_phone){
+    public ResponseEntity<Delivery> assignToRider(@RequestBody long deliveryId, @RequestBody String riderPhone){
     //send rider and delivery information to service, receive updated delivery and respond
-        Delivery d = ds.assign_to_rider(delivery_id, rider_phone);
+        Delivery d = ds.assignToRider(deliveryId, riderPhone);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }

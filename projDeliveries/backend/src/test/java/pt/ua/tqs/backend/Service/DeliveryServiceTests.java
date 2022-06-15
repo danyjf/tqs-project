@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @ExtendWith(MockitoExtension.class)
-public class DeliveryServiceTests {
+class DeliveryServiceTests {
     @Mock
     private DeliveryRepository deliveryRepository;
 
@@ -41,10 +41,10 @@ public class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
         //fails here since result is a null for now
-        assertEquals(result.getClient(), client);
-        assertEquals(result.getStore(), store);
+        assertEquals(client, result.getClient());
+        assertEquals(store, result.getStore());
 
     }
 
@@ -53,9 +53,9 @@ public class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234567")).thenReturn(null);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
         //result should be a null, since client doesnt exist
-        assertEquals(result, null);
+        assertEquals(null, result);
     }
 
     @Test
@@ -63,9 +63,9 @@ public class DeliveryServiceTests {
         Client client = new Client();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.create_delivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
         //result should be a null since store doesnt exist
-        assertEquals(result, null);
+        assertEquals(null, result);
     }
 
     @Test
@@ -75,10 +75,10 @@ public class DeliveryServiceTests {
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
-        Delivery result = deliveryService.assign_to_rider(1, "123456789");
+        Delivery result = deliveryService.assignToRider(1, "123456789");
         //result should be a null since store doesnt exist
         delivery.setRider(rider);
-        assertEquals(result, delivery);
+        assertEquals(delivery, result);
 
     }
 
@@ -89,21 +89,22 @@ public class DeliveryServiceTests {
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
-        Delivery result = deliveryService.assign_to_rider(1, "123456789");
+        Delivery result = deliveryService.assignToRider(1, "123456789");
         //result should be a null since User isnt a rider
-        assertEquals(result, null);
+        assertEquals(null, result);
     } 
 
     @Test
     void AssignRiderToAlreadyAssignedDelivery(){
         User rider = new User();
         Delivery delivery = new Delivery();
+        rider.setType("Rider");
         delivery.setRider(rider);
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
-        Delivery result = deliveryService.assign_to_rider(1, "123456789");
+        Delivery result = deliveryService.assignToRider(1, "123456789");
         //result should be a null since rider is already assigned
-        assertEquals(result, null);
+        assertEquals(null, result);
 
     }
 }

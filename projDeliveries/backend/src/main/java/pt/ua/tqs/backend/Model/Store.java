@@ -7,9 +7,9 @@ import java.sql.Timestamp;
 @Table(name = "store")
 public class Store {
 	private long id;
-    private String Name;
-    private String Address;
-    private String Phone;
+    private String name;
+    private String address;
+    private String phone;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +18,14 @@ public class Store {
     public void setId(long id) { this.id = id; }
 
     @Column(name = "Name", nullable = false)
-    public String getName() { return Name; }
-    public void setName(String Name) { this.Name = Name; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     @Column(name = "Address", nullable = false)
-    public String getAddress() { return Address; }
-    public void setAddress(String Address) { this.Address = Address; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
     @Column(name = "Phone", nullable = false)
-    public String getPhone() { return Phone; }
-    public void setPhone(String Phone) { this.Phone = Phone; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 }

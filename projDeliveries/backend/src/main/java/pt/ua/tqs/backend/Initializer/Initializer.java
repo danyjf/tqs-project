@@ -20,6 +20,8 @@ class Initializer implements CommandLineRunner{
         //initialize things here
         User u = new User("Tiago", "bran.costa@ua.pt", "1234", "911234567", "Rider");
         User u1 = new User("Tiago", "brand.costa@ua.pt", "1234", "912234567", "Client");
+        ur.save(u);
+        ur.save(u1);
         
     }
 

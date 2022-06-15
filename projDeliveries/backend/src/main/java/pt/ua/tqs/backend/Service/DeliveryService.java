@@ -28,9 +28,9 @@ public class DeliveryService {
         this.ur = ur;
     }
     
-    public Delivery create_delivery(String client_phone, String store_phone, Timestamp orderTime, String orderNote){
-        Client c = cr.findByPhone(client_phone);
-        Store s = sr.findByPhone(store_phone);
+    public Delivery createDelivery(String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
+        Client c = cr.findByPhone(clientPhone);
+        Store s = sr.findByPhone(storePhone);
         if (s == null || c == null){
             return null;
         }
@@ -42,17 +42,17 @@ public class DeliveryService {
     //receive delivery information, process and create delivery, save on repository
     }
     
-    public List<Delivery> list_deliveries(){
+    public List<Delivery> listDeliveries(){
     //get deliveries from repository, send over to controller
         return dr.findAll();
     }
     
-    public Delivery assign_to_rider(long deliveryId, String RiderPhone){
+    public Delivery assignToRider(long deliveryId, String riderPhone){
     //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         
         Delivery d = dr.findById(deliveryId);
-        User r = ur.findByPhone(RiderPhone);
-        if (r == null || r.getType() != "Rider" || d.getRider() != null){
+        User r = ur.findByPhone(riderPhone);
+        if (r == null || !r.getType().equals("Rider") || d.getRider() != null){
             return null;
         }
         d.setRider(r);
