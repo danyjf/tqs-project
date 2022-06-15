@@ -12,15 +12,15 @@ import java.util.Map;
 @RequestMapping("/")
 public class UserController {
     @Autowired
-    private UserService us;
+    private UserService userService;
 
     @GetMapping("/users/{email}/{password}")
     public User getUserByEmailAndPassword(@PathVariable(value = "email") String email, @PathVariable(value = "password") String password) {
-        return null;
+        return userService.getUserByEmailAndPassword(email, password);
     }
 
     @PostMapping("/users")
     public Map<String, String> createUser(@Valid @RequestBody User user) {
-        return null;
+        return userService.createUser(user);
     }
 }

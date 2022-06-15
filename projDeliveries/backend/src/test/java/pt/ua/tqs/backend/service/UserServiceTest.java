@@ -62,6 +62,7 @@ public class UserServiceTest {
 
         assertThat(response.get("status")).isEqualTo("success");
 
+        verify(userRepository, times(1)).save(Mockito.any());
         verify(userRepository, times(1)).findByUsername(Mockito.anyString());
         verify(userRepository, times(1)).findByEmail(Mockito.anyString());
         verify(userRepository, times(1)).findByPassword(Mockito.anyString());
@@ -74,15 +75,13 @@ public class UserServiceTest {
         User user = new User("daniel", "dan@gmail.com", "pass", "999998849", "user");
 
         Mockito.when(userRepository.findByUsername("daniel")).thenReturn(userInDb);
-        Mockito.when(userRepository.findByEmail("dan@gmail.com")).thenReturn(null);
-        Mockito.when(userRepository.findByPassword("pass")).thenReturn(null);
-        Mockito.when(userRepository.findByPhone("999998849")).thenReturn(null);
 
         Map<String, String> response = userService.createUser(user);
 
         assertThat(response.get("status")).isEqualTo("fail");
         assertThat(response.get("message")).isEqualTo("Username already in use");
 
+        verify(userRepository, times(0)).save(Mockito.any());
         verify(userRepository, times(1)).findByUsername(Mockito.anyString());
         verify(userRepository, times(0)).findByEmail(Mockito.anyString());
         verify(userRepository, times(0)).findByPassword(Mockito.anyString());
@@ -96,14 +95,13 @@ public class UserServiceTest {
 
         Mockito.when(userRepository.findByUsername("joao")).thenReturn(null);
         Mockito.when(userRepository.findByEmail("daniel@gmail.com")).thenReturn(userInDb);
-        Mockito.when(userRepository.findByPassword("pass")).thenReturn(null);
-        Mockito.when(userRepository.findByPhone("999998849")).thenReturn(null);
 
         Map<String, String> response = userService.createUser(user);
 
         assertThat(response.get("status")).isEqualTo("fail");
         assertThat(response.get("message")).isEqualTo("Email already in use");
 
+        verify(userRepository, times(0)).save(Mockito.any());
         verify(userRepository, times(1)).findByUsername(Mockito.anyString());
         verify(userRepository, times(1)).findByEmail(Mockito.anyString());
         verify(userRepository, times(0)).findByPassword(Mockito.anyString());
@@ -118,13 +116,13 @@ public class UserServiceTest {
         Mockito.when(userRepository.findByUsername("joao")).thenReturn(null);
         Mockito.when(userRepository.findByEmail("joao@gmail.com")).thenReturn(null);
         Mockito.when(userRepository.findByPassword("danielpass")).thenReturn(userInDb);
-        Mockito.when(userRepository.findByPhone("999998849")).thenReturn(null);
 
         Map<String, String> response = userService.createUser(user);
 
         assertThat(response.get("status")).isEqualTo("fail");
         assertThat(response.get("message")).isEqualTo("Password already in use");
 
+        verify(userRepository, times(0)).save(Mockito.any());
         verify(userRepository, times(1)).findByUsername(Mockito.anyString());
         verify(userRepository, times(1)).findByEmail(Mockito.anyString());
         verify(userRepository, times(1)).findByPassword(Mockito.anyString());
@@ -146,6 +144,7 @@ public class UserServiceTest {
         assertThat(response.get("status")).isEqualTo("fail");
         assertThat(response.get("message")).isEqualTo("Phone already in use");
 
+        verify(userRepository, times(0)).save(Mockito.any());
         verify(userRepository, times(1)).findByUsername(Mockito.anyString());
         verify(userRepository, times(1)).findByEmail(Mockito.anyString());
         verify(userRepository, times(1)).findByPassword(Mockito.anyString());
