@@ -12,6 +12,16 @@ public class User {
     private String phone;
     private String type;
 
+    public User() {}
+
+    public User(String username, String email, String password, String phone, String type) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.type = type;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
