@@ -1,4 +1,4 @@
-package pt.ua.tqs.backend.service;
+package pt.ua.tqs.backend.Service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pt.ua.tqs.backend.Model.User;
 import pt.ua.tqs.backend.Repository.UserRepository;
-import pt.ua.tqs.backend.Service.UserService;
 
 import java.util.Map;
 
