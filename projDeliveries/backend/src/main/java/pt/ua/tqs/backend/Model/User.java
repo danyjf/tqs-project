@@ -10,16 +10,16 @@ public class User {
     private String email;
     private String password;
     private String phone;
-    private String type;
+    private String userType;
 
     public User() {}
 
-    public User(String username, String email, String password, String phone, String type) {
+    public User(String username, String email, String password, String phone, String userType) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.type = type;
+        this.userType = userType;
     }
 
     @Id
@@ -44,7 +44,19 @@ public class User {
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
 
-    @Column(name = "type", nullable = false)
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    @Column(name = "userType", nullable = false)
+    public String getUserType() { return userType; }
+    public void setUserType(String userType) { this.userType = userType; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
+    }
 }
