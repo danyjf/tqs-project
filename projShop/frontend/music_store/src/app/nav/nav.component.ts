@@ -9,12 +9,16 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
-
+  session: boolean = true;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
+
+  ngOnInit() {
+    this.session = sessionStorage.getItem("user_id") === "-1";
+  }
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

@@ -7,7 +7,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name = "manager")
+@Table(name = "Manager")
 public class Manager {
 
     @Id
@@ -19,11 +19,6 @@ public class Manager {
     private String fullname;
     private String email;
     private String password;
-
-    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnore
-    private List<Product> products = new ArrayList<>();
 
 
     public Manager() {
@@ -76,11 +71,6 @@ public class Manager {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-
-    public List<Product> getProducts(){
-        return this.products;
     }
 
     
