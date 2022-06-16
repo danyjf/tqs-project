@@ -17,7 +17,7 @@ export class NavComponent {
     );
 
   ngOnInit() {
-    this.session = sessionStorage.getItem("user_id") === "-1";
+    this.session = (sessionStorage.getItem("user_id") === "-1" || sessionStorage.getItem("user_id") === null);
   }
 
   constructor(private breakpointObserver: BreakpointObserver) {}

@@ -57,7 +57,7 @@ export class ManageComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
-    const id = sessionStorage.getItem('userid');
+    const id = sessionStorage.getItem('user_id');
     if (id != null) {
       this.userid = id
       this.getUserOrders();
