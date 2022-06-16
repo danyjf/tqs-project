@@ -8,7 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     @Id
@@ -21,10 +21,10 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnore
-    private List<Order> orders = new ArrayList<>();
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //@Fetch(value = FetchMode.SUBSELECT)
+    //@JsonIgnore
+    //private List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -76,9 +76,9 @@ public class User {
         this.password = password;
     }
 
-    public List<Order> getOrders(){
+    /**public List<Order> getOrders(){
         return this.orders;
-    }
+    }**/
 
 
     @Override

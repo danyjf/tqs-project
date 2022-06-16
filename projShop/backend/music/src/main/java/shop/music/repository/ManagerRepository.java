@@ -7,6 +7,4 @@ public interface ManagerRepository  extends JpaRepository<Manager, Integer>{
     Manager findById(int id);
     Manager findByEmail(String email);
     Manager findByEmailAndPassword(String email, String password);
-
-    
 }
