@@ -64,9 +64,11 @@ export class ManageComponent {
     }
   }
   getUserOrders(){
-    this.httpClient.get<any>('http://localhost:7070/api/v1/orders/' + this.userid).subscribe(
+    console.log('http://localhost:7070/api/v1/user/orders/' + this.userid)
+    this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
       data => {
-        this.orders = data.content;
+        this.orders = data;
+        console.log(this.orders)
         this.getProducts();
       }
     );
@@ -74,8 +76,7 @@ export class ManageComponent {
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {
-        const products = data;
-        console.log(this.products);
+        const products = data.content;
         products.forEach( (product: Product) => {
           const id = product.id;
           this.orders.forEach( (order) => {

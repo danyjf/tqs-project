@@ -19,6 +19,8 @@ export class ProductComponent {
   price : string = "";
   image : string = "";
   userid: string = "-1";
+  stock: string = "";
+
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
@@ -55,6 +57,11 @@ export class ProductComponent {
     if (image) {
       this.image = image;
     }
+    
+    const stock = this.route.snapshot.queryParamMap.get('stock');
+    if (stock) {
+      this.stock = stock;
+    }
   }
 
   navigateToOrders(title: string, description: string, category: string, price: string, image: string) {
@@ -67,7 +74,13 @@ export class ProductComponent {
   }
 
   createOrder(userID: string, productID: string){
-    this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
-    this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
+    if (this.userid != "-1") {
+      if (this.stock !== "0"){
+          this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
+          this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
+      }
+    } else{
+      this.router.navigate(['/login']);
+    }
   }
 }

@@ -65,10 +65,10 @@ export class HomeComponent {
     this.searchText = searchValue
   }
 
-  navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string) {
+  navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string, stock: string) {
 
     const params: NavigationExtras = {
-      queryParams: {id: id, title: title, description: description, category: category, price: price, image: image},
+      queryParams: {id: id, title: title, description: description, category: category, price: price, image: image, stock: stock},
     }
   
     this.router.navigate(['/product'], params);
