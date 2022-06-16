@@ -3,5 +3,5 @@
     email: string,
     password: string,
     phone: string,
-    type: string
+    userType: string
 }
