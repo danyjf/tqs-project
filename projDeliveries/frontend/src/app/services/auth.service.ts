@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { USERS } from '../interfaces/mock-users';
 import { IRegisterResponse } from '../interfaces/register-response';
@@ -10,7 +11,7 @@ import { IUser } from '../interfaces/user';
     providedIn: 'root'
 })
 export class AuthService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     logout(): void {
         localStorage.setItem("isLoggedIn", "false");
@@ -19,9 +20,10 @@ export class AuthService {
     }
 
     authenticate(username: string, password: string): Observable<IUser> {
-        const user = USERS.find(u => u.username === username && u.password === password)!;
+        // const user = USERS.find(u => u.username === username && u.password === password)!;
         
-        return of(user);
+        // return of(user);
+        return this.http.get<IUser>(`http://localhost:8000/users/${username}/${password}`);
     }
 
     register(username: string, email: string, password: string, phone: string): Observable<IRegisterResponse> {

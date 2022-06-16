@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit(): void {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            email: ['', Validators.required],
             password: ['', Validators.required]
         });
         this.returnUrl = "/deliveries";
@@ -36,18 +36,19 @@ export class LoginComponent implements OnInit {
             this.message = "Fill all fields";
             return;
         } else {
-            this.authService.authenticate(this.f["username"].value, this.f["password"].value)
-                .subscribe(user => this.user = user);
-            
-            if(this.user) {
-                console.log("Login successful");
-                localStorage.setItem("isLoggedIn", "true");
-                localStorage.setItem("userType", this.user.type);
-                localStorage.setItem("token", this.f["username"].value);
-                this.router.navigate([this.returnUrl]);
-            } else {
-                this.message = "Please check your username and password";
-            }
+            this.authService.authenticate(this.f["email"].value, this.f["password"].value).subscribe(user => {
+                this.user = user;
+
+                if(this.user) {
+                    console.log("Login successful");
+                    localStorage.setItem("isLoggedIn", "true");
+                    localStorage.setItem("userType", this.user.type);
+                    localStorage.setItem("token", this.f["email"].value);
+                    this.router.navigate([this.returnUrl]);
+                } else {
+                    this.message = "Please check your email and password";
+                }
+            });
         }
     }
 }
