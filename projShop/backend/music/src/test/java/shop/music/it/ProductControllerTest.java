@@ -1,5 +1,4 @@
 package shop.music.it;
-
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,25 +17,32 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest()
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class OrderControllerTest {
+public class ProductControllerTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void whenGetUserOrders_thenStatus200AndJSON() throws Exception {
-        mvc.perform(get("/api/v1/user/orders/1").contentType(MediaType.APPLICATION_JSON))
+    public void whenGetAllProducts_thenStatus200() throws Exception {
+        mvc.perform(get("/api/v1/products").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    public void whenPostUserOrders_thenStatus200() throws Exception {
+    public void whenGetProductsById_thenStatus200AndReturnProductJSON() throws Exception {
+        mvc.perform(get("/api/v1/product/1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void whenPostProductOrders_thenStatus200() throws Exception {
         mvc.perform( MockMvcRequestBuilders
-                        .post("/api/v1/order/1/1")
-                        .content("{'userid': 1, 'productid': 1}")
+                        .post("/api/v1/products")
+                        .content("{\"imageURL\": \"https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg\",  \"name\": \"Acoustic Guitar\",  \"description\": \"An acoustic guitar is a musical instrument in the string family.\",  \"category\": \"Musical Instrument\", \"price\": \"80\",  \"stock\": \"12\"}")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.userid").exists());
+                        .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
     }
 }
