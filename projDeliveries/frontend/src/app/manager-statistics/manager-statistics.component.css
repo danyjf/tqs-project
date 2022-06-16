@@ -1,0 +1,12 @@
+.filterField {
+    width: 27%;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+th, td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 50%;
+}
