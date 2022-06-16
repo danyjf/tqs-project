@@ -29,4 +29,58 @@ public class UserRepositoryTest {
         assertThat(fromDb.getEmail()).isEqualTo(user.getEmail());
         assertThat(fromDb.getPassword()).isEqualTo(user.getPassword());
     }
+
+    @Test
+    void whenGetUserByExistingEmailAndWrongPassword_thenNullShouldBeReturned() {
+        User user = new User("daniel", "daniel@gmail.com", "danielpass", "983748939", "user");
+        testEntityManager.persistAndFlush(user);
+
+        User fromDb = userRepository.findByEmailAndPassword(user.getEmail(), "WrongPassword");
+
+        assertThat(fromDb).isNull();
+    }
+
+    @Test
+    void whenGetUserByUsername_thenUserShouldBeReturned() {
+        User user = new User("daniel", "daniel@gmail.com", "danielpass", "983748939", "user");
+        testEntityManager.persistAndFlush(user);
+
+        User fromDb = userRepository.findByUsername(user.getUsername());
+
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getUsername()).isEqualTo(user.getUsername());
+    }
+
+    @Test
+    void whenGetUserByEmail_thenUserShouldBeReturned() {
+        User user = new User("daniel", "daniel@gmail.com", "danielpass", "983748939", "user");
+        testEntityManager.persistAndFlush(user);
+
+        User fromDb = userRepository.findByEmail(user.getEmail());
+
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getEmail()).isEqualTo(user.getEmail());
+    }
+
+    @Test
+    void whenGetUserByPassword_thenUserShouldBeReturned() {
+        User user = new User("daniel", "daniel@gmail.com", "danielpass", "983748939", "user");
+        testEntityManager.persistAndFlush(user);
+
+        User fromDb = userRepository.findByPassword(user.getPassword());
+
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getPassword()).isEqualTo(user.getPassword());
+    }
+
+    @Test
+    void whenGetUserByPhone_thenUserShouldBeReturned() {
+        User user = new User("daniel", "daniel@gmail.com", "danielpass", "983748939", "user");
+        testEntityManager.persistAndFlush(user);
+
+        User fromDb = userRepository.findByPhone(user.getPhone());
+
+        assertThat(fromDb).isNotNull();
+        assertThat(fromDb.getPhone()).isEqualTo(user.getPhone());
+    }
 }
