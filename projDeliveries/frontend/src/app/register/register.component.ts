@@ -39,14 +39,16 @@ export class RegisterComponent implements OnInit {
             return;
         } else {
             this.authService.register(this.f["username"].value, this.f["email"].value, this.f["password"].value, this.f["phone"].value)
-                .subscribe(registerResponse => this.registerResponse = registerResponse);
-
-            if(this.registerResponse?.status == "success") {
-                console.log("Registration successful");
-                this.router.navigate([this.returnUrl]);
-            } else {
-                this.message = this.registerResponse?.message;
-            }
+                .subscribe(registerResponse => {
+                    this.registerResponse = registerResponse;
+                    
+                    if(this.registerResponse?.status == "success") {
+                        console.log("Registration successful");
+                        this.router.navigate([this.returnUrl]);
+                    } else {
+                        this.message = this.registerResponse?.message;
+                    }
+                });
         }
     }
 }

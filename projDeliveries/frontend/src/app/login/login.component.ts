@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
                 if(this.user) {
                     console.log("Login successful");
                     localStorage.setItem("isLoggedIn", "true");
-                    localStorage.setItem("userType", this.user.type);
+                    localStorage.setItem("userType", this.user.userType);
                     localStorage.setItem("token", this.f["email"].value);
                     this.router.navigate([this.returnUrl]);
                 } else {
