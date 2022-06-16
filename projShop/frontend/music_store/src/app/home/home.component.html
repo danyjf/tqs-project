@@ -6,7 +6,7 @@
       <mat-card class="dashboard-card" *ngIf="searchText === '' || card.name.toLowerCase().includes(searchText)">
         <mat-card-header>
           <mat-card-title>
-            <button class="button" (click)="navigateToProduct(card.id, card.name, card.description, card.category, card.price, card.imageURL)">{{card.name}}</button>
+            <button class="button" (click)="navigateToProduct(card.id, card.name, card.description, card.category, card.price, card.imageURL, card.stock)">{{card.name}}</button>
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>

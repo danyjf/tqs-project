@@ -37,6 +37,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                branch 'master'
+            }
             steps {
                 dir('projDeliveries') {
                     sh 'docker-compose up -d --build'
@@ -45,6 +48,9 @@ pipeline {
             }
         }
         stage('Monitor') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Now you can monitor!'
             }

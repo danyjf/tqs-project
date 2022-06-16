@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { loggedIn } from '../app.component';
 
 export class Product{
   constructor(
@@ -53,6 +54,7 @@ export class HomeComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private httpClient: HttpClient) { }
 
   ngOnInit() {
+    console.log(sessionStorage.getItem("user_id"));
     this.getProducts();
   } 
 
@@ -63,10 +65,10 @@ export class HomeComponent {
     this.searchText = searchValue
   }
 
-  navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string) {
+  navigateToProduct(id: string, title: string, description: string, category: string, price: string, image: string, stock: string) {
 
     const params: NavigationExtras = {
-      queryParams: {id: id, title: title, description: description, category: category, price: price, image: image},
+      queryParams: {id: id, title: title, description: description, category: category, price: price, image: image, stock: stock},
     }
   
     this.router.navigate(['/product'], params);
@@ -75,7 +77,8 @@ export class HomeComponent {
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {
-        this.products = data;
+        console.log(data.content);
+        this.products = data.content;
       }
     );
   }

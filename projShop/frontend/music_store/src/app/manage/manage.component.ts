@@ -29,6 +29,7 @@ export class ManageComponent {
   status : string = "Processing Payment";
   orders: Order[] = [];
   products: Product[] = [];
+  userid: string = "-1";
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -56,37 +57,18 @@ export class ManageComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
-    this.getUserOrders();
-    /**
-    const category = this.route.snapshot.queryParamMap.get('category');
-    if (category) {
-      this.category = category;
+    const id = sessionStorage.getItem('userid');
+    if (id != null) {
+      this.userid = id
+      this.getUserOrders();
     }
-    
-    const title = this.route.snapshot.queryParamMap.get('title');
-    if (title) {
-      this.title = title;
-    }
-
-    const description = this.route.snapshot.queryParamMap.get('description');
-    if (description) {
-      this.description = description;
-    }
-
-    const price = this.route.snapshot.queryParamMap.get('price');
-    if (price) {
-      this.price = price;
-    }
-
-    const image = this.route.snapshot.queryParamMap.get('image');
-    if (image) {
-      this.image = image;
-    } */
   }
   getUserOrders(){
-    this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/1').subscribe(
+    console.log('http://localhost:7070/api/v1/user/orders/' + this.userid)
+    this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
       data => {
         this.orders = data;
+        console.log(this.orders)
         this.getProducts();
       }
     );
@@ -94,8 +76,7 @@ export class ManageComponent {
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {
-        const products = data;
-        console.log(this.products);
+        const products = data.content;
         products.forEach( (product: Product) => {
           const id = product.id;
           this.orders.forEach( (order) => {
