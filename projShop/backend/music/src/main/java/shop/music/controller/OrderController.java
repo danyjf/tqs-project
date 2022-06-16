@@ -12,7 +12,25 @@ import shop.music.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 
+
+@CrossOrigin(origins = {"*"})
+@RestController
+public class OrderController {
+    @Autowired
+    private OrderService service;
+
+    @GetMapping("api/v1/user/orders/{user_id}")
+    public List<Order> getUserOrders(@PathVariable(value = "user_id") Integer user_id) {
+        return service.getUserOrders(user_id);
+    }
+    @PostMapping("api/v1/order/{user_id}/{product_id}")
+    public Order addProduct(@PathVariable(value = "user_id") Integer user_id, @PathVariable(value = "product_id") Integer product_id) {
+        return service.createOrder(new Order(user_id, product_id)); }
+}
+
+/**
 @CrossOrigin(origins = {"http://127.0.0.1:4200", "http://localhost:4200", "http://deti-tqs-15.ua.pt:7070"})
 @RestController
 public class OrderController {
@@ -33,8 +51,8 @@ public class OrderController {
     }
 
     @PostMapping("/api/v1/order")
-    public Order createOrder(@RequestBody Order order, @RequestParam int id) {
-        return service.saveOrder(new Order(userService.getUserById(id)));
+    public Order createOrder(@RequestBody Order order) {
+        return service.saveOrder(order);
     }
 
     @DeleteMapping("/api/v1/order/{id}")
@@ -69,12 +87,5 @@ public class OrderController {
 
         return service.saveOrder(order); 
     }
-
-    @PostMapping("/api/v1/order/confirm/{id}")
-    public Order confirmOrder(@PathVariable int id){
-        Order order = service.getOrderById(id);
-        order.setState(true);
-        return service.saveOrder(order);
-    }
 }
-
+**/

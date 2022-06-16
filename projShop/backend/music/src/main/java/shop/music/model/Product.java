@@ -10,7 +10,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
     private String imageURL;
     private String name;
     private Float price;
@@ -18,24 +17,19 @@ public class Product {
     private Integer stock;
     private String category;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "OrderProduct",joinColumns = { @JoinColumn(name = "product.id") },inverseJoinColumns = { @JoinColumn(name = "orderr.id") })
-    private List<Order> orders = new ArrayList<>();
-
     public Product(){}
 
-    public Product(String name, String imageURL, Float price, String description, Integer stock, String category, Manager manager){
+    public Product(String name, String imageURL, Float price, String description, Integer stock, String category){
         this.name=name;
         this.imageURL=imageURL;
         this.price=price;
         this.description=description;
         this.stock=stock;
         this.category=category;
-        this.manager=manager;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Column(name = "imageURL", nullable = false)
@@ -93,23 +87,6 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
 

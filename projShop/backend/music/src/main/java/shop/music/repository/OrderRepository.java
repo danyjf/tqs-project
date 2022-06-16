@@ -9,11 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import shop.music.model.Order;
 
+import java.util.List;
+
 
 // @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     Order findById(int id);
-    //List<Order> findOrderByUserId(Integer user_id);
+    List<Order> findOrderByUserid(Integer user_id);
 
     @Query(value="SELECT e FROM Orderr e LEFT JOIN User u ON e.user = u WHERE u.id=:u_id", nativeQuery = true)
     Page<Order> getOrdersByUser(@Param("u_id") int u_id, Pageable pageable);

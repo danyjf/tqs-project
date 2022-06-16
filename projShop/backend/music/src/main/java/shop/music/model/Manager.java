@@ -20,11 +20,6 @@ public class Manager {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnore
-    private List<Product> products = new ArrayList<>();
-
 
     public Manager() {
     }
@@ -76,11 +71,6 @@ public class Manager {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-
-    public List<Product> getProducts(){
-        return this.products;
     }
 
     

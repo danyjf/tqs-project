@@ -10,7 +10,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.data.domain.Sort;
 
 
-@CrossOrigin(origins = {"http://127.0.0.1:4200", "http://localhost:4200", "http://deti-tqs-15.ua.pt:7070"})
+@CrossOrigin(origins = {"*"})
 @RestController
 public class ProductController {
     @Autowired
