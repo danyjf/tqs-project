@@ -3,7 +3,7 @@ package pt.ua.tqs.backend.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     private long id;
     private String username;
