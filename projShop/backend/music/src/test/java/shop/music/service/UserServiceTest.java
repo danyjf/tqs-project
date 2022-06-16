@@ -1,4 +1,4 @@
-package shop.music.Service;
+package shop.music.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import shop.music.model.User;
 import shop.music.repository.UserRepository;
-import shop.music.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
