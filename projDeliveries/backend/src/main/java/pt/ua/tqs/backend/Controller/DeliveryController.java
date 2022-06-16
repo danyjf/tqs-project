@@ -1,10 +1,10 @@
 package pt.ua.tqs.backend.Controller;
 
+import pt.ua.tqs.backend.Service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import pt.ua.tqs.backend.Service.DeliveryService;
 import pt.ua.tqs.backend.Model.Delivery;
 
 import java.sql.Timestamp;

@@ -3,45 +3,49 @@ package shop.music.model;
 import javax.persistence.*;
 import java.util.*;
 
-
 @Entity
 @Table(name = "Product")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-
+    private String imageURL;
     private String name;
     private Float price;
     private String description;
     private Integer stock;
     private String category;
 
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "OrderProduct",joinColumns = { @JoinColumn(name = "product.id") },inverseJoinColumns = { @JoinColumn(name = "order.id") })
-    private List<Order> orders = new ArrayList<>();
-
     public Product(){}
 
-    public Product(String name, Float price, String description, Integer stock, String category, Manager manager){
+    public Product(String name, String imageURL, Float price, String description, Integer stock, String category){
         this.name=name;
+        this.imageURL=imageURL;
         this.price=price;
         this.description=description;
         this.stock=stock;
         this.category=category;
-        this.manager=manager;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    @Column(name = "imageURL", nullable = false)
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -60,6 +64,8 @@ public class Product {
     public String getDescription() {
         return description;
     }
+
+
 
     public void setDescription(String description) {
         this.description = description;
@@ -83,21 +89,5 @@ public class Product {
         this.category = category;
     }
 
-    public Manager getManager() {
-        return manager;
-    }
 
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
-
-    
 }

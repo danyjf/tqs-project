@@ -52,7 +52,7 @@ public class DeliveryService {
         
         Delivery d = dr.findById(deliveryId);
         User r = ur.findByPhone(riderPhone);
-        if (r == null || !r.getType().equals("Rider") || d.getRider() != null){
+        if (r == null || !r.getUserType().equals("Rider") || d.getRider() != null){
             return null;
         }
         d.setRider(r);

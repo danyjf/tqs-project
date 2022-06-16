@@ -71,7 +71,7 @@ class DeliveryServiceTests {
     @Test
     void AssignRiderToDelivery(){
         User rider = new User();
-        rider.setType("Rider");
+        rider.setUserType("Rider");
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
@@ -85,7 +85,7 @@ class DeliveryServiceTests {
     @Test
     void AssignNonRiderToDelivery(){
         User rider = new User();
-        rider.setType("Manager");
+        rider.setUserType("Manager");
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
@@ -98,7 +98,7 @@ class DeliveryServiceTests {
     void AssignRiderToAlreadyAssignedDelivery(){
         User rider = new User();
         Delivery delivery = new Delivery();
-        rider.setType("Rider");
+        rider.setUserType("Rider");
         delivery.setRider(rider);
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
