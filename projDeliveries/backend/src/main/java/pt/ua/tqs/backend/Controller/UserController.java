@@ -10,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;
