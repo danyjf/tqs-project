@@ -25,7 +25,7 @@ export class ProductComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
-    const userid = sessionStorage.getItem('userid');
+    const userid = sessionStorage.getItem('user_id');
     if (userid != null) {
       this.userid = userid;
     }
@@ -73,14 +73,22 @@ export class ProductComponent {
     this.router.navigate(['/orders'], params);
   }
 
-  createOrder(userID: string, productID: string){
-    if (this.userid != "-1") {
-      if (this.stock !== "0"){
-          this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
-          this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
-      }
-    } else{
-      this.router.navigate(['/login']);
+  createOrder(productID: string){
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const buy = confirm("Are you sure you want to buy this product?");
+      if (buy) {
+        const address = prompt("Please enter the delivery address: ");
+        console.log(address);
+        console.log("userID: " + userID)
+          if (this.stock !== "0"){
+              this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
+              this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
+            });
+          }
     }
+  } else{
+    this.router.navigate(['/login']);
   }
+}
 }
