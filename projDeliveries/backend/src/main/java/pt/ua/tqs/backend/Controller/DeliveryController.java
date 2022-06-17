@@ -18,10 +18,10 @@ public class DeliveryController {
     private DeliveryService ds;
     
     @PostMapping("/delivery")
-    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
+    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientName, @RequestBody String clientAddress, @RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
     //receive information for delivery, send to service, receive delivery and respond
         Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
-        Delivery d = ds.createDelivery(clientPhone, storePhone, orderTimestamp, orderNote);
+        Delivery d = ds.createDelivery(clientName, clientAddress, clientPhone, storePhone, orderTimestamp, orderNote);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }

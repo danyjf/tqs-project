@@ -41,8 +41,8 @@ class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
-        //fails here since result is a null for now
+        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        //result is a delivery with the right client and store
         assertEquals(client, result.getClient());
         assertEquals(store, result.getStore());
 
@@ -53,9 +53,9 @@ class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234567")).thenReturn(null);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
-        //result should be a null, since client doesnt exist
-        assertEquals(null, result);
+        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        //result should be a client with the information sent
+        assertEquals("911234567", result.getClient().getPhone());
     }
 
     @Test
@@ -63,7 +63,7 @@ class DeliveryServiceTests {
         Client client = new Client();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.createDelivery("911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
         //result should be a null since store doesnt exist
         assertEquals(null, result);
     }
@@ -76,9 +76,8 @@ class DeliveryServiceTests {
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
         Delivery result = deliveryService.assignToRider(1, "123456789");
-        //result should be a null since store doesnt exist
-        delivery.setRider(rider);
-        assertEquals(delivery, result);
+        //result should be the delivery with the rider properly set
+        assertEquals(rider, result.getRider());
 
     }
 

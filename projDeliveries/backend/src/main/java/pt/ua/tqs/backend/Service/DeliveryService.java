@@ -28,11 +28,15 @@ public class DeliveryService {
         this.ur = ur;
     }
     
-    public Delivery createDelivery(String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
+    public Delivery createDelivery(String clientName, String clientAddress , String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
         Client c = cr.findByPhone(clientPhone);
         Store s = sr.findByPhone(storePhone);
-        if (s == null || c == null){
+        if (s == null){
             return null;
+        }
+        if (c == null){
+            Client nc = new Client();
+            cr.save(nc);
         }
         Delivery d = new Delivery(orderTime, orderNote);
         d.setClient(c);
