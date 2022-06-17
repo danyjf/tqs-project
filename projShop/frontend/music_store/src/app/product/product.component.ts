@@ -75,15 +75,20 @@ export class ProductComponent {
 
   createOrder(productID: string){
     const userID = sessionStorage.getItem('user_id')
-    console.log("userID: " + userID)
-    if (userID !== "-1" && userID !== null) {
-      if (this.stock !== "0"){
-          this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
-          this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
-        });
-      }
-    } else{
-      this.router.navigate(['/login']);
+    if(userID !== "-1" && userID !== null) {
+      const buy = confirm("Are you sure you want to buy this product?");
+      if (buy) {
+        const address = prompt("Please enter the delivery address: ");
+        console.log(address);
+        console.log("userID: " + userID)
+          if (this.stock !== "0"){
+              this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
+              this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
+            });
+          }
     }
+  } else{
+    this.router.navigate(['/login']);
   }
+}
 }
