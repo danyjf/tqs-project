@@ -122,4 +122,21 @@ public class DeliveryControllerTest {
         assertThat(response.getBody()).extracting(Delivery::getRider).isEqualTo(u);
         
     }
+
+    @Test
+    void UpdateDelivery() {
+        Delivery del = new Delivery();
+        deliveryRepository.saveAndFlush(del);
+
+        String status = "delivered";
+
+        HashMap<String, Object> hm = new HashMap<String, Object>();
+        hm.put("deliveryId", 1);
+        hm.put("status", status);
+
+        ResponseEntity<Delivery> response = restTemplate.postForEntity("/delivery/status", hm, Delivery.class);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).extracting(Delivery::getDeliveryStatus).isEqualTo(status);
+    }
 }
