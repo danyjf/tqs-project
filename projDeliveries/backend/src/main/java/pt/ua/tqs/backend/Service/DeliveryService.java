@@ -63,4 +63,16 @@ public class DeliveryService {
         dr.save(d);
         return d;
     }
+
+    public Delivery updateDeliveryStatus(long deliveryId, String status){
+        //receive information about the delivery and its status, save and send back updated delivery to controller
+
+        Delivery d = dr.findById(deliveryId);
+        if (d == null){
+            return null;
+        }
+        d.setDeliveryStatus(status);
+        dr.save(d);
+        return d;
+    }
 }

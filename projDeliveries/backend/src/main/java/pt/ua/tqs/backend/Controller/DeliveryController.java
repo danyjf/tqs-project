@@ -16,35 +16,44 @@ import java.util.List;
 public class DeliveryController {
     @Autowired
     private DeliveryService ds;
-    
+
     @PostMapping("/delivery")
-    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientName, @RequestBody String clientAddress, @RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
-    //receive information for delivery, send to service, receive delivery and respond
+    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientName, @RequestBody String clientAddress, @RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote) {
+        //receive information for delivery, send to service, receive delivery and respond
         Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
         Delivery d = ds.createDelivery(clientName, clientAddress, clientPhone, storePhone, orderTimestamp, orderNote);
-        if(d != null){
+        if (d != null) {
             return ResponseEntity.ok().body(d);
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> listDeliveries(){
-    //ask service for deliveries, send response with deliveries
+    public ResponseEntity<List<Delivery>> listDeliveries() {
+        //ask service for deliveries, send response with deliveries
         List<Delivery> ld = ds.listDeliveries();
         return ResponseEntity.ok().body(ld);
     }
-    
+
     @PostMapping("/delivery/rider")
-    public ResponseEntity<Delivery> assignToRider(@RequestBody long deliveryId, @RequestBody String riderPhone){
-    //send rider and delivery information to service, receive updated delivery and respond
+    public ResponseEntity<Delivery> assignToRider(@RequestBody long deliveryId, @RequestBody String riderPhone) {
+        //send rider and delivery information to service, receive updated delivery and respond
         Delivery d = ds.assignToRider(deliveryId, riderPhone);
-        if(d != null){
+        if (d != null) {
             return ResponseEntity.ok().body(d);
+        } else {
+            return ResponseEntity.badRequest().body(null);
         }
-        else{
+    }
+
+    @PutMapping("/delivery/status")
+    public ResponseEntity<Delivery> updateDeliveryStatus(@RequestBody long deliveryId, @RequestBody String status) {
+        //send delivery and status information to service, receive updated delivery and respond
+        Delivery d = ds.updateDeliveryStatus(deliveryId, status);
+        if (d != null) {
+            return ResponseEntity.ok().body(d);
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }
