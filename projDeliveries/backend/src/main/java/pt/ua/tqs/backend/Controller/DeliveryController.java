@@ -18,8 +18,9 @@ public class DeliveryController {
     private DeliveryService ds;
     
     @PostMapping("/delivery")
-    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientName, @RequestBody String clientAddress, @RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
+    public ResponseEntity<Delivery> create_delivery(@RequestParam String clientName, @RequestParam String clientAddress, @RequestParam String clientPhone, @RequestParam String storePhone, @RequestParam String orderTime, @RequestParam String orderNote){
     //receive information for delivery, send to service, receive delivery and respond
+        System.out.println(orderTime);
         Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
         Delivery d = ds.createDelivery(clientName, clientAddress, clientPhone, storePhone, orderTimestamp, orderNote);
         if(d != null){
@@ -38,9 +39,10 @@ public class DeliveryController {
     }
     
     @PostMapping("/delivery/rider")
-    public ResponseEntity<Delivery> assignToRider(@RequestBody long deliveryId, @RequestBody String riderPhone){
+    public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
     //send rider and delivery information to service, receive updated delivery and respond
-        Delivery d = ds.assignToRider(deliveryId, riderPhone);
+        long delId = Long.parseLong(deliveryId);
+        Delivery d = ds.assignToRider(delId, riderPhone);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }

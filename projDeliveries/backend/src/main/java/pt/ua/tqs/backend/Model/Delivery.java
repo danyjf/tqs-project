@@ -1,6 +1,9 @@
 package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.sql.Timestamp;
 
 @Entity
@@ -65,7 +68,7 @@ public class Delivery {
     //Rider aqui, many to 1
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "users")
     public User getRider(){
         return rider;
     }

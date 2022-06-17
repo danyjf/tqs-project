@@ -31,15 +31,18 @@ public class DeliveryService {
     public Delivery createDelivery(String clientName, String clientAddress , String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
         Client c = cr.findByPhone(clientPhone);
         Store s = sr.findByPhone(storePhone);
+        Delivery d = new Delivery(orderTime, orderNote);
         if (s == null){
             return null;
         }
         if (c == null){
-            Client nc = new Client();
+            Client nc = new Client(clientName, clientAddress, clientPhone);
             cr.save(nc);
+            d.setClient(nc);
         }
-        Delivery d = new Delivery(orderTime, orderNote);
-        d.setClient(c);
+        else {
+            d.setClient(c);
+        }
         d.setStore(s);
         dr.save(d);
         return d;

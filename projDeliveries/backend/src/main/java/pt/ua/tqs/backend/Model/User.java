@@ -1,10 +1,19 @@
 package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.Set;
 import java.util.HashSet;
 
 @Entity
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "username")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Table(name = "users")
 public class User {
     private long id;
