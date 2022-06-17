@@ -1,7 +1,0 @@
--------------------------------------------------------------------------------
-Test set: shop.music.MusicApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.353 s <<< FAILURE! - in shop.music.MusicApplicationTests
-shop.music.MusicApplicationTests  Time elapsed: 0.351 s  <<< ERROR!
-java.lang.IllegalStateException: Could not detect default properties file for test class [shop.music.MusicApplicationTests]: class path resource [shop/music/MusicApplicationTests.properties] does not exist. Either declare the 'locations' or 'properties' attributes of @TestPropertySource or make the default properties file available.
-
