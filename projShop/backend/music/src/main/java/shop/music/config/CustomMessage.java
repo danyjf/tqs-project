@@ -14,8 +14,7 @@ import java.util.Date;
 @ToString
 public class CustomMessage {
 
-    private String messageId;
-    private String message;
-    private Date messageDate;
+    private String orderId;
+    private String status;
 
 }
