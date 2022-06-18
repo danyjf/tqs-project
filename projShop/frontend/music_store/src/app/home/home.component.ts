@@ -14,7 +14,8 @@ export class Product{
     public category: string,
     public imageURL: string,
     public price: string,
-    public stock: string
+    public stock: string,
+    public status: string
   ) {
     
   }

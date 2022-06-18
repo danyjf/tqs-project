@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import shop.music.model.Order;
+import shop.music.model.Product;
+import shop.music.model.User;
 import shop.music.repository.OrderRepository;
 
 import java.util.ArrayList;
@@ -26,8 +28,8 @@ public class OrderServiceTest {
 
     @Test
     void whenGetOrderByUserId_thenUserOrdersShouldBeReturned() {
-        Order order = new Order(1,2);
-        Order order2 = new Order(1,2);
+        Order order = new Order(1, 1, "status");
+        Order order2 = new Order(1, 2, "status");
 
         List<Order> orders = new ArrayList<>();
         orders.add(order);
@@ -44,8 +46,8 @@ public class OrderServiceTest {
 
     @Test
     void whenGetAllOrders_thenAllOrdersShouldBeReturned() {
-        Order order1 = new Order(1,2);
-        Order order2 = new Order(1,2);
+        Order order1 = new Order();
+        Order order2 = new Order();
 
         List<Order> orders = new ArrayList<>();
         orders.add(order1);

@@ -11,6 +11,7 @@ export class Order{
   constructor(
     public userid: number,
     public productid: number,
+    public status: String
   ) {
     
   }
@@ -26,7 +27,7 @@ export class ManageComponent {
   description : string = "";
   price : string = "";
   image : string = "";
-  status : string = "Processing Payment";
+  status : string = "";
   orders: Order[] = [];
   products: Product[] = [];
   userid: string = "-1";
@@ -81,6 +82,7 @@ export class ManageComponent {
           const id = product.id;
           this.orders.forEach( (order) => {
             if (String(order.productid) == id) {
+              product.status = order.status.toString();
               this.products.push(product);
             }
           });
