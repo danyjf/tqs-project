@@ -11,6 +11,7 @@ import java.sql.Timestamp;
 public class Delivery {
     private long id;
     private Timestamp orderTime;
+    private long orderId;
     private Store store;
     private Client client;
     private String orderNote;
@@ -64,6 +65,10 @@ public class Delivery {
     @Column(name = "orderNote", nullable = false)
     public String getOrderNote() { return orderNote; }
     public void setOrderNote(String orderNote) { this.orderNote = orderNote; }
+
+    @Column(name = "orderId", nullable = false)
+    public long getOrderId() { return orderId; }
+    public void setOrderId(long orderId) { this.orderId = orderId; }
 
     //Rider aqui, many to 1
 
