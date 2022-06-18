@@ -11,7 +11,7 @@ export class Order{
   constructor(
     public userid: number,
     public productid: number,
-    public status: String
+    public status: string
   ) {
     
   }
