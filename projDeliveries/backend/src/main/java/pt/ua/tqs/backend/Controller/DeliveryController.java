@@ -37,10 +37,11 @@ public class DeliveryController {
     }
 
     @PostMapping("/delivery/rider")
-    public ResponseEntity<Delivery> assignToRider(@RequestBody long deliveryId, @RequestBody String riderPhone) {
-        //send rider and delivery information to service, receive updated delivery and respond
-        Delivery d = ds.assignToRider(deliveryId, riderPhone);
-        if (d != null) {
+    public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
+    //send rider and delivery information to service, receive updated delivery and respond
+        long delId = Long.parseLong(deliveryId);
+        Delivery d = ds.assignToRider(delId, riderPhone);
+        if(d != null){
             return ResponseEntity.ok().body(d);
         } else {
             return ResponseEntity.badRequest().body(null);

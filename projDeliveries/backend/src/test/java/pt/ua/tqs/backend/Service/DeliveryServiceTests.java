@@ -51,11 +51,11 @@ class DeliveryServiceTests {
     @Test
     void CreateDeliveryWithNonExistingUser(){
         Store store = new Store();
-        when(clientRepository.findByPhone("911234567")).thenReturn(null);
+        when(clientRepository.findByPhone("911234568")).thenReturn(null);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234568","256245365",Timestamp.from(Instant.now()),"Fragile objects");
         //result should be a client with the information sent
-        assertEquals("911234567", result.getClient().getPhone());
+        assertEquals("911234568", result.getClient().getPhone());
     }
 
     @Test
