@@ -29,6 +29,13 @@ public class Delivery {
         deliveryDelayed = false;
     }
 
+    public Delivery(Timestamp orderTime, Store store, Client client, String orderNote) {
+        this.orderTime = orderTime;
+        this.store = store;
+        this.client = client;
+        this.orderNote = orderNote;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
