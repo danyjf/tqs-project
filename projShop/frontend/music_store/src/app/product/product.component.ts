@@ -73,6 +73,10 @@ export class ProductComponent {
     this.router.navigate(['/orders'], params);
   }
 
+  addToCart(id: string){
+    
+  }
+
   createOrder(productID: string){
     const userID = sessionStorage.getItem('user_id')
     if(userID !== "-1" && userID !== null) {
