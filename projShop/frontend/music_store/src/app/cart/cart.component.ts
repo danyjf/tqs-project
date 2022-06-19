@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../service/cart.service';
 
@@ -12,7 +13,8 @@ export class CartComponent implements OnInit {
   public address: string = "";
   public note: string = "";
   public phone: string = "";
-  constructor(private cartService: CartService) { }
+  public products: string = "";
+  constructor(private cartService: CartService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.cartService.getProducts().subscribe(resp => {
@@ -32,6 +34,12 @@ export class CartComponent implements OnInit {
   checkout() {
     if (this.address.length > 0 && this.phone.length > 0) {
       console.log(this.address)
+      this.products = "";
+      this.product.forEach((prod: { productID: string; }) => {
+        this.products += prod.productID + "-";
+      });
+      this.products = this.products.slice(0, -1);
+      this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {console.log(response);})
     } 
   }
 

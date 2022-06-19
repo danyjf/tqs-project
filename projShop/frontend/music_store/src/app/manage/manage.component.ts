@@ -64,16 +64,18 @@ export class ManageComponent {
       this.getUserOrders();
     }
   }
+
   getUserOrders(){
     console.log('http://localhost:7070/api/v1/user/orders/' + this.userid)
     this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
       data => {
         this.orders = data;
         console.log(this.orders)
-        this.getProducts();
+        this.products = data.products;
       }
     );
   }
+
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {

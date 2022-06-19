@@ -79,9 +79,14 @@ export class ProductComponent {
   }
 
   addToCart(title: string, description: string, category: string, price: string, image: string){
-    const product: Product = new Product((Math.floor(Math.random() * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
-    Object.assign(product, {quantity: 1, totalprice: price});
-    this.cartService.addToCart(product);
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const product: Product = new Product((Math.floor(Math.random() * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
+      Object.assign(product, {quantity: 1, totalprice: price, productID: this.id});
+      this.cartService.addToCart(product);
+    } else{
+      this.router.navigate(['/login']);
+    }
   }
 
   createOrder(productID: string){
