@@ -3,6 +3,7 @@ package pt.ua.tqs.backend.Model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
 
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 @Table(name = "delivery")
 public class Delivery {
     private long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp orderTime;
     private long orderId;
     private Store store;
@@ -26,6 +28,13 @@ public class Delivery {
         this.orderNote = orderNote;
         deliveryStatus = "Available for a rider";
         deliveryDelayed = false;
+    }
+
+    public Delivery(Timestamp orderTime, Store store, Client client, String orderNote) {
+        this.orderTime = orderTime;
+        this.store = store;
+        this.client = client;
+        this.orderNote = orderNote;
     }
 
     @Id
