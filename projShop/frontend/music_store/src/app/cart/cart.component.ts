@@ -9,6 +9,7 @@ import { CartService } from '../service/cart.service';
 export class CartComponent implements OnInit {
   public product: any = [];
   public grandTotal !: number;
+  public address: string = "";
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -24,6 +25,12 @@ export class CartComponent implements OnInit {
 
   emptyCart() {
     this.cartService.removeAllCart();
+  }
+
+  checkout() {
+    if (this.address.length > 0){
+      console.log(this.address)
+    } 
   }
 
 }

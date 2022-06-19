@@ -7,8 +7,8 @@
                     <tr>
                         <th>Sr.No</th>
                         <th>Image</th>
+                        <th></th>
                         <th>Product</th>
-                        <th>Description</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
@@ -20,7 +20,7 @@
                         <td>{{ i+1 }}</td>
                         <td><img style="width: 120px" src="{{item.imageURL}}"></td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.description }}</td>
+                        <td>{{ item.name }}</td>
                         <td>{{ item.price }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.totalprice }}</td>
@@ -37,6 +37,8 @@
         </div>
     </div>
     </div>
+    <input id="address" name="address" [(ngModel)]="address" placeholder="Enter Your Address"><button (click)="checkout()">Checkout</button>
+
     
 </ng-container>
 
