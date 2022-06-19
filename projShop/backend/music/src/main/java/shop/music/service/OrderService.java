@@ -23,13 +23,18 @@ public class OrderService {
 
     public List<Order> getAll() { return orderRepository.findAll(); }
 
+    public Order createOrder(Order order){
+        return orderRepository.save(order);
+    }
+
     public Order createOrder(Integer user_id, String products) {
         List<Product> list = new ArrayList<>();
-        for (String product: products.split("-")) {
-            System.out.println("product: " + product);
-            list.add(productService.getProductById(Integer.parseInt(product)));
-        }
         Order order = new Order(user_id, list, "Pending");
+        for (String product: products.split("-")) {
+            List<Product> temp = order.getProducts();
+            temp.add(productService.getProductById(Integer.parseInt(product)));
+            order.setProducts(temp);
+        }
 
         order.setProductid((int) order.getId());
 

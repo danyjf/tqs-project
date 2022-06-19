@@ -28,6 +28,9 @@ public class OrderController {
     public Order addProduct(@PathVariable(value = "user_id") Integer user_id, @RequestParam String products) {
         System.out.println("products: " + products);
         return service.createOrder(user_id, products);}
+    @PostMapping("api/v1/order")
+    public Order addProduct(@RequestBody Order order) {
+        return service.createOrder(order);}
 
     @DeleteMapping("api/v1/orders")
     public String addProduct() {
