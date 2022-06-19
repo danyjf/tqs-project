@@ -28,7 +28,6 @@ public class DeliveryService {
         this.ur = ur;
     }
     
-//    public Delivery createDelivery(String clientName, String clientAddress , String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
     public Delivery createDelivery(Delivery delivery){
         Client c = cr.findByPhone(delivery.getClient().getPhone());
         Store s = sr.findByPhone(delivery.getStore().getPhone());
