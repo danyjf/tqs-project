@@ -10,12 +10,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Order{
  private long id;
  private Integer userid;
+ private List<Product> products;
  private Integer productid;
  private String status;
 
- public Order(Integer user_id, Integer product_id, String status){
+ public Order(Integer user_id, List<Product> products, String status){
      this.userid = user_id;
-     this.productid = product_id;
+     this.products = products;
      this.status = status;
  }
 
@@ -33,9 +34,13 @@ public class Order{
     public Integer getUserid() { return userid; }
     public void setUserid(Integer userid) { this.userid = userid; }
 
-    @Column(name = "productid", nullable = false)
+    @Column(name = "productid", nullable = true)
     public Integer getProductid() { return productid; }
-    public void setProductid(Integer product_id) { this.productid = product_id; }
+    public void setProductid(Integer productid) { this.productid = productid; }
+
+    @OneToMany(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Product> getProducts() { return products; }
+    public void setProducts(List<Product> products) { this.products = products; }
 
     @Column(name = "status", nullable = false)
     public String getStatus() { return status; }

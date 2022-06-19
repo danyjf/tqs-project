@@ -62,8 +62,7 @@ public class OrderControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
 
         mvc.perform( MockMvcRequestBuilders
-                        .post("/api/v1/order/1/1")
-                        .content("{'userid': 1, 'productid': 1}")
+                        .post("/api/v1/order/1?products=1-2-3")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
