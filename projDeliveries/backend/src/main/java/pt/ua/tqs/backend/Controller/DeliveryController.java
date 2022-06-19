@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import pt.ua.tqs.backend.Model.Delivery;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -31,10 +30,11 @@ public class DeliveryController {
     }
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> listDeliveries(){
+//    public ResponseEntity<List<Delivery>> listDeliveries(){
+    public List<Delivery> listDeliveries(){
     //ask service for deliveries, send response with deliveries
         List<Delivery> ld = ds.listDeliveries();
-        return ResponseEntity.ok().body(ld);
+        return ld;
     }
     
     @PostMapping("/delivery/rider")

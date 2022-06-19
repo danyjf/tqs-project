@@ -2,7 +2,6 @@ package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
@@ -49,9 +48,7 @@ public class Delivery {
 
     //@OneToMany(targetEntity = Song.class, fetch= FetchType.LAZY, mappedBy = "album", cascade = CascadeType.ALL)
 
-    //client aqui, relação many to 1
-
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client")
     public Client getClient(){
         return client;
@@ -59,8 +56,6 @@ public class Delivery {
     public void setClient(Client c){
         this.client = c;
     }
-
-    //store aqui, many to 1
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "store")
@@ -78,8 +73,6 @@ public class Delivery {
     @Column(name = "orderId", nullable = false)
     public long getOrderId() { return orderId; }
     public void setOrderId(long orderId) { this.orderId = orderId; }
-
-    //Rider aqui, many to 1
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "users")
