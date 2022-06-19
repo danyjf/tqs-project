@@ -28,17 +28,17 @@ public class DeliveryService {
         this.ur = ur;
     }
     
-    public Delivery createDelivery(String clientName, String clientAddress , String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
-        Client c = cr.findByPhone(clientPhone);
-        Store s = sr.findByPhone(storePhone);
-        Delivery d = new Delivery(orderTime, orderNote);
+//    public Delivery createDelivery(String clientName, String clientAddress , String clientPhone, String storePhone, Timestamp orderTime, String orderNote){
+    public Delivery createDelivery(Delivery delivery){
+        Client c = cr.findByPhone(delivery.getClient().getPhone());
+        Store s = sr.findByPhone(delivery.getStore().getPhone());
+        Delivery d = new Delivery(delivery.getOrderTime(), delivery.getOrderNote());
         if (s == null){
             return null;
         }
         if (c == null){
-            Client nc = new Client(clientName, clientAddress, clientPhone);
-            cr.save(nc);
-            d.setClient(nc);
+            cr.save(delivery.getClient());
+            d.setClient(delivery.getClient());
         }
         else {
             d.setClient(c);

@@ -13,16 +13,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
 public class DeliveryController {
     @Autowired
     private DeliveryService ds;
     
     @PostMapping("/delivery")
-    public ResponseEntity<Delivery> create_delivery(@RequestParam String clientName, @RequestParam String clientAddress, @RequestParam String clientPhone, @RequestParam String storePhone, @RequestParam String orderTime, @RequestParam String orderNote){
+//    public ResponseEntity<Delivery> create_delivery(@RequestBody String clientName, @RequestBody String clientAddress, @RequestBody String clientPhone, @RequestBody String storePhone, @RequestBody String orderTime, @RequestBody String orderNote){
+    public ResponseEntity<Delivery> create_delivery(@RequestBody Delivery delivery){
     //receive information for delivery, send to service, receive delivery and respond
-        System.out.println(orderTime);
-        Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
-        Delivery d = ds.createDelivery(clientName, clientAddress, clientPhone, storePhone, orderTimestamp, orderNote);
+//        System.out.println(orderTime);
+//        Timestamp orderTimestamp = Timestamp.valueOf(orderTime);
+//        Delivery d = ds.createDelivery(clientName, clientAddress, clientPhone, storePhone, orderTimestamp, orderNote);
+//        if(d != null){
+//            return ResponseEntity.ok().body(d);
+//        }
+//        else{
+//            return ResponseEntity.badRequest().body(null);
+//        }
+
+        Delivery d = ds.createDelivery(delivery);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }
