@@ -1,4 +1,4 @@
-<ng-container *ngIf="true">
+<ng-container *ngIf="product.length != 0">
     <div class="container">
         <div class="card-table">
         <div class="cart-product">
@@ -6,7 +6,8 @@
                 <thead>
                     <tr>
                         <th>Sr.No</th>
-                        <th>Product Image</th>
+                        <th>Image</th>
+                        <th>Product</th>
                         <th>Description</th>
                         <th>Price</th>
                         <th>Quantity</th>
@@ -15,15 +16,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <td>1</td>
-                    <td>IPHone</td>
-                    <td>SmartPhone</td>
-                    <td>1000$</td>
-                    <td>1</td>
-                    <td>1000$</td>
-                    <td>
-                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                    </td>
+                    <tr *ngFor="let item of product; let i = index">
+                        <td>{{ i+1 }}</td>
+                        <td><img style="width: 120px" src="{{item.imageURL}}"></td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.totalprice }}</td>
+                        <td>
+                            <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                        <td><button (click) = "emptyCart()" class="btn btn-danger">Empty Cart</button></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -32,7 +40,7 @@
     
 </ng-container>
 
-<ng-container *ngIf="false">
+<ng-container *ngIf="product.length == 0">
     <div class="container">
         <div class="card">
             <h5 class="class card-title">My Cart</h5>
@@ -41,7 +49,7 @@
             <img src="https://book.smartercarrentals.com/images/cart.png" alt="" class="src">
             <h4>Your Cart is empty!</h4>
             <h6>Add item to card now</h6>
-            <button class="class btn btn-primary">Shop Now</button>
+            <button routerLink="/home" class="class btn btn-primary">Shop Now</button>
         </div>
     </div>
 </ng-container>
