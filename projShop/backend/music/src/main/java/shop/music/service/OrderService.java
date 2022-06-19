@@ -36,7 +36,7 @@ public class OrderService {
             order.setProducts(temp);
         }
 
-        order.setProductid((int) order.getId());
+        order.setProductid((int) order.getProducts().size());
 
         return orderRepository.save(order);
     }
