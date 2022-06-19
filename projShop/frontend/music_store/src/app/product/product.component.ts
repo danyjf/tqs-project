@@ -24,6 +24,8 @@ export class ProductComponent {
   userid: string = "-1";
   stock: string = "";
 
+  count: number = 0;
+
 
   constructor(private breakpointObserver: BreakpointObserver, private cartService: CartService, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
@@ -77,7 +79,7 @@ export class ProductComponent {
   }
 
   addToCart(title: string, description: string, category: string, price: string, image: string){
-    const product: Product = new Product("temp", title, description, category, image, price, "NA", "Pending");
+    const product: Product = new Product((Math.floor(Math.random() * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
     Object.assign(product, {quantity: 1, totalprice: price});
     this.cartService.addToCart(product);
   }
