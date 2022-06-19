@@ -27,7 +27,7 @@ export class CartService {
   getTotalPrice() : number {
     let grandTotal = 0;
     this.cartItemList.map((a:any) => {
-      grandTotal += a.price;
+      grandTotal += +a.price;
     });
     return grandTotal;
   } 

@@ -10,6 +10,8 @@ export class CartComponent implements OnInit {
   public product: any = [];
   public grandTotal !: number;
   public address: string = "";
+  public note: string = "";
+  public phone: string = "";
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -28,9 +30,13 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    if (this.address.length > 0){
+    if (this.address.length > 0 && this.phone.length > 0) {
       console.log(this.address)
     } 
+  }
+
+  getTotalPrice() : number {
+    return this.cartService.getTotalPrice();
   }
 
 }

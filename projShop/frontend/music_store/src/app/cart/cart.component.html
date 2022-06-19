@@ -10,8 +10,6 @@
                         <th></th>
                         <th>Product</th>
                         <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
@@ -22,14 +20,12 @@
                         <td>{{ item.title }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.price }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.totalprice }}</td>
                         <td>
                             <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4"></td>
+                        <td colspan="4">Grand Total: <span>{{ getTotalPrice() }}€</span></td>
                         <td><button (click) = "emptyCart()" class="btn btn-danger">Empty Cart</button></td>
                     </tr>
                 </tbody>
@@ -37,7 +33,9 @@
         </div>
     </div>
     </div>
-    <input id="address" name="address" [(ngModel)]="address" placeholder="Enter Your Address"><button (click)="checkout()">Checkout</button>
+    Order Note: <input id="note" name="note" [(ngModel)]="note" placeholder="">
+    Contact Information: <input id="phone" name="phone" [(ngModel)]="phone" placeholder="Enter Contact Number">
+    Send To: <input id="address" name="address" [(ngModel)]="address" placeholder="Enter Your Address"><button (click)="checkout()">Checkout</button>
 
     
 </ng-container>
