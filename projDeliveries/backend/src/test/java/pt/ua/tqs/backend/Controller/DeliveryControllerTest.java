@@ -74,18 +74,21 @@ public class DeliveryControllerTest {
         clientRepository.saveAndFlush(client);
         storeRepository.saveAndFlush(store);
 
-        MultiValueMap<String, String> hm = new LinkedMultiValueMap<String, String>();
-        hm.add("clientName", "Tiago");
-        hm.add("clientAddress", "123 Avenue");
-        hm.add("clientPhone", "911234568");
-        hm.add("storePhone", "123456780");
-        hm.add("orderTime","2000-02-23 11:33:23");
-        hm.add("orderNote","fragile");
+//        MultiValueMap<String, String> hm = new LinkedMultiValueMap<String, String>();
+//        hm.add("clientName", "Tiago");
+//        hm.add("clientAddress", "123 Avenue");
+//        hm.add("clientPhone", "911234568");
+//        hm.add("storePhone", "123456780");
+//        hm.add("orderTime","2000-02-23 11:33:23");
+//        hm.add("orderNote","fragile");
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(hm, headers);
+//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(hm, headers);
+
+//        Delivery request = new Delivery(new Timestamp(System.currentTimeMillis()), new Store("123456780"), new Client("Tiago", "123 Avenue", "911234568"), "fragile");
+        Delivery request = new Delivery(Timestamp.valueOf("2000-02-23 11:33:23"), new Store("123456780"), new Client("Tiago", "123 Avenue", "911234568"), "fragile");
 
         ResponseEntity<Delivery> response = restTemplate.postForEntity("/delivery", request ,Delivery.class );
 
