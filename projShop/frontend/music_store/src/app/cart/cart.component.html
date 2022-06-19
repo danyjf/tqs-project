@@ -1,11 +1,47 @@
-<div class="container">
-    <div class="card">
-        <h5 class="class card-title">My Cart</h5>
+<ng-container *ngIf="true">
+    <div class="container">
+        <div class="card-table">
+        <div class="cart-product">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Product Image</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>1</td>
+                    <td>IPHone</td>
+                    <td>SmartPhone</td>
+                    <td>1000$</td>
+                    <td>1</td>
+                    <td>1000$</td>
+                    <td>
+                        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="center">
-        <img src="https://book.smartercarrentals.com/images/cart.png" alt="" class="src">
-        <h4>Your Cart is empty!</h4>
-        <h6>Add item to card now</h6>
-        <button class="class btn btn-primary">Shop Now</button>
     </div>
-</div>
+    
+</ng-container>
+
+<ng-container *ngIf="false">
+    <div class="container">
+        <div class="card">
+            <h5 class="class card-title">My Cart</h5>
+        </div>
+        <div class="center">
+            <img src="https://book.smartercarrentals.com/images/cart.png" alt="" class="src">
+            <h4>Your Cart is empty!</h4>
+            <h6>Add item to card now</h6>
+            <button class="class btn btn-primary">Shop Now</button>
+        </div>
+    </div>
+</ng-container>

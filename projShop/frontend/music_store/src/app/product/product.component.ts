@@ -3,6 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../home/home.component';
+import { CartService } from '../service/cart.service';
+
 
 
 
@@ -22,7 +25,7 @@ export class ProductComponent {
   stock: string = "";
 
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
+  constructor(private breakpointObserver: BreakpointObserver, private cartService: CartService, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
     const userid = sessionStorage.getItem('user_id');
@@ -73,8 +76,10 @@ export class ProductComponent {
     this.router.navigate(['/orders'], params);
   }
 
-  addToCart(id: string){
-    
+  addToCart(title: string, description: string, category: string, price: string, image: string){
+    const product: Product = new Product("temp", title, description, category, image, price, "NA", "Pending");
+    Object.assign(product, {quantity: 1, totalprice: price});
+    this.cartService.addToCart(product);
   }
 
   createOrder(productID: string){

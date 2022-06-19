@@ -63,7 +63,6 @@ export class HomeComponent {
 
   searchText: string = "";
 
-
   onSearchTextEntered(searchValue: string){
     this.searchText = searchValue
   }
