@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IDelivery } from '../interfaces/delivery';
 import { DELIVERIES } from '../interfaces/mock-deliveries';
@@ -8,7 +9,7 @@ import { DELIVERIES } from '../interfaces/mock-deliveries';
     providedIn: 'root'
 })
 export class DeliveryService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     getDeliveries(): Observable<IDelivery[]> {
         const deliveries = of(DELIVERIES);
@@ -21,28 +22,29 @@ export class DeliveryService {
     }
 
     getPendingDeliveries(): Observable<IDelivery[]> {
-        let deliveries: IDelivery[] = [];
+        // let deliveries: IDelivery[] = [];
         
-        for(let delivery of DELIVERIES) {
-            if(delivery.delivery_status === "Waiting for rider")
-                deliveries.push(delivery);
-        }
+        // for(let delivery of DELIVERIES) {
+        //     if(delivery.delivery_status === "Waiting for rider")
+        //         deliveries.push(delivery);
+        // }
         
-        return of(deliveries);
+        // return of(deliveries);
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries`);
     }
 
     getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<IDelivery[]> {
         let deliveries: IDelivery[] = [];
 
-        for(let delivery of DELIVERIES) {
-            if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {
-                if(store.length == 0 || store.includes(delivery.store_name)) {
-                    if(status.length == 0 || status.includes(delivery.delivery_status)) {
-                        deliveries.push(delivery);
-                    }
-                }
-            }
-        }
+        // for(let delivery of DELIVERIES) {
+        //     if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {
+        //         if(store.length == 0 || store.includes(delivery.store_name)) {
+        //             if(status.length == 0 || status.includes(delivery.delivery_status)) {
+        //                 deliveries.push(delivery);
+        //             }
+        //         }
+        //     }
+        // }
 
         return of(deliveries);
     }
