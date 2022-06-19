@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../service/cart.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class CartComponent implements OnInit {
   public note: string = "";
   public phone: string = "";
   public products: string = "";
-  constructor(private cartService: CartService, private httpClient: HttpClient) { }
+  constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.cartService.getProducts().subscribe(resp => {
@@ -40,6 +41,7 @@ export class CartComponent implements OnInit {
       });
       this.products = this.products.slice(0, -1);
       this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {console.log(response);})
+      this.router.navigate(['/orders']);
     } 
   }
 

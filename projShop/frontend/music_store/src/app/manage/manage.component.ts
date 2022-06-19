@@ -10,6 +10,7 @@ import { Product } from '../home/home.component';
 export class Order{
   constructor(
     public userid: number,
+    public products: Product[],
     public productid: number,
     public status: string
   ) {
@@ -28,6 +29,7 @@ export class ManageComponent {
   price : string = "";
   image : string = "";
   status : string = "";
+  nProducts: number = 0;
   orders: Order[] = [];
   products: Product[] = [];
   userid: string = "-1";
@@ -70,8 +72,8 @@ export class ManageComponent {
     this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
       data => {
         this.orders = data;
-        console.log(this.orders)
-        this.products = data.products;
+        console.log(this.orders);
+        this.nProducts = this.orders.length;
       }
     );
   }
