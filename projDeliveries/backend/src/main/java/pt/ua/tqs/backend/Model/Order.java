@@ -9,10 +9,19 @@ public class Order {
     private String clientName;
     private String deliveryAddress;
     public String clientPhone;
+    public String storeIdentifier;
     public String storePhone;
     public String orderNote;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp orderTime;
+
+    public String getStoreIdentifier() {
+        return storeIdentifier;
+    }
+
+    public void setStoreIdentifier(String storeIdentifier) {
+        this.storeIdentifier = storeIdentifier;
+    }
 
     public long getOrderId() {
         return orderId;

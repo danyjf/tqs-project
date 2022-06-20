@@ -61,6 +61,17 @@ public class DeliveryController {
         List<Delivery> deliveries = ds.getDeliveriesWithStatus(status);
         return ResponseEntity.ok().body(deliveries);
     }
+
+    @PostMapping("/delivery/{id}/status/{status}")
+    public ResponseEntity<Delivery> updateDeliveryStatus(@PathVariable(value = "id") long id, @PathVariable(value = "status") String status){
+        Delivery d = ds.updateDeliveryStatus(id,status);
+        if(d != null){
+            return ResponseEntity.ok().body(d);
+        }
+        else{
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
     
     @PostMapping("/delivery/rider")
     public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
