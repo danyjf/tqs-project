@@ -3,7 +3,6 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IDelivery } from '../interfaces/delivery';
-import { DELIVERIES } from '../interfaces/mock-deliveries';
 
 @Injectable({
     providedIn: 'root'
@@ -23,19 +22,18 @@ export class DeliveryService {
         return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/status/Waiting for rider`);
     }
 
-    getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<IDelivery[]> {
-        let deliveries: IDelivery[] = [];
+    getFilteredDeliveries(delayed: boolean[], store: string[], status: number[]): Observable<IDelivery[]> {
+        let parameters: string = "";
 
-        // for(let delivery of DELIVERIES) {
-        //     if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {
-        //         if(store.length == 0 || store.includes(delivery.store_name)) {
-        //             if(status.length == 0 || status.includes(delivery.delivery_status)) {
-        //                 deliveries.push(delivery);
-        //             }
-        //         }
-        //     }
-        // }
+        for(const d of delayed) 
+            parameters += `delayed=${d}&`;
 
-        return of(deliveries);
+        for(const s of store) 
+            parameters += `store=${s}&`;
+
+        for(const s of status) 
+            parameters += `status=${s}&`;
+
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/filter?${parameters}`);
     }
 }
