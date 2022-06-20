@@ -1,5 +1,6 @@
 package pt.ua.tqs.backend.Controller;
 
+import pt.ua.tqs.backend.Model.Order;
 import pt.ua.tqs.backend.Service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,18 @@ public class DeliveryController {
     public ResponseEntity<Delivery> create_delivery(@RequestBody Delivery delivery){
     //receive information for delivery, send to service, receive delivery and respond
         Delivery d = ds.createDelivery(delivery);
+        if(d != null){
+            return ResponseEntity.ok().body(d);
+        }
+        else{
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PostMapping("/order")
+    public ResponseEntity<Delivery> create_delivery(@RequestBody Order order){
+        //receive information for delivery, send to service, receive delivery and respond
+        Delivery d = ds.createDeliveryFromOrder(order);
         if(d != null){
             return ResponseEntity.ok().body(d);
         }

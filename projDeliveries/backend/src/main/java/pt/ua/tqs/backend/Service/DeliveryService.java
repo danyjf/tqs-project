@@ -27,6 +27,14 @@ public class DeliveryService {
         this.sr = sr;
         this.ur = ur;
     }
+
+    public Delivery createDeliveryFromOrder(Order order){
+        Delivery delivery = new Delivery(order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
+
+        dr.save(delivery);
+
+        return delivery;
+    }
     
     public Delivery createDelivery(Delivery delivery){
         Client c = cr.findByPhone(delivery.getClient().getPhone());
