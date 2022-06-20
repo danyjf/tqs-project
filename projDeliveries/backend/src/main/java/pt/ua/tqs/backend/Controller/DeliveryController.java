@@ -1,5 +1,6 @@
 package pt.ua.tqs.backend.Controller;
 
+import pt.ua.tqs.backend.Model.Order;
 import pt.ua.tqs.backend.Service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +38,18 @@ public class DeliveryController {
         }
     }
 
+    @PostMapping("/order")
+    public ResponseEntity<Delivery> create_delivery(@RequestBody Order order){
+        //receive information for delivery, send to service, receive delivery and respond
+        Delivery d = ds.createDeliveryFromOrder(order);
+        if(d != null){
+            return ResponseEntity.ok().body(d);
+        }
+        else{
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
     @GetMapping("/deliveries")
     public ResponseEntity<List<Delivery>> listDeliveries(){
     //ask service for deliveries, send response with deliveries
@@ -57,6 +70,17 @@ public class DeliveryController {
         return ResponseEntity.ok().body(deliveries);
     }
 
+    @PostMapping("/delivery/{id}/status/{status}")
+    public ResponseEntity<Delivery> updateDeliveryStatus(@PathVariable(value = "id") long id, @PathVariable(value = "status") String status){
+        Delivery d = ds.updateDeliveryStatus(id,status);
+        if(d != null){
+            return ResponseEntity.ok().body(d);
+        }
+        else{
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+    
     @GetMapping("/deliveries/filter")
     public ResponseEntity<List<Delivery>> getFilteredDeliveries(@RequestParam List<Boolean> delayed, @RequestParam List<String> store, @RequestParam List<Integer> status) {
         List<String> statusValues = new ArrayList<>();

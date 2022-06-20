@@ -2,6 +2,8 @@ package pt.ua.tqs.backend.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pt.ua.tqs.backend.Config.CustomMessage;
+import pt.ua.tqs.backend.Config.MessagePublisher;
 import org.springframework.web.bind.annotation.RequestParam;
 import pt.ua.tqs.backend.Repository.*;
 import pt.ua.tqs.backend.Model.*;
@@ -19,6 +21,8 @@ public class DeliveryService {
     private StoreRepository sr;
     @Autowired
     private UserRepository ur;
+    @Autowired
+    private MessagePublisher publisher;
 
     public DeliveryService(){}
 
@@ -27,6 +31,28 @@ public class DeliveryService {
         this.cr = cr;
         this.sr = sr;
         this.ur = ur;
+    }
+
+    public Delivery createDeliveryFromOrder(Order order){
+        Delivery delivery = new Delivery(order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
+        String storeIdentifier = order.getStoreIdentifier();
+
+        dr.save(delivery);
+
+        /** Send Message to RabbitMQ **/
+        publisher.publishMessage(new CustomMessage(String.valueOf(order.getOrderId()), delivery.getDeliveryStatus()), order.getStoreIdentifier());
+        return delivery;
+    }
+
+    public Delivery updateDeliveryStatus(long delivery_id, String status){
+        Delivery delivery = dr.findById(delivery_id);
+
+        if (delivery != null){
+            delivery.setDeliveryStatus(status);
+            publisher.publishMessage(new CustomMessage(String.valueOf(delivery.getOrderId()), delivery.getDeliveryStatus()), "music_shop");
+            dr.save(delivery);
+        }
+        return delivery;
     }
     
     public Delivery createDelivery(Delivery delivery){

@@ -14,7 +14,7 @@ import java.util.List;
 
 // @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    Order findById(int id);
+    Order findById(long id);
     List<Order> findOrderByUserid(Integer user_id);
 
     @Query(value="SELECT e FROM Orderr e LEFT JOIN User u ON e.user = u WHERE u.id=:u_id", nativeQuery = true)

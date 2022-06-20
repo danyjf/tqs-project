@@ -50,7 +50,7 @@ public class Delivery {
 
     //@OneToMany(targetEntity = Song.class, fetch= FetchType.LAZY, mappedBy = "album", cascade = CascadeType.ALL)
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name = "client")
     public Client getClient(){
         return client;
