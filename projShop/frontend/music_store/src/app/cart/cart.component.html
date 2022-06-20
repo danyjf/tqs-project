@@ -18,10 +18,10 @@
                         <td>{{ i+1 }}</td>
                         <td><img style="width: 120px" src="{{item.imageURL}}"></td>
                         <td>{{ item.title }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.price }}</td>
+                        <td style="text-align: center;">{{ item.name }}</td>
+                        <td style="text-align: center;">{{ item.price }}</td>
                         <td>
-                            <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <button (click)="removeItem(item)" class="btn btn-danger"style="text-align: center;"><i class="fas fa-trash-alt"></i></button>
                         </td>
                     </tr>
                     <tr>
