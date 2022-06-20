@@ -1,1 +1,56 @@
-<p>cart works!</p>
+<ng-container *ngIf="product.length != 0">
+    <div class="container">
+        <div class="card-table">
+        <div class="cart-product">
+            <table class="table table-responsive">
+                <caption>Your Items</caption>
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Image</th>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of product; let i = index">
+                        <td>{{ i+1 }}</td>
+                        <td><img style="width: 120px" src="{{item.imageURL}}" alt="product"></td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <button (click)="removeItem(item)" class="btn btn-danger"><em class="fas fa-trash-alt"></em></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">Grand Total: <span>{{ getTotalPrice() }}€</span></td>
+                        <td><button (click) = "emptyCart()" class="btn btn-danger">Empty Cart</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    Order Note: <input id="note" name="note" [(ngModel)]="note" placeholder="">
+    Contact Information: <input id="phone" name="phone" [(ngModel)]="phone" placeholder="Enter Contact Number">
+    Send To: <input id="address" name="address" [(ngModel)]="address" placeholder="Enter Delivery Address">
+             <input id="name" name="name" [(ngModel)]="name" placeholder="Enter Delivery Name"><button (click)="checkout()">Checkout</button>
+    
+</ng-container>
+
+<ng-container *ngIf="product.length == 0">
+    <div class="container">
+        <div class="card">
+            <h5 class="class card-title">My Cart</h5>
+        </div>
+        <div class="center">
+            <img src="https://book.smartercarrentals.com/images/cart.png" alt="" class="src">
+            <h4>Your Cart is empty!</h4>
+            <h6>Add item to card now</h6>
+            <button routerLink="/home" class="class btn btn-primary">Shop Now</button>
+        </div>
+    </div>
+</ng-container>

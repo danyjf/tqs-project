@@ -28,8 +28,9 @@ public class OrderServiceTest {
 
     @Test
     void whenGetOrderByUserId_thenUserOrdersShouldBeReturned() {
-        Order order = new Order(1, 1, "status");
-        Order order2 = new Order(1, 2, "status");
+        List<Product> products = new ArrayList<>();
+        Order order = new Order(1, products, "status");
+        Order order2 = new Order(1, products, "status");
 
         List<Order> orders = new ArrayList<>();
         orders.add(order);

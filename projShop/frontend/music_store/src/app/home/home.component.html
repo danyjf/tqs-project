@@ -1,6 +1,6 @@
 <div class="grid-container">
   <!-- Search form -->
-  <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+  <app-search class="form-control" (searchTextChanged)="onSearchTextEntered($event)"></app-search>
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of products" [colspan]="1" [rowspan]="2">
       <mat-card class="dashboard-card" *ngIf="searchText === '' || card.name.toLowerCase().includes(searchText)">

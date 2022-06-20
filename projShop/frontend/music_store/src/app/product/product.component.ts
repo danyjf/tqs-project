@@ -3,6 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../home/home.component';
+import { CartService } from '../service/cart.service';
+
 
 
 
@@ -21,8 +24,10 @@ export class ProductComponent {
   userid: string = "-1";
   stock: string = "";
 
+  count: number = 0;
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
+
+  constructor(private breakpointObserver: BreakpointObserver, private cartService: CartService, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
     const userid = sessionStorage.getItem('user_id');
@@ -71,6 +76,20 @@ export class ProductComponent {
     }
   
     this.router.navigate(['/orders'], params);
+  }
+
+  addToCart(title: string, description: string, category: string, price: string, image: string){
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const crypto = window.crypto;
+      var array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+      const product: Product = new Product((Math.floor(array[0] * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
+      Object.assign(product, {quantity: 1, totalprice: price, productID: this.id});
+      this.cartService.addToCart(product);
+    } else{
+      this.router.navigate(['/login']);
+    }
   }
 
   createOrder(productID: string){

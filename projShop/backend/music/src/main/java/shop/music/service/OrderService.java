@@ -10,6 +10,7 @@ import shop.music.model.Order;
 import shop.music.model.Product;
 import shop.music.repository.OrderRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,13 +23,22 @@ public class OrderService {
 
     public List<Order> getAll() { return orderRepository.findAll(); }
 
-    public Order createOrder(Order order) {
-        Product product = productService.getProductById(order.getProductid());
-        if (product.getStock() > 0) {
-            product.setStock(product.getStock() - 1);
-            return orderRepository.save(order);
+    public Order createOrder(Order order){
+        return orderRepository.save(order);
+    }
+
+    public Order createOrder(Integer user_id, String products) {
+        List<Product> list = new ArrayList<>();
+        Order order = new Order(user_id, list, "Pending");
+        for (String product: products.split("-")) {
+            List<Product> temp = order.getProducts();
+            temp.add(productService.getProductById(Integer.parseInt(product)));
+            order.setProducts(temp);
         }
-        return null;
+
+        order.setProductid((int) order.getProducts().size());
+
+        return orderRepository.save(order);
     }
 
     public Order updateStatus(long order_id, String status){
@@ -54,5 +64,10 @@ public class OrderService {
     public String deleteOrder(int id) {
         orderRepository.deleteById(id);
         return "Order (id=" + id + ") removed!";
+    }
+
+    public String deleteAllOrders(){
+        orderRepository.deleteAll();
+        return "All Orders removed!";
     }
 }
