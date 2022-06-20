@@ -10,4 +10,5 @@ import java.util.List;
 public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
     Delivery findById(long id);
     List<Delivery> findByDeliveryStatus(String status);
+    List<Delivery> findByDeliveryDelayedInAndStore_NameInAndDeliveryStatusIn(List<Boolean> delayed, List<String> store, List<String> status);
 }
