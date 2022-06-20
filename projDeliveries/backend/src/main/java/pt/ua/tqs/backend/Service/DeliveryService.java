@@ -44,17 +44,6 @@ public class DeliveryService {
         return delivery;
     }
 
-    public Delivery updateDeliveryStatus(long delivery_id, String status){
-        Delivery delivery = dr.findById(delivery_id);
-
-        if (delivery != null){
-            delivery.setDeliveryStatus(status);
-            publisher.publishMessage(new CustomMessage(String.valueOf(delivery.getOrderId()), delivery.getDeliveryStatus()), "music_shop");
-            dr.save(delivery);
-        }
-        return delivery;
-    }
-    
     public Delivery createDelivery(Delivery delivery){
         Client c = cr.findByPhone(delivery.getClient().getPhone());
         Store s = sr.findByPhone(delivery.getStore().getPhone());
@@ -94,14 +83,24 @@ public class DeliveryService {
     }
     
     public Delivery assignToRider(long deliveryId, String riderPhone){
-    //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
-        
+        //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         Delivery d = dr.findById(deliveryId);
         User r = ur.findByPhone(riderPhone);
         if (r == null || !r.getUserType().equals("Rider") || d.getRider() != null){
             return null;
         }
         d.setRider(r);
+        dr.save(d);
+        return d;
+    }
+
+    public Delivery updateDeliveryStatus(long deliveryId, String status){
+        //receive information about the delivery and its status, save and send back updated delivery to controller
+        Delivery d = dr.findById(deliveryId);
+        if (d == null){
+            return null;
+        }
+        d.setDeliveryStatus(status);
         dr.save(d);
         return d;
     }

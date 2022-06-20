@@ -32,11 +32,11 @@ services:
 
     restart: always
 
-  frontend:
-    depends_on:
-      - api
-      - mysql
-    build: ./frontend
-    ports:
-      - 4200:80
-    restart: always
+  # frontend:
+  #   depends_on:
+  #     - api
+  #     - mysql
+  #   build: ./frontend
+  #   ports:
+  #     - 4200:80
+  #   restart: always

@@ -28,12 +28,11 @@ public class DeliveryController {
     
     @PostMapping("/delivery")
     public ResponseEntity<Delivery> create_delivery(@RequestBody Delivery delivery){
-    //receive information for delivery, send to service, receive delivery and respond
+        //receive information for delivery, send to service, receive delivery and respond
         Delivery d = ds.createDelivery(delivery);
-        if(d != null){
+        if(d != null) {
             return ResponseEntity.ok().body(d);
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }
@@ -51,8 +50,8 @@ public class DeliveryController {
     }
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> listDeliveries(){
-    //ask service for deliveries, send response with deliveries
+    public ResponseEntity<List<Delivery>> listDeliveries() {
+        //ask service for deliveries, send response with deliveries
         List<Delivery> ld = ds.listDeliveries();
         return ResponseEntity.ok().body(ld);
     }
@@ -70,17 +69,6 @@ public class DeliveryController {
         return ResponseEntity.ok().body(deliveries);
     }
 
-    @PostMapping("/delivery/{id}/status/{status}")
-    public ResponseEntity<Delivery> updateDeliveryStatus(@PathVariable(value = "id") long id, @PathVariable(value = "status") String status){
-        Delivery d = ds.updateDeliveryStatus(id,status);
-        if(d != null){
-            return ResponseEntity.ok().body(d);
-        }
-        else{
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-    
     @GetMapping("/deliveries/filter")
     public ResponseEntity<List<Delivery>> getFilteredDeliveries(@RequestParam List<Boolean> delayed, @RequestParam List<String> store, @RequestParam List<Integer> status) {
         List<String> statusValues = new ArrayList<>();
@@ -98,8 +86,18 @@ public class DeliveryController {
         Delivery d = ds.assignToRider(delId, riderPhone);
         if(d != null){
             return ResponseEntity.ok().body(d);
+        } else {
+            return ResponseEntity.badRequest().body(null);
         }
-        else{
+    }
+
+    @PutMapping("/delivery/status")
+    public ResponseEntity<Delivery> updateDeliveryStatus(@RequestBody long deliveryId, @RequestBody String status) {
+        //send delivery and status information to service, receive updated delivery and respond
+        Delivery d = ds.updateDeliveryStatus(deliveryId, status);
+        if (d != null) {
+            return ResponseEntity.ok().body(d);
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }
