@@ -3,6 +3,9 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Product } from '../home/home.component';
+import { CartService } from '../service/cart.service';
+
 
 
 
@@ -21,11 +24,13 @@ export class ProductComponent {
   userid: string = "-1";
   stock: string = "";
 
+  count: number = 0;
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
+
+  constructor(private breakpointObserver: BreakpointObserver, private cartService: CartService, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
-    const userid = sessionStorage.getItem('userid');
+    const userid = sessionStorage.getItem('user_id');
     if (userid != null) {
       this.userid = userid;
     }
@@ -73,14 +78,33 @@ export class ProductComponent {
     this.router.navigate(['/orders'], params);
   }
 
-  createOrder(userID: string, productID: string){
-    if (this.userid != "-1") {
-      if (this.stock !== "0"){
-          this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);});
-          this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
-      }
+  addToCart(title: string, description: string, category: string, price: string, image: string){
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const product: Product = new Product((Math.floor(Math.random() * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
+      Object.assign(product, {quantity: 1, totalprice: price, productID: this.id});
+      this.cartService.addToCart(product);
     } else{
       this.router.navigate(['/login']);
     }
   }
+
+  createOrder(productID: string){
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const buy = confirm("Are you sure you want to buy this product?");
+      if (buy) {
+        const address = prompt("Please enter the delivery address: ");
+        console.log(address);
+        console.log("userID: " + userID)
+          if (this.stock !== "0"){
+              this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
+              this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
+            });
+          }
+    }
+  } else{
+    this.router.navigate(['/login']);
+  }
+}
 }

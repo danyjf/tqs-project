@@ -5,6 +5,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { loggedIn } from '../app.component';
+import { ApiService } from '../service/api.service';
 
 export class Product{
   constructor(
@@ -14,7 +15,8 @@ export class Product{
     public category: string,
     public imageURL: string,
     public price: string,
-    public stock: string
+    public stock: string,
+    public status: string
   ) {
     
   }
@@ -30,7 +32,6 @@ export class HomeComponent {
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
-      this.getProducts();
       if (matches) {
         return this.products;
       }
@@ -51,15 +52,16 @@ export class HomeComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private httpClient: HttpClient) { }
+  constructor(private breakpointObserver: BreakpointObserver, private api: ApiService, private router: Router, private httpClient: HttpClient) { }
 
   ngOnInit() {
     console.log(sessionStorage.getItem("user_id"));
-    this.getProducts();
+    this.api.getProducts().subscribe(resp => {
+      this.products = resp.content;
+    })
   } 
 
   searchText: string = "";
-
 
   onSearchTextEntered(searchValue: string){
     this.searchText = searchValue
@@ -72,15 +74,6 @@ export class HomeComponent {
     }
   
     this.router.navigate(['/product'], params);
-  }
-
-  getProducts(){
-    this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
-      data => {
-        console.log(data.content);
-        this.products = data.content;
-      }
-    );
   }
 
 
