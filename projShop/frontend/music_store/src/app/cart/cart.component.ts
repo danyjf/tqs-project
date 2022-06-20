@@ -51,16 +51,13 @@ export class CartComponent implements OnInit {
           "clientName": this.name,
           "deliveryAddress": this.address,
           "clientPhone": this.phone,
+          "storeIdentifier": "music_shop",
           "storePhone": "912345678",
           "orderNote": this.note,
           "orderTime": this.formatDate(new Date())
         }).toPromise().then((response: any) => {
           console.log(response);
           this.cartService.removeAllCart();
-
-          console.log(response.id + this.name + this.address + this.phone + "912345678" + this.note + this.formatDate(new Date()));
-
-          console.log(response.id + this.name + this.address + this.phone + "912345678" + this.note + this.formatDate(new Date()));
           
           this.router.navigate(['/orders']);
 
