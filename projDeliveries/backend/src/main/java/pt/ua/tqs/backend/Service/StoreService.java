@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pt.ua.tqs.backend.Model.Store;
 import pt.ua.tqs.backend.Repository.StoreRepository;
 
+import java.util.List;
+
 @Service
 public class StoreService {
     @Autowired
@@ -12,5 +14,9 @@ public class StoreService {
 
     public Store createStore(Store store) {
         return storeRepository.save(store);
+    }
+
+    public List<Store> getStores() {
+        return storeRepository.findAll();
     }
 }
