@@ -3,6 +3,7 @@ package pt.ua.tqs.backend.Model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
 
@@ -10,7 +11,9 @@ import java.sql.Timestamp;
 @Table(name = "delivery")
 public class Delivery {
     private long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Timestamp orderTime;
+    private long orderId;
     private Store store;
     private Client client;
     private String orderNote;
@@ -25,6 +28,13 @@ public class Delivery {
         this.orderNote = orderNote;
         deliveryStatus = "Available for a rider";
         deliveryDelayed = false;
+    }
+
+    public Delivery(Timestamp orderTime, Store store, Client client, String orderNote) {
+        this.orderTime = orderTime;
+        this.store = store;
+        this.client = client;
+        this.orderNote = orderNote;
     }
 
     @Id
@@ -64,6 +74,10 @@ public class Delivery {
     @Column(name = "orderNote", nullable = false)
     public String getOrderNote() { return orderNote; }
     public void setOrderNote(String orderNote) { this.orderNote = orderNote; }
+
+    @Column(name = "orderId", nullable = false)
+    public long getOrderId() { return orderId; }
+    public void setOrderId(long orderId) { this.orderId = orderId; }
 
     //Rider aqui, many to 1
 

@@ -26,6 +26,10 @@ public class Store {
 
     public Store(){}
 
+    public Store(String phone){
+        this.phone = phone;
+    }
+
     public Store(String name, String address, String phone){
         this.name = name;
         this.address = address;

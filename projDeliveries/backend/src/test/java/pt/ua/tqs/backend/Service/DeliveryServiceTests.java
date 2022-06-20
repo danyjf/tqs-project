@@ -41,7 +41,14 @@ class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery(
+                new Delivery(
+                        Timestamp.from(Instant.now()),
+                        new Store("256245365"),
+                        new Client("Tiago", "123 Avenue", "911234567"),
+                        "Fragile objects"
+                )
+        );
         //result is a delivery with the right client and store
         assertEquals(client, result.getClient());
         assertEquals(store, result.getStore());
@@ -53,7 +60,14 @@ class DeliveryServiceTests {
         Store store = new Store();
         when(clientRepository.findByPhone("911234568")).thenReturn(null);
         when(storeRepository.findByPhone("256245365")).thenReturn(store);
-        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234568","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery(
+                new Delivery(
+                        Timestamp.from(Instant.now()),
+                        new Store("256245365"),
+                        new Client("Tiago", "123 Avenue", "911234568"),
+                        "Fragile objects"
+                )
+        );
         //result should be a client with the information sent
         assertEquals("911234568", result.getClient().getPhone());
     }
@@ -63,7 +77,14 @@ class DeliveryServiceTests {
         Client client = new Client();
         when(clientRepository.findByPhone("911234567")).thenReturn(client);
         when(storeRepository.findByPhone("256245365")).thenReturn(null);
-        Delivery result = deliveryService.createDelivery("Tiago", "123 Avenue", "911234567","256245365",Timestamp.from(Instant.now()),"Fragile objects");
+        Delivery result = deliveryService.createDelivery(
+                new Delivery(
+                        Timestamp.from(Instant.now()),
+                        new Store("256245365"),
+                        new Client("Tiago", "123 Avenue", "911234567"),
+                        "Fragile objects"
+                )
+        );
         //result should be a null since store doesnt exist
         assertEquals(null, result);
     }
