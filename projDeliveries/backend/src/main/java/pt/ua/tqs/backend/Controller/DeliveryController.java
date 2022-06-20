@@ -17,26 +17,25 @@ import java.util.List;
 public class DeliveryController {
     @Autowired
     private DeliveryService ds;
-    
+
     @PostMapping("/delivery")
     public ResponseEntity<Delivery> create_delivery(@RequestBody Delivery delivery){
-    //receive information for delivery, send to service, receive delivery and respond
+        //receive information for delivery, send to service, receive delivery and respond
         Delivery d = ds.createDelivery(delivery);
-        if(d != null){
+        if(d != null) {
             return ResponseEntity.ok().body(d);
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> listDeliveries(){
-    //ask service for deliveries, send response with deliveries
+    public ResponseEntity<List<Delivery>> listDeliveries() {
+        //ask service for deliveries, send response with deliveries
         List<Delivery> ld = ds.listDeliveries();
         return ResponseEntity.ok().body(ld);
     }
-    
+
     @PostMapping("/delivery/rider")
     public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
     //send rider and delivery information to service, receive updated delivery and respond
@@ -44,8 +43,18 @@ public class DeliveryController {
         Delivery d = ds.assignToRider(delId, riderPhone);
         if(d != null){
             return ResponseEntity.ok().body(d);
+        } else {
+            return ResponseEntity.badRequest().body(null);
         }
-        else{
+    }
+
+    @PutMapping("/delivery/status")
+    public ResponseEntity<Delivery> updateDeliveryStatus(@RequestBody long deliveryId, @RequestBody String status) {
+        //send delivery and status information to service, receive updated delivery and respond
+        Delivery d = ds.updateDeliveryStatus(deliveryId, status);
+        if (d != null) {
+            return ResponseEntity.ok().body(d);
+        } else {
             return ResponseEntity.badRequest().body(null);
         }
     }

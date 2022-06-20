@@ -127,4 +127,15 @@ class DeliveryServiceTests {
         assertEquals(null, result);
 
     }
+
+    @Test
+    void UpdateDeliveryStatus(){
+        Delivery delivery = new Delivery();
+        delivery.setDeliveryStatus("Available for a rider");
+        when(deliveryRepository.findById(1)).thenReturn(delivery);
+        Delivery updatedDelivery = deliveryService.updateDeliveryStatus(1, "Assigned to a rider");
+        String status = updatedDelivery.getDeliveryStatus();
+
+        assertEquals("Assigned to a rider", status);
+    }
 }
