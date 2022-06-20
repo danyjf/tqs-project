@@ -25,7 +25,7 @@ public class Delivery {
     public Delivery(Timestamp orderTime, String orderNote){
         this.orderTime = orderTime;
         this.orderNote = orderNote;
-        deliveryStatus = "Available for a rider";
+        deliveryStatus = "Waiting for rider";
         deliveryDelayed = false;
     }
 
@@ -34,6 +34,8 @@ public class Delivery {
         this.store = store;
         this.client = client;
         this.orderNote = orderNote;
+        this.deliveryStatus = "Waiting for rider";
+        this.deliveryDelayed = false;
     }
 
     @Id

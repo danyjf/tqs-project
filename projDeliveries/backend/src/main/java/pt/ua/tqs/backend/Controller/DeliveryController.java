@@ -30,11 +30,23 @@ public class DeliveryController {
     }
 
     @GetMapping("/deliveries")
-//    public ResponseEntity<List<Delivery>> listDeliveries(){
-    public List<Delivery> listDeliveries(){
+    public ResponseEntity<List<Delivery>> listDeliveries(){
     //ask service for deliveries, send response with deliveries
         List<Delivery> ld = ds.listDeliveries();
-        return ld;
+        return ResponseEntity.ok().body(ld);
+    }
+
+    @GetMapping("/deliveries/{id}")
+    public ResponseEntity<Delivery> getDelivery(@PathVariable(value = "id") long id){
+        //ask service for deliveries, send response with deliveries
+        Delivery delivery = ds.getDelivery(id);
+        return ResponseEntity.ok().body(delivery);
+    }
+
+    @GetMapping("/deliveries/status/{status}")
+    public ResponseEntity<List<Delivery>> getDeliveriesWithStatus(@PathVariable(value = "status") String status) {
+        List<Delivery> deliveries = ds.getDeliveriesWithStatus(status);
+        return ResponseEntity.ok().body(deliveries);
     }
     
     @PostMapping("/delivery/rider")

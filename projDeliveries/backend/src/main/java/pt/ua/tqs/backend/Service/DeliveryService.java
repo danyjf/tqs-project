@@ -43,6 +43,7 @@ public class DeliveryService {
             d.setClient(c);
         }
         d.setStore(s);
+        d.setDeliveryStatus("Waiting for rider");
         dr.save(d);
         return d;
     //receive delivery information, process and create delivery, save on repository
@@ -51,6 +52,14 @@ public class DeliveryService {
     public List<Delivery> listDeliveries(){
     //get deliveries from repository, send over to controller
         return dr.findAll();
+    }
+
+    public List<Delivery> getDeliveriesWithStatus(String status) {
+        return dr.findByDeliveryStatus(status);
+    }
+
+    public Delivery getDelivery(long id) {
+        return dr.findById(id);
     }
     
     public Delivery assignToRider(long deliveryId, String riderPhone){
