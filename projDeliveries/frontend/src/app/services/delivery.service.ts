@@ -12,25 +12,15 @@ export class DeliveryService {
     constructor(private http: HttpClient) { }
 
     getDeliveries(): Observable<IDelivery[]> {
-        const deliveries = of(DELIVERIES);
-        return deliveries;
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries`);
     }
 
     getDelivery(id: number): Observable<IDelivery> {
-        const delivery = DELIVERIES.find(d => d.id === id)!;
-        return of(delivery);
+        return this.http.get<IDelivery>(`http://localhost:8000/deliveries/${id}`);
     }
 
     getPendingDeliveries(): Observable<IDelivery[]> {
-        // let deliveries: IDelivery[] = [];
-        
-        // for(let delivery of DELIVERIES) {
-        //     if(delivery.delivery_status === "Waiting for rider")
-        //         deliveries.push(delivery);
-        // }
-        
-        // return of(deliveries);
-        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries`);
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/status/Waiting for rider`);
     }
 
     getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<IDelivery[]> {
