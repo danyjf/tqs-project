@@ -1,0 +1,42 @@
+version: "3.8"
+
+# docker run --name mysql -e MYSQL_DATABASE=deliveries_db -e MYSQL_USER=tqs_p4_g4 -e MYSQL_ROOT_PASSWORD=tqs_p4_g4_root -e MYSQL_PASSWORD=tqs_p4_g4_password -p 33060:3306 -d mysql/mysql-server:5.7
+services:
+  mysql: 
+    image: mysql/mysql-server:5.7
+    command: --default-authentication-plugin=mysql_native_password --secure-file-priv=''
+    environment:
+      MYSQL_DATABASE: deliveries_db
+      MYSQL_USER: tqs_p4_g4
+      MYSQL_ROOT_PASSWORD: tqs_p4_g4_root
+      MYSQL_PASSWORD: tqs_p4_g4_password
+    volumes:
+      - ./mysql-volume:/var/lib/db/mysql
+    restart: always
+
+  api:
+    depends_on:
+      - mysql
+    build: ./backend
+    ports:
+      - 8000:8000
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "server.port": 8000,
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.datasource.url" : "jdbc:mysql://mysql/deliveries_db?useSSL=false",
+        "spring.datasource.username" : "tqs_p4_g4",
+        "spring.datasource.password" : "tqs_p4_g4_password",
+        "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect"
+      }'
+
+    restart: always
+
+  frontend:
+    depends_on:
+      - api
+      - mysql
+    build: ./frontend
+    ports:
+      - 4200:80
+    restart: always

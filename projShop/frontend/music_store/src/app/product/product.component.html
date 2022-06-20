@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <!-- CSS -->
+    <link href="product.component.css" rel="stylesheet">
+    <meta name="robots" content="noindex,follow" />
+    <title>Product</title>
+  </head>
+
+  <body>
+    <main class="container">
+
+
+      <img alt="Product Image" style="height: 50%; width: 50%; position: left; margin-right: auto; margin-left:auto" class="center" [src]="image">
+
+      <!-- Right Column -->
+      <div class="right-column">
+
+        <!-- Product Description -->
+        <div class="product-description">
+          <span>{{category}}</span>
+          <h2 style="margin-top: 10px">{{title}}</h2>
+          <p>{{description}}</p>
+          <h5 style="color:green">{{stock}} in stock</h5>
+        </div>
+
+        <!-- Product Configuration -->
+        <div class="product-configuration">
+
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+          <span>{{price}}€</span>
+          <h5 style="color:green">+2,49€ delivery fee</h5>
+          <button (click)="addToCart(title, description, category, price, image)" class="cart-btn" style="margin-left: 5px;">Add to Cart</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>

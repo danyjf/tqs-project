@@ -1,0 +1,27 @@
+services:
+  db:
+    image: mysql:8.0.27
+    environment:
+      MYSQL_DATABASE: music
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password 
+    healthcheck:
+      test: mysqladmin ping -h localhost
+      interval: 30s
+      timeout: 10s
+      retries: 5  
+
+  backend:
+    build: ./backend/music
+    ports:
+      - 7070:7070
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/music
+      SPRING_DATASOURCE_USERNAME: usr
+      SPRING_DATASOURCE_PASSWORD: password
+      FINANCE_RABBITMQ_HOST: rabbitmq
+    restart: always
