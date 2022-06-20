@@ -12,6 +12,7 @@ export class CartComponent implements OnInit {
   public product: any = [];
   public grandTotal !: number;
   public address: string = "";
+  public name: string = "";
   public note: string = "";
   public phone: string = "";
   public products: string = "";
@@ -33,20 +34,50 @@ export class CartComponent implements OnInit {
   }
 
   checkout() {
-    if (this.address.length > 0 && this.phone.length > 0) {
+    if (this.address.length > 0 && this.phone.length > 0 && this.name.length > 0) {
       console.log(this.address)
       this.products = "";
       this.product.forEach((prod: { productID: string; }) => {
         this.products += prod.productID + "-";
       });
       this.products = this.products.slice(0, -1);
-      this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {console.log(response);})
-      this.router.navigate(['/orders']);
-    } 
+      this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {
+        console.log(response);
+
+        this.cartService.removeAllCart();
+
+        console.log(response.id + this.name + this.address + this.phone + "912345678" + this.note + this.formatDate(new Date()));
+        
+        this.router.navigate(['/orders']);
+
+      })
+    } else {
+      confirm("Please fill in all the fields");
+    }
   }
 
   getTotalPrice() : number {
     return this.cartService.getTotalPrice();
+  }
+
+  padTo2Digits(num: number) {
+    return num.toString().padStart(2, '0');
+  }
+  
+  formatDate(date: Date) {
+    return (
+      [
+        date.getFullYear(),
+        this.padTo2Digits(date.getMonth() + 1),
+        this.padTo2Digits(date.getDate()),
+      ].join('-') +
+      ' ' +
+      [
+        this.padTo2Digits(date.getHours()),
+        this.padTo2Digits(date.getMinutes()),
+        this.padTo2Digits(date.getSeconds()),
+      ].join(':')
+    );
   }
 
 }
