@@ -3,6 +3,7 @@
         <div class="card-table">
         <div class="cart-product">
             <table class="table table-responsive">
+                <caption>Your Items</caption>
                 <thead>
                     <tr>
                         <th>Sr.No</th>
@@ -16,12 +17,12 @@
                 <tbody>
                     <tr *ngFor="let item of product; let i = index">
                         <td>{{ i+1 }}</td>
-                        <td><img style="width: 120px" src="{{item.imageURL}}"></td>
+                        <td><img style="width: 120px" src="{{item.imageURL}}" alt="product"></td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.price }}</td>
                         <td>
-                            <button (click)="removeItem(item)" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <button (click)="removeItem(item)" class="btn btn-danger"><em class="fas fa-trash-alt"></em></button>
                         </td>
                     </tr>
                     <tr>
