@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pt.ua.tqs.backend.Config.CustomMessage;
 import pt.ua.tqs.backend.Config.MessagePublisher;
+import org.springframework.web.bind.annotation.RequestParam;
 import pt.ua.tqs.backend.Repository.*;
 import pt.ua.tqs.backend.Model.*;
 import java.sql.Timestamp;
@@ -82,6 +83,10 @@ public class DeliveryService {
 
     public List<Delivery> getDeliveriesWithStatus(String status) {
         return dr.findByDeliveryStatus(status);
+    }
+
+    public List<Delivery> getFilteredDeliveries(List<Boolean> delayed, List<String> store, List<String> status) {
+        return dr.findByDeliveryDelayedInAndStore_NameInAndDeliveryStatusIn(delayed, store, status);
     }
 
     public Delivery getDelivery(long id) {

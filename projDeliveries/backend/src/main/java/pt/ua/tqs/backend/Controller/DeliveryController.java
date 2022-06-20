@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pt.ua.tqs.backend.Model.Delivery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,6 +18,13 @@ import java.util.List;
 public class DeliveryController {
     @Autowired
     private DeliveryService ds;
+
+    String[] possibleStatus = new String[] {
+        "Waiting for rider",
+        "Picking up the order",
+        "Delivering the order",
+        "Order delivered"
+    };
     
     @PostMapping("/delivery")
     public ResponseEntity<Delivery> create_delivery(@RequestBody Delivery delivery){
@@ -73,6 +81,16 @@ public class DeliveryController {
         }
     }
     
+    @GetMapping("/deliveries/filter")
+    public ResponseEntity<List<Delivery>> getFilteredDeliveries(@RequestParam List<Boolean> delayed, @RequestParam List<String> store, @RequestParam List<Integer> status) {
+        List<String> statusValues = new ArrayList<>();
+        for(int i : status) {
+            statusValues.add(possibleStatus[i]);
+        }
+        List<Delivery> deliveries =  ds.getFilteredDeliveries(delayed, store, statusValues);
+        return ResponseEntity.ok().body(deliveries);
+    }
+
     @PostMapping("/delivery/rider")
     public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
     //send rider and delivery information to service, receive updated delivery and respond
