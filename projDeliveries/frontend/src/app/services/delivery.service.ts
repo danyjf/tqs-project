@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IDelivery } from '../interfaces/delivery';
+import { IStore } from '../interfaces/store';
 
 @Injectable({
     providedIn: 'root'
@@ -35,5 +36,9 @@ export class DeliveryService {
             parameters += `status=${s}&`;
 
         return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/filter?${parameters}`);
+    }
+
+    getStores(): Observable<IStore[]> {
+        return this.http.get<IStore[]>("http://localhost:8000/stores");
     }
 }
