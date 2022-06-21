@@ -81,7 +81,7 @@ public class DeliveryController {
 
     @PostMapping("/delivery/rider")
     public ResponseEntity<Delivery> assignToRider(@RequestParam String deliveryId, @RequestParam String riderPhone){
-    //send rider and delivery information to service, receive updated delivery and respond
+        //send rider and delivery information to service, receive updated delivery and respond
         long delId = Long.parseLong(deliveryId);
         Delivery d = ds.assignToRider(delId, riderPhone);
         if(d != null){
@@ -89,6 +89,16 @@ public class DeliveryController {
         } else {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @GetMapping("/delivery/rider/status")
+    public ResponseEntity<Delivery> getDeliveryByRiderAndStatus(@RequestParam String riderPhone, @RequestParam List<Integer> status) {
+        List<String> statusValues = new ArrayList<>();
+        for(int i : status) {
+            statusValues.add(possibleStatus[i]);
+        }
+        Delivery delivery = ds.getDeliveryByRiderAndStatus(riderPhone, statusValues);
+        return ResponseEntity.ok().body(delivery);
     }
 
     @PutMapping("/delivery/status")

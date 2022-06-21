@@ -41,4 +41,12 @@ export class DeliveryService {
     getStores(): Observable<IStore[]> {
         return this.http.get<IStore[]>("http://localhost:8000/stores");
     }
+
+    startDelivery(id: number): Observable<IDelivery> {
+        return this.http.post<IDelivery>(`http://localhost:8000/delivery/rider?deliveryId=${id}&riderPhone=${localStorage.getItem("userPhone")}`, null);
+    }
+
+    getOnGoingDelivery(phone: string): Observable<IDelivery> {
+        return this.http.get<IDelivery>(`http://localhost:8000/delivery/rider/status?riderPhone=${phone}&status=0&status=1&status=2`);
+    }
 }

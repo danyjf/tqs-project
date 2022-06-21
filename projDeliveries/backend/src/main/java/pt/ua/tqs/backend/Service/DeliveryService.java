@@ -86,7 +86,7 @@ public class DeliveryService {
         //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         Delivery d = dr.findById(deliveryId);
         User r = ur.findByPhone(riderPhone);
-        if (r == null || !r.getUserType().equals("Rider") || d.getRider() != null){
+        if (r == null || !r.getUserType().equals("user") || d.getRider() != null){
             return null;
         }
         d.setRider(r);
@@ -103,5 +103,10 @@ public class DeliveryService {
         d.setDeliveryStatus(status);
         dr.save(d);
         return d;
+    }
+
+    public Delivery getDeliveryByRiderAndStatus(String riderPhone, List<String> status) {
+        return dr.findByRider_PhoneAndDeliveryStatusIn(riderPhone, status);
+//        return dr.findByRider_Phone(riderPhone);
     }
 }
