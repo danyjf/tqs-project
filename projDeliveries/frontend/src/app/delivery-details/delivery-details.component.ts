@@ -23,4 +23,9 @@ export class DeliveryDetailsComponent implements OnInit {
         this.deliveryService.getDelivery(id)
             .subscribe(delivery => this.delivery = delivery);
     }
+
+    startDelivery(): void {
+        const id = Number(this.route.snapshot.paramMap.get("id"));
+        localStorage.setItem("delivery", id.toString());
+    }
 }
