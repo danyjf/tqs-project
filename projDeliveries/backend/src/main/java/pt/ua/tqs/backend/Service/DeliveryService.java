@@ -34,7 +34,7 @@ public class DeliveryService {
     }
 
     public Delivery createDeliveryFromOrder(Order order){
-        Delivery delivery = new Delivery(order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
+        Delivery delivery = new Delivery(order.getOrderId(), order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
         String storeIdentifier = order.getStoreIdentifier();
 
         dr.save(delivery);
@@ -100,7 +100,10 @@ public class DeliveryService {
         if (d == null){
             return null;
         }
+
         d.setDeliveryStatus(status);
+         /** Send Message to RabbitMQ **/
+        publisher.publishMessage(new CustomMessage(String.valueOf(d.getOrderId()), status), "music_shop");
         dr.save(d);
         return d;
     }
