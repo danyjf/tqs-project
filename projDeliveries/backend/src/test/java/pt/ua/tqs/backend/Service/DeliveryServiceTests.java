@@ -92,14 +92,13 @@ class DeliveryServiceTests {
     @Test
     void AssignRiderToDelivery(){
         User rider = new User();
-        rider.setUserType("Rider");
+        rider.setUserType("user");
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
         Delivery result = deliveryService.assignToRider(1, "123456789");
         //result should be the delivery with the rider properly set
         assertEquals(rider, result.getRider());
-
     }
 
     @Test
