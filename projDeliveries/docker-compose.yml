@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 # docker run --name mysql -e MYSQL_DATABASE=deliveries_db -e MYSQL_USER=tqs_p4_g4 -e MYSQL_ROOT_PASSWORD=tqs_p4_g4_root -e MYSQL_PASSWORD=tqs_p4_g4_password -p 33060:3306 -d mysql/mysql-server:5.7
 services:

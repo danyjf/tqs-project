@@ -1,49 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IDelivery } from '../interfaces/delivery';
-import { DELIVERIES } from '../interfaces/mock-deliveries';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DeliveryService {
-    constructor() { }
+    constructor(private http: HttpClient) { }
 
     getDeliveries(): Observable<IDelivery[]> {
-        const deliveries = of(DELIVERIES);
-        return deliveries;
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries`);
     }
 
     getDelivery(id: number): Observable<IDelivery> {
-        const delivery = DELIVERIES.find(d => d.id === id)!;
-        return of(delivery);
+        return this.http.get<IDelivery>(`http://localhost:8000/deliveries/${id}`);
     }
 
     getPendingDeliveries(): Observable<IDelivery[]> {
-        let deliveries: IDelivery[] = [];
-        
-        for(let delivery of DELIVERIES) {
-            if(delivery.delivery_status === "Waiting for rider")
-                deliveries.push(delivery);
-        }
-        
-        return of(deliveries);
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/status/Waiting for rider`);
     }
 
-    getFilteredDeliveries(delayed: string[], store: string[], status: string[]): Observable<IDelivery[]> {
-        let deliveries: IDelivery[] = [];
+    getFilteredDeliveries(delayed: boolean[], store: string[], status: number[]): Observable<IDelivery[]> {
+        let parameters: string = "";
 
-        for(let delivery of DELIVERIES) {
-            if(delayed.length == 0 || delayed.includes("Delayed") && delivery.delayed || delayed.includes("Not Delayed") && !delivery.delayed) {
-                if(store.length == 0 || store.includes(delivery.store_name)) {
-                    if(status.length == 0 || status.includes(delivery.delivery_status)) {
-                        deliveries.push(delivery);
-                    }
-                }
-            }
-        }
+        for(const d of delayed) 
+            parameters += `delayed=${d}&`;
 
-        return of(deliveries);
+        for(const s of store) 
+            parameters += `store=${s}&`;
+
+        for(const s of status) 
+            parameters += `status=${s}&`;
+
+        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/filter?${parameters}`);
     }
 }
