@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { SHOP_API_URL, DELIVERIES_API_URL } from '../globals';
 
 
 @Component({
@@ -11,7 +11,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   hide: boolean = true;
 
   constructor(private fb: FormBuilder, private httpClient: HttpClient, private router: Router, private route: ActivatedRoute) {
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
 
     const userId = -1
 
-    this.httpClient.get("http://localhost:7070/api/v1/login/"+email+"/"+password, {}).toPromise().then((response: any) => {console.log(response); 
+    this.httpClient.get(SHOP_API_URL+"/api/v1/login/"+email+"/"+password, {}).toPromise().then((response: any) => {console.log(response); 
     if (response !== null){
       const userId = response.id;
       sessionStorage.setItem("user_id", userId.toString());

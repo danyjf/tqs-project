@@ -4,14 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IRegisterResponse } from '../interfaces/register-response';
 import { IUser } from '../interfaces/user';
+import { DELIVERIES_API_URL } from '../globals';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    url: string = "api"
-  
     constructor(private http: HttpClient) { }
 
     logout(): void {
@@ -23,7 +22,7 @@ export class AuthService {
     }
 
     authenticate(username: string, password: string): Observable<IUser> {
-        return this.http.get<IUser>(`${this.url}/users/${username}/${password}`);
+        return this.http.get<IUser>(`${DELIVERIES_API_URL}/users/${username}/${password}`);
     }
 
     register(username: string, email: string, password: string, phone: string): Observable<IRegisterResponse> {
@@ -35,7 +34,7 @@ export class AuthService {
             userType: "user"
         }
 
-        return this.http.post<IRegisterResponse>(`${this.url}/users`, user);
+        return this.http.post<IRegisterResponse>(`${DELIVERIES_API_URL}/users`, user);
     }
 
     isLoggedIn(): boolean {

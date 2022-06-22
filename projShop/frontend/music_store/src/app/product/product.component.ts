@@ -5,6 +5,7 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../home/home.component';
 import { CartService } from '../service/cart.service';
+import { SHOP_API_URL } from '../globals';
 
 
 
@@ -101,7 +102,7 @@ export class ProductComponent {
         console.log(address);
         console.log("userID: " + userID)
           if (this.stock !== "0"){
-              this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
+              this.httpClient.post(SHOP_API_URL+"/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
               this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
             });
           }

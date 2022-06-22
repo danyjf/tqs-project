@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../service/cart.service';
+import { SHOP_API_URL, DELIVERIES_API_URL } from '../globals';
 
 @Component({
   selector: 'app-cart',
@@ -17,6 +18,7 @@ export class CartComponent implements OnInit {
   public phone: string = "";
   public products: string = "";
   closeResult = '';
+
   constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,12 +44,12 @@ export class CartComponent implements OnInit {
         this.products += prod.productID + "-";
       });
       this.products = this.products.slice(0, -1);
-      this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {
+      this.httpClient.post(`${SHOP_API_URL}/api/v1/order/${sessionStorage.getItem("user_id")}?products=${this.products}`, {}).toPromise().then((response: any) => {
         console.log(response);
 
         const order_id = response.id
 
-        this.httpClient.post("http://localhost:8000/order", {
+        this.httpClient.post(`${DELIVERIES_API_URL}/order`, {
           "orderId": order_id,
           "clientName": this.name,
           "deliveryAddress": this.address,
