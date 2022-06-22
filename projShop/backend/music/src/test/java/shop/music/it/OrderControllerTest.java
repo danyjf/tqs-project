@@ -55,11 +55,11 @@ public class OrderControllerTest {
     public void whenPostUserOrders_thenStatus200() throws Exception {
         mvc.perform( MockMvcRequestBuilders
                         .post("/api/v1/products")
-                        .content("{\"imageURL\": \"https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg\",  \"name\": \"Acoustic Guitar\",  \"description\": \"An acoustic guitar is a musical instrument in the string family.\",  \"category\": \"Musical Instrument\", \"price\": \"80\",  \"stock\": \"12\"}")
+                        .content("[{\"imageURL\": \"https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg\",  \"name\": \"Acoustic Guitar\",  \"description\": \"An acoustic guitar is a musical instrument in the string family.\",  \"category\": \"Musical Instrument\", \"price\": \"80\",  \"stock\": \"12\"}]")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").exists());
 
         mvc.perform( MockMvcRequestBuilders
                         .post("/api/v1/order/1?products=1-2-3")

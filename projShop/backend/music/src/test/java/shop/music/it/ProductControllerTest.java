@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import shop.music.model.Product;
+import shop.music.repository.ProductRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
@@ -37,6 +39,9 @@ public class ProductControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @DynamicPropertySource
     public static void setDatasourceProperties(final DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", mysql::getJdbcUrl);
@@ -53,6 +58,9 @@ public class ProductControllerTest {
 
     @Test
     public void whenGetProductsById_thenStatus200AndReturnProductJSON() throws Exception {
+        Product product = new Product();
+        productRepository.saveAndFlush(product);
+
         mvc.perform(get("/api/v1/product/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -62,10 +70,10 @@ public class ProductControllerTest {
     public void whenPostProductOrders_thenStatus200() throws Exception {
         mvc.perform( MockMvcRequestBuilders
                         .post("/api/v1/products")
-                        .content("{\"imageURL\": \"https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg\",  \"name\": \"Acoustic Guitar\",  \"description\": \"An acoustic guitar is a musical instrument in the string family.\",  \"category\": \"Musical Instrument\", \"price\": \"80\",  \"stock\": \"12\"}")
+                        .content("[{\"imageURL\": \"https://musicfactory.pt/MEDIA/32/IMAGE/PRODUCTS/YA/YA%20C40II.jpg\",  \"name\": \"Acoustic Guitar\",  \"description\": \"An acoustic guitar is a musical instrument in the string family.\",  \"category\": \"Musical Instrument\", \"price\": \"80\",  \"stock\": \"12\"}]")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
-                        .andExpect(MockMvcResultMatchers.jsonPath("$.name").exists());
+                        .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").exists());
     }
 }
