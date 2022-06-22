@@ -9,17 +9,16 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class CustomMessage {
 
     private String orderId;
     private String status;
 
-//    public CustomMessage(String orderId, String status){
-//        this.orderId = orderId;
-//        this.status = status;
-//    }
+    public CustomMessage(String orderId, String status){
+        this.orderId = orderId;
+        this.status = status;
+    }
 
     public String getOrderId(){
         return this.orderId;
