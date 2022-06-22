@@ -26,13 +26,6 @@ public class DeliveryService {
 
     public DeliveryService(){}
 
-    public DeliveryService(DeliveryRepository dr, ClientRepository cr, StoreRepository sr, UserRepository ur){
-        this.dr = dr;
-        this.cr = cr;
-        this.sr = sr;
-        this.ur = ur;
-    }
-
     public Delivery createDeliveryFromOrder(Order order){
         Delivery delivery = new Delivery(order.getOrderId(), order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
         String storeIdentifier = order.getStoreIdentifier();
@@ -86,10 +79,11 @@ public class DeliveryService {
         //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         Delivery d = dr.findById(deliveryId);
         User r = ur.findByPhone(riderPhone);
-        if (r == null || !r.getUserType().equals("Rider") || d.getRider() != null){
+        if (r == null || !r.getUserType().equals("user") || d.getRider() != null){
             return null;
         }
         d.setRider(r);
+        d.setDeliveryStatus("Picking up the order");
         dr.save(d);
         return d;
     }
@@ -97,14 +91,20 @@ public class DeliveryService {
     public Delivery updateDeliveryStatus(long deliveryId, String status){
         //receive information about the delivery and its status, save and send back updated delivery to controller
         Delivery d = dr.findById(deliveryId);
+
         if (d == null){
             return null;
         }
 
         d.setDeliveryStatus(status);
-         /** Send Message to RabbitMQ **/
+
+        /** Send Message to RabbitMQ **/
         publisher.publishMessage(new CustomMessage(String.valueOf(d.getOrderId()), status), "music_shop");
         dr.save(d);
         return d;
+    }
+
+    public Delivery getDeliveryByRiderAndStatus(String riderPhone, List<String> status) {
+        return dr.findByRider_PhoneAndDeliveryStatusIn(riderPhone, status);
     }
 }

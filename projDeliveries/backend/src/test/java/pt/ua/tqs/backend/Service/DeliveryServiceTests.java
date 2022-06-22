@@ -6,8 +6,12 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pt.ua.tqs.backend.Config.CustomMessage;
+import pt.ua.tqs.backend.Config.MessagePublisher;
 import pt.ua.tqs.backend.Repository.*;
 import pt.ua.tqs.backend.Service.DeliveryService;
 import pt.ua.tqs.backend.Model.*;
@@ -29,12 +33,12 @@ class DeliveryServiceTests {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private MessagePublisher publisher;
+
+    @InjectMocks
     private DeliveryService deliveryService;
 
-    @BeforeEach
-    void StartUp(){
-        deliveryService = new DeliveryService(deliveryRepository,clientRepository,storeRepository, userRepository);
-    }
     @Test
     void CreateDeliveryWithExistingUser(){
         Client client = new Client();
@@ -104,7 +108,7 @@ class DeliveryServiceTests {
     @Test
     void AssignNonRiderToDelivery(){
         User rider = new User();
-        rider.setUserType("Manager");
+        rider.setUserType("manager");
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
@@ -132,6 +136,7 @@ class DeliveryServiceTests {
         Delivery delivery = new Delivery();
         delivery.setDeliveryStatus("Available for a rider");
         when(deliveryRepository.findById(1)).thenReturn(delivery);
+        when(publisher.publishMessage(Mockito.any(), Mockito.any())).thenReturn(null);
         Delivery updatedDelivery = deliveryService.updateDeliveryStatus(1, "Assigned to a rider");
         String status = updatedDelivery.getDeliveryStatus();
 

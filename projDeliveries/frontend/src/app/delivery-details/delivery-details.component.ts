@@ -16,7 +16,6 @@ export class DeliveryDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         this.getDelivery();
-        localStorage.removeItem("delivery");
     }
 
     getDelivery(): void {

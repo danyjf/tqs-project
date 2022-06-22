@@ -91,6 +91,16 @@ public class DeliveryController {
         }
     }
 
+    @GetMapping("/delivery/rider/status")
+    public ResponseEntity<Delivery> getDeliveryByRiderAndStatus(@RequestParam String riderPhone, @RequestParam List<Integer> status) {
+        List<String> statusValues = new ArrayList<>();
+        for(int i : status) {
+            statusValues.add(possibleStatus[i]);
+        }
+        Delivery delivery = ds.getDeliveryByRiderAndStatus(riderPhone, statusValues);
+        return ResponseEntity.ok().body(delivery);
+    }
+
     @PutMapping("/delivery/{id}/status/{status}")
     public ResponseEntity<Delivery> updateDeliveryStatus(@PathVariable(value = "id") long id, @PathVariable(value = "status") String status){
         Delivery d = ds.updateDeliveryStatus(id,status);
