@@ -34,7 +34,6 @@ pipeline {
                     sh ' mvn test'
                 }
                 echo 'Test successful';
-                setBuildStatus('Deliveries tests complete', 'SUCCESS');
             }
         }
         stage('Deploy') {
