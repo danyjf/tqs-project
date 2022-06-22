@@ -114,12 +114,6 @@
         </dependency>
 
         <!-- Test Containers -->
-<!--        <dependency>-->
-<!--            <groupId>org.flywaydb</groupId>-->
-<!--            <artifactId>flyway-core</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--            <version>8.0.5</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
