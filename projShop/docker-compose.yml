@@ -7,12 +7,7 @@ services:
       MYSQL_DATABASE: music
       MYSQL_USER: usr
       MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password 
-    #healthcheck:
-      #test: mysqladmin ping -h localhost
-      #interval: 30s
-      #timeout: 10s
-      #retries: 5  
+      MYSQL_ROOT_PASSWORD: password
 
   backend:
     build: ./backend/music
@@ -20,8 +15,6 @@ services:
       - 7070:7070
     depends_on:
       - db
-      #db:
-        #condition: service_healthy
     environment:
       SPRING_APPLICATION_JSON: '{
         "server.port": 7070,
@@ -33,5 +26,14 @@ services:
         "spring.rabbitmq.addresses" : "deti-tqs-15.ua.pt:5672"
       }'
 
+    restart: always
+    
+  frontend:
+    depends_on:
+      - backend
+      - db
+    build: ./frontend/music_store
+    ports:
+      - 4201:80
     restart: always
 
