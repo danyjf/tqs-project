@@ -10,7 +10,9 @@ import { Product } from '../home/home.component';
 export class Order{
   constructor(
     public userid: number,
+    public products: Product[],
     public productid: number,
+    public status: string
   ) {
     
   }
@@ -26,7 +28,8 @@ export class ManageComponent {
   description : string = "";
   price : string = "";
   image : string = "";
-  status : string = "Processing Payment";
+  status : string = "";
+  nProducts: number = 0;
   orders: Order[] = [];
   products: Product[] = [];
   userid: string = "-1";
@@ -57,22 +60,24 @@ export class ManageComponent {
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private route: ActivatedRoute, private httpClient: HttpClient) {}
 
   ngOnInit() {
-    const id = sessionStorage.getItem('userid');
+    const id = sessionStorage.getItem('user_id');
     if (id != null) {
       this.userid = id
       this.getUserOrders();
     }
   }
+
   getUserOrders(){
     console.log('http://localhost:7070/api/v1/user/orders/' + this.userid)
     this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
       data => {
         this.orders = data;
-        console.log(this.orders)
-        this.getProducts();
+        console.log(this.orders);
+        this.nProducts = this.orders.length;
       }
     );
   }
+
   getProducts(){
     this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
       data => {
@@ -81,6 +86,7 @@ export class ManageComponent {
           const id = product.id;
           this.orders.forEach( (order) => {
             if (String(order.productid) == id) {
+              product.status = order.status.toString();
               this.products.push(product);
             }
           });

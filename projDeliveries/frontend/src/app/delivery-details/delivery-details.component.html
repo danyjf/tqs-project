@@ -6,11 +6,11 @@
                 <tbody>
                     <tr>
                         <th>Address</th>
-                        <td>{{delivery.store_address}}</td>
+                        <td>{{delivery.store.address}}</td>
                     </tr>
                     <tr>
                         <th>Phone</th>
-                        <td>{{delivery.store_phone}}</td>
+                        <td>{{delivery.store.phone}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -20,24 +20,26 @@
                 <tbody>
                     <tr>
                         <th>User</th>
-                        <td>{{delivery.user_name}}</td>
+                        <td>{{delivery.client.name}}</td>
                     </tr>
                     <tr>
                         <th>Phone</th>
-                        <td>{{delivery.store_phone}}</td>
+                        <td>{{delivery.store.phone}}</td>
                     </tr>
                     <tr>
                         <th>Address</th>
-                        <td>{{delivery.user_address}}</td>
+                        <td>{{delivery.client.address}}</td>
                     </tr>
                     <tr>
                         <th>Order Note</th>
-                        <td>{{delivery.order_note}}</td>
+                        <td>{{delivery.orderNote}}</td>
                     </tr>
                 </tbody>
             </table>
             <div id="button-div">
-                <button type="button" class="btn btn-success">Start Delivery</button>
+                <button *ngIf="delivery.deliveryStatus == 'Waiting for rider'" type="button" class="btn btn-success" (click)="startDelivery()">Start Delivery</button>
+                <button *ngIf="delivery.deliveryStatus == 'Picking up the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Delivering the order')">Order Picked Up</button>
+                <button *ngIf="delivery.deliveryStatus == 'Delivering the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Order delivered')">Order Delivered</button>
             </div>
         </div>
     </div>

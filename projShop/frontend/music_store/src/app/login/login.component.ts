@@ -36,18 +36,21 @@ export class LoginComponent implements OnInit {
 
     const userId = -1
 
-    this.httpClient.post("http://localhost:7070/api/v1/login/"+email+"/"+password, {}).toPromise().then((response: any) => {console.log(response); const userId = response;});
-    
-    if (userId !== -1) {
-      this.router.navigate(['/home']);
-    } else {
-      const params: NavigationExtras = {
-        queryParams: { userId: userId },
-      }
+    this.httpClient.get("http://localhost:7070/api/v1/login/"+email+"/"+password, {}).toPromise().then((response: any) => {console.log(response); 
+    if (response !== null){
+      const userId = response.id;
       sessionStorage.setItem("user_id", userId.toString());
-      this.router.navigate(['/login']);
+      if (userId !== -1) {
+        this.router.navigate(['/home']);
+      } else {
+        const params: NavigationExtras = {
+          queryParams: { userId: userId },
+        }
+        sessionStorage.setItem("user_id", userId.toString());
+        this.router.navigate(['/login']);
+      }
     }
-
+  });
   }
 
 }

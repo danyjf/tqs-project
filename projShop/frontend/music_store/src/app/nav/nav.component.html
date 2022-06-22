@@ -6,9 +6,13 @@
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/home">Home</a>
-      <a mat-list-item href="/orders">Orders</a>
-      <a mat-list-item href="/login">{{ session ? "Login" : "Logout"}}</a>
+      <a mat-list-item routerLink="/orders">Orders</a>
+      <a mat-list-item routerLink="/login">{{ session ? "Login" : "Logout"}}</a>
     </mat-nav-list>
+    <a routerLink="/cart" style="font-size:30px; margin-top: 50%; margin-left: 70%;" class="fas fa-cart-plus">      
+    <div style="font-size: 10px;" class="badge bg-danger">{{ totalItem }}</div>
+    </a>
+    
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
@@ -20,7 +24,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span><a href="/home">Music Store</a></span>
+      <span>Music Store</span>
     </mat-toolbar>
 
     <router-outlet></router-outlet>

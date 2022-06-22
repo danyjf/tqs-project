@@ -2,18 +2,13 @@ package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.Set;
 import java.util.HashSet;
-import pt.ua.tqs.backend.Model.Delivery;
 
 @Entity
-@JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class,
-  property = "name")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Table(name = "client")
 public class Client {
@@ -21,6 +16,7 @@ public class Client {
     private String name;
     private String address;
     private String phone;
+    @JsonIgnore
     private Set<Delivery> deliveries;
 
     public Client(){}
