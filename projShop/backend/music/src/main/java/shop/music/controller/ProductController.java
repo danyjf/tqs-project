@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
 import org.springframework.data.domain.Sort;
+import java.util.List;
 
 
 @CrossOrigin(origins = {"*"})
@@ -26,9 +27,15 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
-    @PostMapping("/api/v1/products")
+    @PostMapping("/api/v1/product")
     public Product createProduct(@RequestBody Product product){
         return productService.saveProduct(product);
+    }
+
+    @PostMapping("/api/v1/products")
+    public List<Product> createProducts(@RequestBody List<Product> product){
+        System.out.println("\n\n\n\n\n"+ product +"\n\n\n\n\n\n\n");
+        return productService.saveProducts(product);
     }
 
     @DeleteMapping("/api/v1/product/{id}")

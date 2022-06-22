@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   public note: string = "";
   public phone: string = "";
   public products: string = "";
+  closeResult = '';
   constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
