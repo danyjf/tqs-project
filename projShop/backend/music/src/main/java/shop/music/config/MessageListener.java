@@ -13,7 +13,7 @@ public class MessageListener {
 
     @RabbitListener(queues = MQConfig.QUEUE)
     public void listener(CustomMessage message) {
-        System.out.println(message);
+        System.out.println(message.getOrderId() + message.getStatus());
         long order_id = Long.parseLong(message.getOrderId());
         String status = message.getStatus();
 

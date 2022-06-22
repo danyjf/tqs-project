@@ -29,7 +29,8 @@ public class Delivery {
         deliveryDelayed = false;
     }
 
-    public Delivery(Timestamp orderTime, Store store, Client client, String orderNote) {
+    public Delivery(long orderId,Timestamp orderTime, Store store, Client client, String orderNote) {
+        this.orderId = orderId;
         this.orderTime = orderTime;
         this.store = store;
         this.client = client;
