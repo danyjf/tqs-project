@@ -5,6 +5,7 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../home/home.component';
+import { SHOP_API_URL } from '../globals';
 
 
 export class Order{
@@ -68,8 +69,8 @@ export class ManageComponent {
   }
 
   getUserOrders(){
-    console.log('http://localhost:7070/api/v1/user/orders/' + this.userid)
-    this.httpClient.get<any>('http://localhost:7070/api/v1/user/orders/' + this.userid).subscribe(
+    console.log(SHOP_API_URL + '/api/v1/user/orders/' + this.userid)
+    this.httpClient.get<any>(SHOP_API_URL + '/api/v1/user/orders/' + this.userid).subscribe(
       data => {
         this.orders = data;
         console.log(this.orders);
@@ -79,7 +80,7 @@ export class ManageComponent {
   }
 
   getProducts(){
-    this.httpClient.get<any>('http://localhost:7070/api/v1/products').subscribe(
+    this.httpClient.get<any>(SHOP_API_URL + '/api/v1/products').subscribe(
       data => {
         const products = data.content;
         products.forEach( (product: Product) => {
