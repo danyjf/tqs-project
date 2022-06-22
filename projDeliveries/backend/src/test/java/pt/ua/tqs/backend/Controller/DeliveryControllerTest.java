@@ -3,8 +3,11 @@ package pt.ua.tqs.backend.Controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +21,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pt.ua.tqs.backend.Model.*;
@@ -40,6 +44,10 @@ public class DeliveryControllerTest {
             .withDatabaseName("test")
             .withUsername("tqs_p4_g4")
             .withPassword("tqs_p4_g4_password");
+
+    @Container
+    public static final RabbitMQContainer rabbitmq = new RabbitMQContainer("rabbitmq:management")
+            .withExposedPorts(5672, 15672);
 
     @LocalServerPort
     int localPortForTestServer;
@@ -65,6 +73,8 @@ public class DeliveryControllerTest {
         registry.add("spring.datasource.password", mysql::getPassword);
         registry.add("spring.datasource.username", mysql::getUsername);
         registry.add("spring.jpa.database-platform", () -> "org.hibernate.dialect.MySQL5InnoDBDialect");
+
+        registry.add("spring.rabbitmq.addresses", rabbitmq::getAmqpUrl);
     }
 
     @Test
