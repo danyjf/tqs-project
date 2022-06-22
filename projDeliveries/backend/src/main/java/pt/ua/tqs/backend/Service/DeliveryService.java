@@ -34,7 +34,7 @@ public class DeliveryService {
     }
 
     public Delivery createDeliveryFromOrder(Order order){
-        Delivery delivery = new Delivery(order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
+        Delivery delivery = new Delivery(order.getOrderId(), order.getOrderTime(), sr.findByPhone(order.getStorePhone()), new Client(order.getClientName(), order.getDeliveryAddress(), order.getClientPhone()), order.getOrderNote());
         String storeIdentifier = order.getStoreIdentifier();
 
         dr.save(delivery);
@@ -62,11 +62,11 @@ public class DeliveryService {
         d.setDeliveryStatus("Waiting for rider");
         dr.save(d);
         return d;
-        //receive delivery information, process and create delivery, save on repository
+    //receive delivery information, process and create delivery, save on repository
     }
     
     public List<Delivery> listDeliveries(){
-        //get deliveries from repository, send over to controller
+    //get deliveries from repository, send over to controller
         return dr.findAll();
     }
 
@@ -86,28 +86,25 @@ public class DeliveryService {
         //receive information about the delivery and rider, associate the rider with the delivery, save and send back updated delivery to controller
         Delivery d = dr.findById(deliveryId);
         User r = ur.findByPhone(riderPhone);
-        if (r == null || !r.getUserType().equals("user") || d.getRider() != null){
+        if (r == null || !r.getUserType().equals("Rider") || d.getRider() != null){
             return null;
         }
         d.setRider(r);
-        d.setDeliveryStatus("Picking up the order");
         dr.save(d);
         return d;
     }
 
     public Delivery updateDeliveryStatus(long deliveryId, String status){
         //receive information about the delivery and its status, save and send back updated delivery to controller
-        Delivery delivery = dr.findById(deliveryId);
-
-        if (delivery != null){
-            delivery.setDeliveryStatus(status);
-            dr.save(delivery);
+        Delivery d = dr.findById(deliveryId);
+        if (d == null){
+            return null;
         }
 
-        return delivery;
-    }
-
-    public Delivery getDeliveryByRiderAndStatus(String riderPhone, List<String> status) {
-        return dr.findByRider_PhoneAndDeliveryStatusIn(riderPhone, status);
+        d.setDeliveryStatus(status);
+         /** Send Message to RabbitMQ **/
+        publisher.publishMessage(new CustomMessage(String.valueOf(d.getOrderId()), status), "music_shop");
+        dr.save(d);
+        return d;
     }
 }

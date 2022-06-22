@@ -43,9 +43,12 @@ public class OrderService {
 
     public Order updateStatus(long order_id, String status){
         Order order = orderRepository.findById(order_id);
-        order.setStatus(status);
+        if (order != null){
+            order.setStatus(status);
 
-        orderRepository.save(order);
+            orderRepository.save(order);
+        }
+
 
         return order;
     }
