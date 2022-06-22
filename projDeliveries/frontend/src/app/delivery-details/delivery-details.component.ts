@@ -31,4 +31,8 @@ export class DeliveryDetailsComponent implements OnInit {
                 localStorage.setItem("delivery", id.toString());
             });
     }
+
+    updateDeliveryStatus(status: string): void {
+        
+    }
 }
