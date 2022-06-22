@@ -10,6 +10,8 @@ import { IUser } from '../interfaces/user';
     providedIn: 'root'
 })
 export class AuthService {
+    url: string = "api"
+  
     constructor(private http: HttpClient) { }
 
     logout(): void {
@@ -21,7 +23,7 @@ export class AuthService {
     }
 
     authenticate(username: string, password: string): Observable<IUser> {
-        return this.http.get<IUser>(`http://localhost:8000/users/${username}/${password}`);
+        return this.http.get<IUser>(`${this.url}/users/${username}/${password}`);
     }
 
     register(username: string, email: string, password: string, phone: string): Observable<IRegisterResponse> {
@@ -33,7 +35,7 @@ export class AuthService {
             userType: "user"
         }
 
-        return this.http.post<IRegisterResponse>(`http://localhost:8000/users`, user);
+        return this.http.post<IRegisterResponse>(`${this.url}/users`, user);
     }
 
     isLoggedIn(): boolean {
