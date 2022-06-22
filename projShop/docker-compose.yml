@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+  db:
+    image: mysql:8.0.27
+    environment:
+      MYSQL_DATABASE: music
+      MYSQL_USER: usr
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+
+  backend:
+    build: ./backend/music
+    ports:
+      - 7070:7070
+    depends_on:
+      - db
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "server.port": 7070,
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.datasource.url" : "jdbc:mysql://db:3306/music",
+        "spring.datasource.username" : "usr",
+        "spring.datasource.password" : "password",
+        "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.rabbitmq.addresses" : "deti-tqs-15.ua.pt:5672"
+      }'
+
+    restart: always
+    
+  frontend:
+    depends_on:
+      - backend
+      - db
+    build: ./frontend/music_store
+    ports:
+      - 4201:80
+    restart: always
+

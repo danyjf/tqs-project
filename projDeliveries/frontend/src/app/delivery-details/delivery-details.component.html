@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="delivery" class="col-md-8 offset-sm-2">
+            <h6>Store Information</h6>
+            <table class="table table-borderless" aria-describedby="Store">
+                <tbody>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{delivery.store.address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{delivery.store.phone}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h6 id="customer-information">Customer Information</h6>
+            <table class="table table-borderless" aria-describedby="Customer">
+                <tbody>
+                    <tr>
+                        <th>User</th>
+                        <td>{{delivery.client.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{delivery.store.phone}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{delivery.client.address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Order Note</th>
+                        <td>{{delivery.orderNote}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="button-div">
+                <button *ngIf="delivery.deliveryStatus == 'Waiting for rider'" type="button" class="btn btn-success" (click)="startDelivery()">Start Delivery</button>
+                <button *ngIf="delivery.deliveryStatus == 'Picking up the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Delivering the order')">Order Picked Up</button>
+                <button *ngIf="delivery.deliveryStatus == 'Delivering the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Order delivered')">Order Delivered</button>
+            </div>
+        </div>
+    </div>
+</div>

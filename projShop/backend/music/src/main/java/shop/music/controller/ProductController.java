@@ -1,0 +1,45 @@
+package shop.music.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import shop.music.model.Product;
+import shop.music.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.SortDefault;
+import org.springframework.data.domain.Sort;
+import java.util.List;
+
+
+@CrossOrigin(origins = {"*"})
+@RestController
+public class ProductController {
+    @Autowired
+    private ProductService productService;
+
+    @GetMapping("/api/v1/products")
+    public Page<Product> getAllProducts(@SortDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+        return productService.getProducts(pageable);
+    }
+
+    @GetMapping("/api/v1/product/{id}")
+    public Product getProduct(@PathVariable int id){
+        return productService.getProductById(id);
+    }
+
+    @PostMapping("/api/v1/product")
+    public Product createProduct(@RequestBody Product product){
+        return productService.saveProduct(product);
+    }
+
+    @PostMapping("/api/v1/products")
+    public List<Product> createProducts(@RequestBody List<Product> product){
+        System.out.println("\n\n\n\n\n"+ product +"\n\n\n\n\n\n\n");
+        return productService.saveProducts(product);
+    }
+
+    @DeleteMapping("/api/v1/product/{id}")
+    public String deleteUsers(@PathVariable int id) {
+        return productService.deleteProduct(id);
+    }
+}

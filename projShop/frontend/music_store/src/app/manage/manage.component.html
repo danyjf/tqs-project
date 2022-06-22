@@ -1,0 +1,16 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Your Orders</h1>
+  <mat-grid-list cols="1" rowHeight="100px">
+    <mat-list>
+    <mat-grid-tile *ngFor="let card of orders" [colspan]="1" [rowspan]="2">
+        <mat-list-item>
+            <tr>
+              <td style="position: center">
+                <strong>{{ card.productid }} Products</strong> | Status: <a style="color: rgb(28, 189, 28)"> {{ card.status }}</a>
+              </td>
+            </tr>
+        </mat-list-item>
+      </mat-grid-tile>
+    </mat-list>
+  </mat-grid-list>
+</div>
