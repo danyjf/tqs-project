@@ -3,6 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IDelivery } from '../interfaces/delivery';
+import { IStore } from '../interfaces/store';
 
 @Injectable({
     providedIn: 'root'
@@ -35,5 +36,21 @@ export class DeliveryService {
             parameters += `status=${s}&`;
 
         return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/filter?${parameters}`);
+    }
+
+    getStores(): Observable<IStore[]> {
+        return this.http.get<IStore[]>("http://localhost:8000/stores");
+    }
+
+    startDelivery(id: number): Observable<IDelivery> {
+        return this.http.post<IDelivery>(`http://localhost:8000/delivery/rider?deliveryId=${id}&riderPhone=${localStorage.getItem("userPhone")}`, null);
+    }
+
+    getOnGoingDelivery(phone: string): Observable<IDelivery> {
+        return this.http.get<IDelivery>(`http://localhost:8000/delivery/rider/status?riderPhone=${phone}&status=0&status=1&status=2`);
+    }
+
+    updateDeliveryStatus(id: number, status: string): Observable<IDelivery> {
+        return this.http.put<IDelivery>(`http://localhost:8000/delivery/${id}/status/${status}`, null);
     }
 }

@@ -74,20 +74,6 @@ public class DeliveryControllerTest {
         clientRepository.saveAndFlush(client);
         storeRepository.saveAndFlush(store);
 
-//        MultiValueMap<String, String> hm = new LinkedMultiValueMap<String, String>();
-//        hm.add("clientName", "Tiago");
-//        hm.add("clientAddress", "123 Avenue");
-//        hm.add("clientPhone", "911234568");
-//        hm.add("storePhone", "123456780");
-//        hm.add("orderTime","2000-02-23 11:33:23");
-//        hm.add("orderNote","fragile");
-
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(hm, headers);
-
-//        Delivery request = new Delivery(new Timestamp(System.currentTimeMillis()), new Store("123456780"), new Client("Tiago", "123 Avenue", "911234568"), "fragile");
         Delivery request = new Delivery(Timestamp.valueOf("2000-02-23 11:33:23"), new Store("123456780"), new Client("Tiago", "123 Avenue", "911234568"), "fragile");
 
         ResponseEntity<Delivery> response = restTemplate.postForEntity("/delivery", request ,Delivery.class );
@@ -110,7 +96,6 @@ public class DeliveryControllerTest {
 
     @Test
     void AssignDelivery() {
-        
         Client client = new Client("Tiago", "123 Avenue", "911234567");
         Store store = new Store("Rockin", "Wrong Way Street", "123456789");
         clientRepository.saveAndFlush(client);
@@ -120,7 +105,7 @@ public class DeliveryControllerTest {
         del.setClient(client);
         del.setStore(store);
         deliveryRepository.saveAndFlush(del);
-        User u = new User("Tempo","asd@ua.pt","1234","123456789","Rider");
+        User u = new User("Tempo","asd@ua.pt","1234","123456789","user");
         userRepository.saveAndFlush(u);
 
         MultiValueMap<String, String> hm = new LinkedMultiValueMap<String, String>();
@@ -138,6 +123,18 @@ public class DeliveryControllerTest {
         assertThat(response.getBody()).extracting(Delivery::getClient).extracting(Client::getPhone).isEqualTo(client.getPhone());
         assertThat(response.getBody()).extracting(Delivery::getStore).extracting(Store::getPhone).isEqualTo(store.getPhone());
         assertThat(response.getBody()).extracting(Delivery::getRider).extracting(User::getPhone).isEqualTo(u.getPhone());
-        
+    }
+
+    @Test
+    void UpdateDelivery() {
+        Delivery del = new Delivery(Timestamp.from(Instant.now()), "fragile");
+        deliveryRepository.saveAndFlush(del);
+
+        String status = "delivered";
+
+        ResponseEntity<Delivery> response = restTemplate.exchange("/delivery/1/status/" + status, HttpMethod.PUT, null, Delivery.class, new HashMap<String, String>());
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody()).extracting(Delivery::getDeliveryStatus).isEqualTo(status);
     }
 }

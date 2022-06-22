@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -17,5 +18,10 @@ public class StoreController {
     @PostMapping("/stores")
     public Store createStore(@Valid @RequestBody Store store) {
         return storeService.createStore(store);
+    }
+
+    @GetMapping("/stores")
+    public List<Store> getStores() {
+        return storeService.getStores();
     }
 }

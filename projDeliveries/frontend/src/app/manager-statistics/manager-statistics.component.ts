@@ -3,6 +3,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import { DeliveryService } from '../services/delivery.service';
 import { IDelivery } from '../interfaces/delivery';
+import { IStore } from '../interfaces/store';
 
 @Component({
     selector: 'app-manager-statistics',
@@ -11,6 +12,7 @@ import { IDelivery } from '../interfaces/delivery';
 })
 export class ManagerStatisticsComponent implements OnInit {
     statusList: string[] = [];
+    storeList: IStore[] = [];
 
     dropdownSettings: IDropdownSettings = {};
 
@@ -48,18 +50,28 @@ export class ManagerStatisticsComponent implements OnInit {
             { item_id: 3, item_text: this.statusList[3] }
         ];
 
-        this.storeDropdownList = [
-            { item_id: 0, item_text: "Music" },
-            { item_id: 1, item_text: "Food" },
-            { item_id: 2, item_text: "Medicine" }
-        ];
+        this.deliveryService.getStores()
+            .subscribe(stores => {
+                this.storeList = stores;
+                
+                this.storeDropdownList = [];
+
+                for(let i = 0; i < this.storeList.length; i++) {
+                    this.storeDropdownList.push({ item_id: i, item_text: this.storeList[i].name })
+                }
+            });
 
         this.delayedDropdownList = [
             { item_id: 0, item_text: "Delayed" },
             { item_id: 1, item_text: "Not Delayed" },
         ]
 
-        this.getFilteredDeliveries();
+        this.getDeliveries();
+    }
+
+    getDeliveries(): void {
+        this.deliveryService.getDeliveries()
+            .subscribe(deliveries => this.deliveries = deliveries);
     }
 
     getFilteredDeliveries(): void {

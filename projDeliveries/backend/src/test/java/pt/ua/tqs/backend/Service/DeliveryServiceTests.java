@@ -92,14 +92,13 @@ class DeliveryServiceTests {
     @Test
     void AssignRiderToDelivery(){
         User rider = new User();
-        rider.setUserType("Rider");
+        rider.setUserType("user");
         Delivery delivery = new Delivery();
         when(deliveryRepository.findById(1)).thenReturn(delivery);
         when(userRepository.findByPhone("123456789")).thenReturn(rider);
         Delivery result = deliveryService.assignToRider(1, "123456789");
         //result should be the delivery with the rider properly set
         assertEquals(rider, result.getRider());
-
     }
 
     @Test
@@ -126,5 +125,16 @@ class DeliveryServiceTests {
         //result should be a null since rider is already assigned
         assertEquals(null, result);
 
+    }
+
+    @Test
+    void UpdateDeliveryStatus(){
+        Delivery delivery = new Delivery();
+        delivery.setDeliveryStatus("Available for a rider");
+        when(deliveryRepository.findById(1)).thenReturn(delivery);
+        Delivery updatedDelivery = deliveryService.updateDeliveryStatus(1, "Assigned to a rider");
+        String status = updatedDelivery.getDeliveryStatus();
+
+        assertEquals("Assigned to a rider", status);
     }
 }
