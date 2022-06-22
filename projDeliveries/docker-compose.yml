@@ -39,11 +39,11 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  # frontend:
-  #   depends_on:
-  #     - api
-  #     - mysql
-  #   build: ./frontend
-  #   ports:
-  #     - 4200:80
-  #   restart: always
+  frontend:
+    depends_on:
+      - api
+      - mysql
+    build: ./frontend
+    ports:
+      - 4200:80
+    restart: always

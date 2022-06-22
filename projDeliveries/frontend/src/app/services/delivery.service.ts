@@ -9,18 +9,20 @@ import { IStore } from '../interfaces/store';
     providedIn: 'root'
 })
 export class DeliveryService {
+    url: string = "api"
+
     constructor(private http: HttpClient) { }
 
     getDeliveries(): Observable<IDelivery[]> {
-        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries`);
+        return this.http.get<IDelivery[]>(`${this.url}/deliveries`);
     }
 
     getDelivery(id: number): Observable<IDelivery> {
-        return this.http.get<IDelivery>(`http://localhost:8000/deliveries/${id}`);
+        return this.http.get<IDelivery>(`${this.url}/deliveries/${id}`);
     }
 
     getPendingDeliveries(): Observable<IDelivery[]> {
-        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/status/Waiting for rider`);
+        return this.http.get<IDelivery[]>(`${this.url}/deliveries/status/Waiting for rider`);
     }
 
     getFilteredDeliveries(delayed: boolean[], store: string[], status: number[]): Observable<IDelivery[]> {
@@ -35,22 +37,22 @@ export class DeliveryService {
         for(const s of status) 
             parameters += `status=${s}&`;
 
-        return this.http.get<IDelivery[]>(`http://localhost:8000/deliveries/filter?${parameters}`);
+        return this.http.get<IDelivery[]>(`${this.url}/deliveries/filter?${parameters}`);
     }
 
     getStores(): Observable<IStore[]> {
-        return this.http.get<IStore[]>("http://localhost:8000/stores");
+        return this.http.get<IStore[]>("${this.url}/stores");
     }
 
     startDelivery(id: number): Observable<IDelivery> {
-        return this.http.post<IDelivery>(`http://localhost:8000/delivery/rider?deliveryId=${id}&riderPhone=${localStorage.getItem("userPhone")}`, null);
+        return this.http.post<IDelivery>(`${this.url}/delivery/rider?deliveryId=${id}&riderPhone=${localStorage.getItem("userPhone")}`, null);
     }
 
     getOnGoingDelivery(phone: string): Observable<IDelivery> {
-        return this.http.get<IDelivery>(`http://localhost:8000/delivery/rider/status?riderPhone=${phone}&status=0&status=1&status=2`);
+        return this.http.get<IDelivery>(`${this.url}/delivery/rider/status?riderPhone=${phone}&status=0&status=1&status=2`);
     }
 
     updateDeliveryStatus(id: number, status: string): Observable<IDelivery> {
-        return this.http.put<IDelivery>(`http://localhost:8000/delivery/${id}/status/${status}`, null);
+        return this.http.put<IDelivery>(`${this.url}/delivery/${id}/status/${status}`, null);
     }
 }
