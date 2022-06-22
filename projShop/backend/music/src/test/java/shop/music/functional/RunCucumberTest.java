@@ -12,4 +12,5 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @SelectClasspathResource("shop/music/functional")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "shop.music.functional")
 class RunCucumberTest {
+    
 }
