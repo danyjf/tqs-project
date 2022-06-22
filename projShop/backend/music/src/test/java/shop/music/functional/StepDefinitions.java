@@ -42,16 +42,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StepDefinitions {
     private WebDriver driver;
+    @After
+    public void tearDown() {
+      driver.quit();
+    }
 
     @When("I navigate to {string}")
     public void i_navigate_to(String url) {
         FirefoxBinary firefoxBinary = new FirefoxBinary();
         FirefoxOptions options = new FirefoxOptions();
-        options.setBinary(firefoxBinary);
+        //options.setBinary(firefoxBinary);
         //options.setHeadless(true);
         driver = new FirefoxDriver(options);
         driver.get(url);
         driver.manage().window().setSize(new Dimension(1920, 1053));
+    }
+
+    @And("I Go to {string} page")
+    public void iGoToPage(String page) {
+        driver.findElement(By.cssSelector(".mat-list-item:nth-child(3) > .mat-list-item-content")).click();
     }
 
     @And("I Select the Product I Want")
