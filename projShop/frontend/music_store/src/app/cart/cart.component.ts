@@ -45,11 +45,24 @@ export class CartComponent implements OnInit {
       this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {
         console.log(response);
 
-        this.cartService.removeAllCart();
+        const order_id = response.id
 
-        console.log(response.id + this.name + this.address + this.phone + "912345678" + this.note + this.formatDate(new Date()));
-        
-        this.router.navigate(['/orders']);
+        this.httpClient.post("http://localhost:8000/order", {
+          "orderId": order_id,
+          "clientName": this.name,
+          "deliveryAddress": this.address,
+          "clientPhone": this.phone,
+          "storeIdentifier": "music_shop",
+          "storePhone": "912345678",
+          "orderNote": this.note,
+          "orderTime": this.formatDate(new Date())
+        }).toPromise().then((response: any) => {
+          console.log(response);
+          this.cartService.removeAllCart();
+          
+          this.router.navigate(['/orders']);
+
+      })
 
       })
     } else {

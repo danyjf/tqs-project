@@ -2,7 +2,18 @@ package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import java.util.Set;
+import java.util.HashSet;
+
 @Entity
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "username")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Table(name = "users")
 public class User {
     private long id;
@@ -11,6 +22,7 @@ public class User {
     private String password;
     private String phone;
     private String userType;
+    private Set<Delivery> deliveries;
 
     public User() {}
 
@@ -20,6 +32,7 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.userType = userType;
+        this.deliveries = new HashSet<Delivery>();
     }
 
     @Id
@@ -47,6 +60,19 @@ public class User {
     @Column(name = "userType", nullable = false)
     public String getUserType() { return userType; }
     public void setUserType(String userType) { this.userType = userType; }
+
+    @OneToMany(targetEntity = Delivery.class, fetch= FetchType.LAZY, mappedBy = "rider", cascade = CascadeType.ALL)
+    public Set<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(Set<Delivery> del) {
+        this.deliveries = del;
+    }
+    
+    public void addDelivery(Delivery del) {
+        this.deliveries.add(del);
+    }
 
     @Override
     public String toString() {

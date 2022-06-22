@@ -15,7 +15,9 @@ export class AuthService {
     logout(): void {
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("userType");
+        localStorage.removeItem("userPhone");
         localStorage.removeItem("token");
+        localStorage.removeItem("delivery");
     }
 
     authenticate(username: string, password: string): Observable<IUser> {
@@ -39,8 +41,6 @@ export class AuthService {
         
         if(localStorage.getItem("isLoggedIn") == "true") {
             status = true;
-        } else {
-            status = false;
         }
 
         return status;
@@ -51,8 +51,16 @@ export class AuthService {
 
         if(localStorage.getItem("userType") == "manager") {
             status = true;
-        } else {
-            status = false;
+        }
+
+        return status;
+    }
+
+    isDoingDelivery(): boolean {
+        let status = false;
+
+        if(localStorage.getItem("delivery")) {
+            status = true;
         }
 
         return status;

@@ -29,7 +29,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @TestPropertySource(properties = "spring.jpa.hibernate.ddl-auto=create")
 public class UserControllerTest {
     @Container
-    public static final MySQLContainer mysql = new MySQLContainer("mysql:8.0")
+    public static final MySQLContainer mysql = new MySQLContainer("mysql:5.7")
             .withDatabaseName("test")
             .withUsername("tqs_p4_g4")
             .withPassword("tqs_p4_g4_password");

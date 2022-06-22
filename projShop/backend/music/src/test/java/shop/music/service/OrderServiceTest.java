@@ -63,5 +63,17 @@ public class OrderServiceTest {
         verify(repository, times(1)).findAll();
     }
 
+    @Test
+    void whenUpdateOrderStatus_thenUpdatedOrderShouldBeReturned(){
+        List<Product> products = new ArrayList<>();
+        Order order = new Order(1, products, "status");
+        String expected = "New Status";
 
+        Mockito.when(repository.findById(1)).thenReturn(order);
+
+        Order fromDb = service.updateStatus(1, expected);
+
+        assertThat(fromDb.getStatus()).isEqualTo(expected);
+
+    }
 }
