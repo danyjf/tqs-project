@@ -9,7 +9,7 @@
       <a mat-list-item routerLink="/orders">Orders</a>
       <a mat-list-item routerLink="/login">{{ session ? "Login" : "Logout"}}</a>
     </mat-nav-list>
-    <a routerLink="/cart" style="font-size:30px; margin-top: 50%; margin-left: 70%;" class="fas fa-cart-plus">      
+    <a id="cart" routerLink="/cart" style="font-size:30px; margin-top: 50%; margin-left: 70%;" class="fas fa-cart-plus">      
     <div style="font-size: 10px;" class="badge bg-danger">{{ totalItem }}</div>
     </a>
     

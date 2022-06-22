@@ -1,5 +1,6 @@
 package shop.music.functional;
 
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,15 +11,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.junit.After;
 import org.openqa.selenium.interactions.Actions;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 
 public class StepDefinitions {
     private WebDriver driver;
-    @After
-    public void tearDown() {
-      driver.quit();
-    }
 
     @When("I navigate to {string}")
     public void i_navigate_to(String url) {
@@ -30,7 +31,6 @@ public class StepDefinitions {
         driver.get(url);
         driver.manage().window().setSize(new Dimension(1920, 1053));
     }
-
     @And("I Go to {string} page")
     public void iGoToPage(String page) {
         if (page.equals("Login")){
@@ -40,19 +40,23 @@ public class StepDefinitions {
                 Actions builder = new Actions(driver);
                 builder.moveToElement(element, 0, 0).perform();
             }
-        } else if (page.equals("Shopping Cart")){
-            driver.findElement(By.cssSelector(".cart-btn")).click();
-            driver.findElement(By.linkText("1")).click();
         }
     }
 
     @And("I Select the Product I Want")
     public void iSelectTheProductIWant() {
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(1) .button")).click();
+
     }
     @And("I Click {string} button")
     public void iClickButton(String arg0) {
         driver.findElement(By.cssSelector(".cart-btn")).click();
+        driver.findElement(By.id("cart")).click();
+        iFillTheDeliveryNote("note");
+        iFillTheDeliveryPhoneNumber("917755443");
+        iFillTheDeliveryAddress("University of Aveiro");
+        iFillTheDeliveryName("Joe");
+        iCheckout();
     }
     @And("I click {string}")
     public void iClick(String text) {
@@ -73,14 +77,14 @@ public class StepDefinitions {
     @Then("I login with {string} and {string}")
     public void iLoginWithAnd(String email, String password) {
         driver.findElement(By.id("mat-input-0")).click();
-        driver.findElement(By.id("mat-input-0")).sendKeys("admin@shop.pt");
+        driver.findElement(By.id("mat-input-0")).sendKeys(email);
         driver.findElement(By.id("mat-input-1")).click();
         {
             WebElement element = driver.findElement(By.cssSelector(".mat-flat-button"));
             Actions builder = new Actions(driver);
             builder.moveToElement(element).perform();
         }
-        driver.findElement(By.id("mat-input-1")).sendKeys("password");
+        driver.findElement(By.id("mat-input-1")).sendKeys(password);
         driver.findElement(By.cssSelector(".mat-flat-button")).click();
     }
 
@@ -116,8 +120,8 @@ public class StepDefinitions {
         }
     }
 
-    @And("I add some products to my shopping cart")
-    public void iAddSomeProductsToMyShoppingCart() {
+    @And("I manage my shopping cart")
+    public void iManageMyShoppingCart() {
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(1) .button:nth-child(3)")).click();
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(2) .button:nth-child(3)")).click();
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(3) .button:nth-child(3)")).click();
@@ -126,10 +130,12 @@ public class StepDefinitions {
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(3) .button:nth-child(3)")).click();
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(2) .button:nth-child(3)")).click();
         driver.findElement(By.cssSelector(".mat-grid-tile:nth-child(1) .button:nth-child(3)")).click();
+        driver.findElement(By.id("cart")).click();
+        Delete();
+        Empty();
     }
 
-    @And("I delete some products from the Cart")
-    public void iDeleteSomeProductsFromTheCart() {
+    public void Delete() {
         driver.findElement(By.cssSelector(".ng-star-inserted:nth-child(2) .btn")).click();
         driver.findElement(By.cssSelector(".ng-star-inserted:nth-child(5) .fas")).click();
         driver.findElement(By.cssSelector(".ng-star-inserted:nth-child(5) .fas")).click();
@@ -137,8 +143,7 @@ public class StepDefinitions {
         driver.findElement(By.cssSelector(".ng-star-inserted:nth-child(4) .fas")).click();
     }
 
-    @Then("I empty the cart")
-    public void iEmptyTheCart() {
+    public void Empty() {
         driver.findElement(By.cssSelector("td:nth-child(2) > .btn")).click();
     }
 }
