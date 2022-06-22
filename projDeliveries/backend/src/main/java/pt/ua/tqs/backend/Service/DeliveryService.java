@@ -90,23 +90,24 @@ public class DeliveryService {
             return null;
         }
         d.setRider(r);
+        d.setDeliveryStatus("Picking up the order");
         dr.save(d);
         return d;
     }
 
     public Delivery updateDeliveryStatus(long deliveryId, String status){
         //receive information about the delivery and its status, save and send back updated delivery to controller
-        Delivery d = dr.findById(deliveryId);
-        if (d == null){
-            return null;
+        Delivery delivery = dr.findById(deliveryId);
+
+        if (delivery != null){
+            delivery.setDeliveryStatus(status);
+            dr.save(delivery);
         }
-        d.setDeliveryStatus(status);
-        dr.save(d);
-        return d;
+
+        return delivery;
     }
 
     public Delivery getDeliveryByRiderAndStatus(String riderPhone, List<String> status) {
         return dr.findByRider_PhoneAndDeliveryStatusIn(riderPhone, status);
-//        return dr.findByRider_Phone(riderPhone);
     }
 }

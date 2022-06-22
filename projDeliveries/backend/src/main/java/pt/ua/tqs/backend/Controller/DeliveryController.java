@@ -101,10 +101,12 @@ public class DeliveryController {
         return ResponseEntity.ok().body(delivery);
     }
 
-    @PutMapping("/delivery/status")
-    public ResponseEntity<Delivery> updateDeliveryStatus(@RequestBody long deliveryId, @RequestBody String status) {
+//    @PutMapping("/delivery/status")
+    @PutMapping("/delivery/{id}/status/{status}")
+//    public ResponseEntity<Delivery> updateDeliveryStatus(@RequestBody long deliveryId, @RequestBody String status) {
+    public ResponseEntity<Delivery> updateDeliveryStatus(@PathVariable(value = "id") long id, @PathVariable(value = "status") String status) {
         //send delivery and status information to service, receive updated delivery and respond
-        Delivery d = ds.updateDeliveryStatus(deliveryId, status);
+        Delivery d = ds.updateDeliveryStatus(id, status);
         if (d != null) {
             return ResponseEntity.ok().body(d);
         } else {

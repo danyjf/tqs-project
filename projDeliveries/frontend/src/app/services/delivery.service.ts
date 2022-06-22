@@ -49,4 +49,8 @@ export class DeliveryService {
     getOnGoingDelivery(phone: string): Observable<IDelivery> {
         return this.http.get<IDelivery>(`http://localhost:8000/delivery/rider/status?riderPhone=${phone}&status=0&status=1&status=2`);
     }
+
+    updateDeliveryStatus(id: number, status: string): Observable<IDelivery> {
+        return this.http.put<IDelivery>(`http://localhost:8000/delivery/${id}/status/${status}`, null);
+    }
 }

@@ -40,7 +40,6 @@
                 <button *ngIf="delivery.deliveryStatus == 'Waiting for rider'" type="button" class="btn btn-success" (click)="startDelivery()">Start Delivery</button>
                 <button *ngIf="delivery.deliveryStatus == 'Picking up the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Delivering the order')">Order Picked Up</button>
                 <button *ngIf="delivery.deliveryStatus == 'Delivering the order'" type="button" class="btn btn-success" (click)="updateDeliveryStatus('Order delivered')">Order Delivered</button>
-                <!-- <button *ngIf="delivery.deliveryStatus == 'Order delivered'" type="button" class="btn btn-success" (click)="startDelivery()">Start Delivery</button> -->
             </div>
         </div>
     </div>
