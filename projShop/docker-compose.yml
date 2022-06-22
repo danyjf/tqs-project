@@ -23,9 +23,15 @@ services:
       #db:
         #condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/music
-      SPRING_DATASOURCE_USERNAME: usr
-      SPRING_DATASOURCE_PASSWORD: password
-      FINANCE_RABBITMQ_HOST: rabbitmq
+      SPRING_APPLICATION_JSON: '{
+        "server.port": 7070,
+        "spring.jpa.hibernate.ddl-auto" : "update",
+        "spring.datasource.url" : "jdbc:mysql://db:3306/music",
+        "spring.datasource.username" : "usr",
+        "spring.datasource.password" : "password",
+        "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.rabbitmq.addresses" : "rabbitmq:5672"
+      }'
+
     restart: always
 
