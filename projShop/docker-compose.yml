@@ -30,7 +30,7 @@ services:
         "spring.datasource.username" : "usr",
         "spring.datasource.password" : "password",
         "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-        "spring.rabbitmq.addresses" : "rabbitmq:5672"
+        "spring.rabbitmq.addresses" : "deti-tqs-15.ua.pt:5672"
       }'
 
     restart: always
