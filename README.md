@@ -12,3 +12,7 @@
 ### Project bookmarks
 
 **SonarCloud:** https://sonarcloud.io/project/overview?id=danyjf_tqs-project
+
+**Delivery Service API Documentation:** https://app.swaggerhub.com/apis-docs/sousaUA/delivery-service-api/1.0
+
+**Music Store API Documentation:** https://app.swaggerhub.com/apis-docs/sousaUA/music-store-api/1.0
