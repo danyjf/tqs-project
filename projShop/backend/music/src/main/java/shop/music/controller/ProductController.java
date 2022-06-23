@@ -34,7 +34,6 @@ public class ProductController {
 
     @PostMapping("/api/v1/products")
     public List<Product> createProducts(@RequestBody List<Product> product){
-        System.out.println("\n\n\n\n\n"+ product +"\n\n\n\n\n\n\n");
         return productService.saveProducts(product);
     }
 
