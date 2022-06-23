@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 # docker run --name mysql -e MYSQL_DATABASE=deliveries_db -e MYSQL_USER=tqs_p4_g4 -e MYSQL_ROOT_PASSWORD=tqs_p4_g4_root -e MYSQL_PASSWORD=tqs_p4_g4_password -p 33060:3306 -d mysql/mysql-server:5.7
 services:
@@ -27,10 +27,17 @@ services:
         "spring.datasource.url" : "jdbc:mysql://mysql/deliveries_db?useSSL=false",
         "spring.datasource.username" : "tqs_p4_g4",
         "spring.datasource.password" : "tqs_p4_g4_password",
-        "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect"
+        "spring.jpa.database-platform" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+        "spring.rabbitmq.addresses" : "rabbitmq:5672"
       }'
 
     restart: always
+    
+  rabbitmq:
+    image: rabbitmq:management
+    ports: 
+      - "5672:5672"
+      - "15672:15672"
 
   frontend:
     depends_on:

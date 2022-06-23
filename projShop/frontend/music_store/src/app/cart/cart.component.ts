@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../service/cart.service';
+import { SHOP_API_URL, DELIVERIES_API_URL } from '../globals';
 
 @Component({
   selector: 'app-cart',
@@ -16,6 +17,8 @@ export class CartComponent implements OnInit {
   public note: string = "";
   public phone: string = "";
   public products: string = "";
+  closeResult = '';
+
   constructor(private cartService: CartService, private httpClient: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
@@ -41,14 +44,27 @@ export class CartComponent implements OnInit {
         this.products += prod.productID + "-";
       });
       this.products = this.products.slice(0, -1);
-      this.httpClient.post("http://localhost:7070/api/v1/order/"+sessionStorage.getItem("user_id")+"?products="+this.products, {}).toPromise().then((response: any) => {
+      this.httpClient.post(`${SHOP_API_URL}/api/v1/order/${sessionStorage.getItem("user_id")}?products=${this.products}`, {}).toPromise().then((response: any) => {
         console.log(response);
 
-        this.cartService.removeAllCart();
+        const order_id = response.id
 
-        console.log(response.id + this.name + this.address + this.phone + "912345678" + this.note + this.formatDate(new Date()));
-        
-        this.router.navigate(['/orders']);
+        this.httpClient.post(`${DELIVERIES_API_URL}/order`, {
+          "orderId": order_id,
+          "clientName": this.name,
+          "deliveryAddress": this.address,
+          "clientPhone": this.phone,
+          "storeIdentifier": "music_shop",
+          "storePhone": "912345678",
+          "orderNote": this.note,
+          "orderTime": this.formatDate(new Date())
+        }).toPromise().then((response: any) => {
+          console.log(response);
+          this.cartService.removeAllCart();
+          
+          this.router.navigate(['/orders']);
+
+      })
 
       })
     } else {

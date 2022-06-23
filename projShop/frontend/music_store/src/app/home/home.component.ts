@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { loggedIn } from '../app.component';
 import { ApiService } from '../service/api.service';
+import { CartService } from '../service/cart.service';
 
 export class Product{
   constructor(
@@ -52,7 +53,7 @@ export class HomeComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private api: ApiService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private breakpointObserver: BreakpointObserver, private api: ApiService, private router: Router, private httpClient: HttpClient, private cartService: CartService) { }
 
   ngOnInit() {
     console.log(sessionStorage.getItem("user_id"));
@@ -74,6 +75,20 @@ export class HomeComponent {
     }
   
     this.router.navigate(['/product'], params);
+  }
+
+  addToCart(id: string, title: string, description: string, category: string, price: string, image: string){
+    const userID = sessionStorage.getItem('user_id')
+    if(userID !== "-1" && userID !== null) {
+      const crypto = window.crypto;
+      var array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+      const product: Product = new Product((Math.floor(array[0] * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
+      Object.assign(product, {quantity: 1, totalprice: price, productID: id});
+      this.cartService.addToCart(product);
+    } else{
+      this.router.navigate(['/login']);
+    }
   }
 
 

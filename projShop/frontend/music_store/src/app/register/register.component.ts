@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { loggedIn } from '../app.component';
+import { SHOP_API_URL } from '../globals';
 
 
 @Component({
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
       const username = this.loginForm.value['username'];
       const name = this.loginForm.value['name'];
       
-      this.httpClient.post("http://localhost:7070/api/v1/user", {
+      this.httpClient.post(SHOP_API_URL + "/api/v1/user", {
         "username": username,
         "fullname": name,
         "email": email,

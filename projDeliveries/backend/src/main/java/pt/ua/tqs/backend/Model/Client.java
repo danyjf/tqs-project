@@ -2,27 +2,60 @@ package pt.ua.tqs.backend.Model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Set;
+import java.util.HashSet;
+
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @Table(name = "client")
 public class Client {
-    private Long id;
-    private String Name;
-    private String Address;
-    private String Phone;
+    private long id;
+    private String name;
+    private String address;
+    private String phone;
+    @JsonIgnore
+    private Set<Delivery> deliveries;
+
+    public Client(){}
+
+    public Client(String name, String address, String phone){
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.deliveries = new HashSet<Delivery>();
+    }
 
     @Id
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
 
     @Column(name = "Name", nullable = false)
-    public String getName() { return Name; }
-    public void setName(String Name) { this.Name = Name; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     @Column(name = "Address", nullable = false)
-    public String getAddress() { return Address; }
-    public void setAddress(String Address) { this.Address = Address; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
     @Column(name = "Phone", nullable = false)
-    public String getPhone() { return Phone; }
-    public void setPhone(String Phone) { this.Phone = Phone; }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    @OneToMany(targetEntity = Delivery.class, fetch= FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
+    public Set<Delivery> getDeliveries() {
+        return deliveries;
+    }
+
+    public void setDeliveries(Set<Delivery> del) {
+        this.deliveries = del;
+    }
+    
+    public void addDelivery(Delivery del) {
+        this.deliveries.add(del);
+    }
 }

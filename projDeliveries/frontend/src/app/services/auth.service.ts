@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { IRegisterResponse } from '../interfaces/register-response';
 import { IUser } from '../interfaces/user';
+import { DELIVERIES_API_URL } from '../globals';
 
 
 @Injectable({
@@ -15,11 +16,13 @@ export class AuthService {
     logout(): void {
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("userType");
+        localStorage.removeItem("userPhone");
         localStorage.removeItem("token");
+        localStorage.removeItem("delivery");
     }
 
     authenticate(username: string, password: string): Observable<IUser> {
-        return this.http.get<IUser>(`http://localhost:8000/users/${username}/${password}`);
+        return this.http.get<IUser>(`${DELIVERIES_API_URL}/users/${username}/${password}`);
     }
 
     register(username: string, email: string, password: string, phone: string): Observable<IRegisterResponse> {
@@ -31,7 +34,7 @@ export class AuthService {
             userType: "user"
         }
 
-        return this.http.post<IRegisterResponse>(`http://localhost:8000/users`, user);
+        return this.http.post<IRegisterResponse>(`${DELIVERIES_API_URL}/users`, user);
     }
 
     isLoggedIn(): boolean {
@@ -39,8 +42,6 @@ export class AuthService {
         
         if(localStorage.getItem("isLoggedIn") == "true") {
             status = true;
-        } else {
-            status = false;
         }
 
         return status;
@@ -51,8 +52,16 @@ export class AuthService {
 
         if(localStorage.getItem("userType") == "manager") {
             status = true;
-        } else {
-            status = false;
+        }
+
+        return status;
+    }
+
+    isDoingDelivery(): boolean {
+        let status = false;
+
+        if(localStorage.getItem("delivery")) {
+            status = true;
         }
 
         return status;

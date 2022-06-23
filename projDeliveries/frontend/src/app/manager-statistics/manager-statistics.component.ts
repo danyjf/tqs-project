@@ -3,6 +3,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 import { DeliveryService } from '../services/delivery.service';
 import { IDelivery } from '../interfaces/delivery';
+import { IStore } from '../interfaces/store';
 
 @Component({
     selector: 'app-manager-statistics',
@@ -11,6 +12,7 @@ import { IDelivery } from '../interfaces/delivery';
 })
 export class ManagerStatisticsComponent implements OnInit {
     statusList: string[] = [];
+    storeList: IStore[] = [];
 
     dropdownSettings: IDropdownSettings = {};
 
@@ -42,30 +44,49 @@ export class ManagerStatisticsComponent implements OnInit {
         }
         
         this.statusDropdownList = [
-            { item_id: 1, item_text: this.statusList[0] },
-            { item_id: 2, item_text: this.statusList[1] },
-            { item_id: 3, item_text: this.statusList[2] },
-            { item_id: 4, item_text: this.statusList[3] }
+            { item_id: 0, item_text: this.statusList[0] },
+            { item_id: 1, item_text: this.statusList[1] },
+            { item_id: 2, item_text: this.statusList[2] },
+            { item_id: 3, item_text: this.statusList[3] }
         ];
 
-        this.storeDropdownList = [
-            { item_id: 1, item_text: "Music" },
-            { item_id: 2, item_text: "Food" },
-            { item_id: 3, item_text: "Medicine" }
-        ];
+        this.deliveryService.getStores()
+            .subscribe(stores => {
+                this.storeList = stores;
+                
+                this.storeDropdownList = [];
+
+                for(let i = 0; i < this.storeList.length; i++) {
+                    this.storeDropdownList.push({ item_id: i, item_text: this.storeList[i].name })
+                }
+            });
 
         this.delayedDropdownList = [
-            { item_id: 1, item_text: "Delayed" },
-            { item_id: 2, item_text: "Not Delayed" },
+            { item_id: 0, item_text: "Delayed" },
+            { item_id: 1, item_text: "Not Delayed" },
         ]
 
-        this.getFilteredDeliveries();
+        this.getDeliveries();
+    }
+
+    getDeliveries(): void {
+        this.deliveryService.getDeliveries()
+            .subscribe(deliveries => this.deliveries = deliveries);
     }
 
     getFilteredDeliveries(): void {
-        let status = this.selectedStatus.map(s => s.item_text);
+        let status = this.selectedStatus.map(s => s.item_id);
+        if(status.length == 0)
+            status = this.statusDropdownList.map(s => s.item_id);
+        
         let store = this.selectedStore.map(s => s.item_text);
-        let delayed = this.selectedDelayed.map(s => s.item_text);
+        if(store.length == 0)
+            store = this.storeDropdownList.map(s => s.item_text);
+
+        let delayed = this.selectedDelayed.map(s => s.item_text == "Delayed" ? true : false);
+        if(delayed.length == 0)
+            delayed = this.delayedDropdownList.map(s => s.item_text == "Delayed" ? true : false);
+
         this.deliveryService.getFilteredDeliveries(delayed, store, status)
             .subscribe(deliveries => this.deliveries = deliveries);
     }

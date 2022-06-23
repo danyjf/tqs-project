@@ -5,6 +5,7 @@ import { NavigationExtras, ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../home/home.component';
 import { CartService } from '../service/cart.service';
+import { SHOP_API_URL } from '../globals';
 
 
 
@@ -81,7 +82,10 @@ export class ProductComponent {
   addToCart(title: string, description: string, category: string, price: string, image: string){
     const userID = sessionStorage.getItem('user_id')
     if(userID !== "-1" && userID !== null) {
-      const product: Product = new Product((Math.floor(Math.random() * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
+      const crypto = window.crypto;
+      var array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+      const product: Product = new Product((Math.floor(array[0] * (100000000 - 0 + 1)) + 0).toString(), title, description, category, image, price, "NA", "Pending");
       Object.assign(product, {quantity: 1, totalprice: price, productID: this.id});
       this.cartService.addToCart(product);
     } else{
@@ -98,7 +102,7 @@ export class ProductComponent {
         console.log(address);
         console.log("userID: " + userID)
           if (this.stock !== "0"){
-              this.httpClient.post("http://localhost:7070/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
+              this.httpClient.post(SHOP_API_URL+"/api/v1/order/"+userID+"/"+productID, {}).toPromise().then((response: any) => {console.log(response);
               this.navigateToOrders(this.title, this.description, this.category, this.price, this.image);
             });
           }
