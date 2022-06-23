@@ -1,18 +1,20 @@
 <div class="grid-container">
   <!-- Search form -->
-    <div class="Card">
-      <div class="CardInner">
-      <label>Search for your favourite product</label>
-      <div class="container">
-        <div class="Icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="InputContainer">
-          <app-search class="form-control" (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+    <div class="card-table" style="padding: 10px; vertical-align: middle;">
+      <div class="CardInner" style="vertical-align: middle;">
+        <div class="container"  style="vertical-align: middle; width:894px;">
+          <div class="Icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <app-search class="form-control" (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+          </div>
         </div>
       </div>
-     </div>
     </div>
+
+
   <mat-grid-list cols="4" rowHeight="350px">
     <mat-grid-tile *ngFor="let card of products" [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card" *ngIf="searchText === '' || card.name.toLowerCase().includes(searchText)" style="max-height:300px;">
