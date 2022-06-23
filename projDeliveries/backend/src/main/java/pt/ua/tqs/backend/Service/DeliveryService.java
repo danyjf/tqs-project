@@ -90,7 +90,13 @@ public class DeliveryService {
             return null;
         }
         d.setRider(r);
-        d.setDeliveryStatus("Picking up the order");
+
+        String status = "Picking up the order";
+        d.setDeliveryStatus(status);
+
+        /** Send Message to RabbitMQ **/
+        publisher.publishMessage(new CustomMessage(String.valueOf(d.getOrderId()), status), "music_shop");
+
         dr.save(d);
         return d;
     }
