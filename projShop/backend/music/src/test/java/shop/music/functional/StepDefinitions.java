@@ -26,7 +26,7 @@ public class StepDefinitions {
         FirefoxBinary firefoxBinary = new FirefoxBinary();
         FirefoxOptions options = new FirefoxOptions();
         options.setBinary(firefoxBinary);
-        //options.setHeadless(true);
+        options.setHeadless(true);
         driver = new FirefoxDriver(options);
         driver.get(url);
         driver.manage().window().setSize(new Dimension(1920, 1053));

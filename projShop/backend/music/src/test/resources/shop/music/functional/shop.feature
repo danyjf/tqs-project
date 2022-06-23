@@ -1,12 +1,12 @@
 Feature: Browse Music Store App
 
   Scenario: Login to Account
-    When I navigate to "http://localhost:4269/"
+    When I navigate to "http://deti-tqs-15.ua.pt:4201/"
     And I Go to "Login" page
     Then I login with "admin@shop.pt" and "admin123"
 
   Scenario: Buy a specific product
-    When I navigate to "http://localhost:4269/"
+    When I navigate to "http://deti-tqs-15.ua.pt:4201/"
     And I Go to "Login" page
     Then I login with "admin@shop.pt" and "admin123"
     And I Select the Product I Want
@@ -19,7 +19,7 @@ Feature: Browse Music Store App
     Then I Checkout
 
   Scenario: Manage Shopping Cart
-    When I navigate to "http://localhost:4269/"
+    When I navigate to "http://deti-tqs-15.ua.pt:4201/"
     And I Go to "Login" page
     And I login with "admin@shop.pt" and "admin123"
     And I manage my shopping cart
